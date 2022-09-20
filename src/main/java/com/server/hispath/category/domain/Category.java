@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.server.hispath.activity.domain.Activity;
-import com.server.hispath.category.application.dto.CategoryContentDto;
+import com.server.hispath.category.application.dto.CategoryCreateDto;
 import com.server.hispath.common.BaseEntity;
 
 import lombok.AllArgsConstructor;
@@ -36,7 +36,7 @@ public class Category extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ActivityType type;
 
-    public static Category from(CategoryContentDto dto) {
+    public static Category from(CategoryCreateDto dto) {
         return Category.builder()
                        .type(dto.getType())
                        .name(dto.getName())

@@ -1,7 +1,6 @@
 package com.server.hispath.category.application.dto;
 
-import com.server.hispath.category.domain.ActivityType;
-import com.server.hispath.category.presentation.request.CategoryCreateRequest;
+import com.server.hispath.category.domain.Category;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,10 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryContentDto {
-    private ActivityType type;
+    private Long id;
     private String name;
 
-    public static CategoryContentDto of(CategoryCreateRequest request) {
-        return new CategoryContentDto(ActivityType.valueOf(request.getType()), request.getName());
+    public static CategoryContentDto from(Category category) {
+        return new CategoryContentDto(category.getId(), category.getName());
     }
 }
