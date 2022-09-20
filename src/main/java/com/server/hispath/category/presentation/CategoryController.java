@@ -1,5 +1,8 @@
 package com.server.hispath.category.presentation;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.server.hispath.category.application.CategoryService;
 import com.server.hispath.category.application.dto.CategoryContentDto;
 import com.server.hispath.category.application.dto.CategoryCreateDto;
@@ -29,5 +32,14 @@ public class CategoryController {
         CategoryContentDto dto = categoryService.findById(id);
         CategoryResponse response = CategoryResponse.from(dto);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<CategoryResponse>> findAll() {
+        List<CategoryContentDto> dtos = categoryService.findAll();
+        List<CategoryResponse> responses = dtos.stream()
+                                               .map(CategoryResponse::from)
+                                               .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 }
