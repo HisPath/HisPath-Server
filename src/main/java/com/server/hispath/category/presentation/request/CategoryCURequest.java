@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CategoryCreateRequest {
+public class CategoryCURequest {
     private String type;
     private String name;
 }

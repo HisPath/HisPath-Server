@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 import com.server.hispath.category.application.CategoryService;
 import com.server.hispath.category.application.dto.CategoryContentDto;
-import com.server.hispath.category.application.dto.CategoryCreateDto;
-import com.server.hispath.category.presentation.request.CategoryCreateRequest;
+import com.server.hispath.category.application.dto.CategoryCUDto;
+import com.server.hispath.category.presentation.request.CategoryCURequest;
 import com.server.hispath.category.presentation.response.CategoryResponse;
 
 import org.springframework.http.ResponseEntity;
@@ -22,8 +22,8 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping("/category")
-    public ResponseEntity<Long> create(@RequestBody CategoryCreateRequest request) {
-        Long savedId = categoryService.create(CategoryCreateDto.of(request));
+    public ResponseEntity<Long> create(@RequestBody CategoryCURequest request) {
+        Long savedId = categoryService.create(CategoryCUDto.of(request));
         return ResponseEntity.ok(savedId);
     }
 
@@ -41,5 +41,19 @@ public class CategoryController {
                                                .map(CategoryResponse::from)
                                                .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
+    }
+
+    @PatchMapping("/category/{id}")
+    public ResponseEntity<CategoryResponse> update(@PathVariable Long id, @RequestBody CategoryCURequest request) {
+        CategoryContentDto dto = categoryService.update(id, CategoryCUDto.of(request));
+        CategoryResponse response = CategoryResponse.from(dto);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/category/{id}")
+    public ResponseEntity<Long> delete(@PathVariable Long id) {
+        categoryService.delete(id);
+        return ResponseEntity.ok(id);
     }
 }
