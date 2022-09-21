@@ -55,6 +55,11 @@ public class ActivityService {
         return ActivityDto.from(activity);
     }
 
+    @Transactional
+    public void delete(Long id){
+        activityRepository.deleteById(id);
+    }
+
     private Activity findById(Long id) {
         return activityRepository.findById(id).orElseThrow(ActivityNotFoundException::new);
     }

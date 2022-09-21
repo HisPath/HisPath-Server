@@ -59,4 +59,11 @@ public class ActivityController {
 
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/activity/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_DELETE)
+    public ResponseEntity<Long> delete(@PathVariable Long id) {
+        activityService.delete(id);
+        return ResponseEntity.ok(id);
+    }
 }
