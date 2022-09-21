@@ -8,6 +8,7 @@ import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.common.BaseEntity;
 import com.server.hispath.student.domain.participate.Participant;
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,12 +33,14 @@ public class Activity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 
+    @NotNull
     private String semester;
 
-    private boolean personel;
+    private boolean personal;
 
     private int requestStatus;
 
+    @NotNull
     private String data;
 
     @OneToMany(mappedBy = "activity")
@@ -47,7 +50,7 @@ public class Activity extends BaseEntity {
         return Activity.builder()
                        .category(category)
                        .semester(dto.getSemester())
-                       .personel(dto.isPersonal())
+                       .personal(dto.isPersonal())
                        .requestStatus(dto.getRequestStatus())
                        .data(dto.getData())
                        .build();

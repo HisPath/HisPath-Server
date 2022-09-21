@@ -1,12 +1,18 @@
 package com.server.hispath.activity.application;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.server.hispath.activity.application.dto.ActivityContentDto;
+import com.server.hispath.activity.application.dto.ActivityDto;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.category.domain.repository.CategoryRepository;
+import com.server.hispath.exception.activity.ActivityNotFoundException;
 import com.server.hispath.exception.category.CategoryNotFoundException;
 
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -23,5 +29,21 @@ public class ActivityService {
         Activity activity = Activity.from(category, dto);
         Activity savedActivity = activityRepository.save(activity);
         return savedActivity.getId();
+    }
+
+    public ActivityDto find(Long id) {
+        Activity activity = this.findById(id);
+        return ActivityDto.from(activity);
+    }
+
+    private Activity findById(Long id) {
+        return activityRepository.findById(id).orElseThrow(ActivityNotFoundException::new);
+    }
+
+    public List<ActivityDto> findAll() {
+        List<Activity> activities = activityRepository.findAll();
+        return activities.stream()
+                         .map(ActivityDto::from)
+                         .collect(Collectors.toList());
     }
 }
