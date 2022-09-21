@@ -36,7 +36,7 @@ public class CategoryController {
     @GetMapping("/category/{id}")
     @ApiOperation(value = ApiDoc.CATEGORY_READ)
     public ResponseEntity<CategoryResponse> find(@PathVariable Long id) {
-        CategoryContentDto dto = categoryService.findById(id);
+        CategoryContentDto dto = categoryService.find(id);
         CategoryResponse response = CategoryResponse.from(dto);
         return ResponseEntity.ok(response);
     }

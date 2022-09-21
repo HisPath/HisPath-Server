@@ -50,4 +50,13 @@ public class ActivityController {
         return ResponseEntity.ok(responses);
 
     }
+
+    @PatchMapping("/activity/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_UPDATE)
+    public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @RequestBody ActivityCURequest request) {
+        ActivityDto dto = activityService.update(id, request.getCategoryId(), ActivityContentDto.from(request));
+        ActivityResponse response = ActivityResponse.from(dto);
+
+        return ResponseEntity.ok(response);
+    }
 }

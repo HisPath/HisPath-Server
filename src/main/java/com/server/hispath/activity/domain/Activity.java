@@ -55,4 +55,12 @@ public class Activity extends BaseEntity {
                        .data(dto.getData())
                        .build();
     }
+
+    public void update(Category category, ActivityContentDto dto){
+        this.category = category;
+        this.semester = dto.getSemester();
+        this.personal = dto.isPersonal();
+        this.requestStatus = dto.getRequestStatus();
+        this.data = dto.getData();
+    }
 }

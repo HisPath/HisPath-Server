@@ -27,8 +27,8 @@ public class CategoryService {
     }
 
     @Transactional(readOnly = true)
-    public CategoryContentDto findById(Long id) {
-        Category category = categoryRepository.findById(id).orElseThrow(CategoryNotFoundException::new);
+    public CategoryContentDto find(Long id) {
+        Category category = this.findById(id);
         return CategoryContentDto.from(category);
     }
 
@@ -50,5 +50,9 @@ public class CategoryService {
     @Transactional
     public void delete(Long id){
         categoryRepository.deleteById(id);
+    }
+
+    public Category findById(Long id){
+        return categoryRepository.findById(id).orElseThrow(CategoryNotFoundException::new);
     }
 }
