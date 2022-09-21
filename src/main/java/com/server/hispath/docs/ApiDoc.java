@@ -7,6 +7,7 @@ public class ApiDoc {
 
 
     /* Activity 관련 API 명세 */
+    public static final String ACTIVITY_CREATE = "단일 활동 생성";
 
     /* Category 관련 API 명세 */
     public static final String CATEGORY_READ = "단일 카테고리 조회";
