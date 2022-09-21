@@ -1,4 +1,4 @@
-package com.server.hispath.activity.domain;
+package com.server.hispath.category.domain;
 
 public enum ActivityType {
     MILEAGE_ACTIVITY, PROJECT
