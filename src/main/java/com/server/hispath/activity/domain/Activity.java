@@ -1,5 +1,6 @@
 package com.server.hispath.activity.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -40,6 +41,14 @@ public class Activity extends BaseEntity {
 
     private int requestStatus;
 
+    private String name;
+
+    private LocalDateTime startDate;
+
+    private LocalDateTime endDate;
+
+    int weight;
+
     @OneToMany(mappedBy = "activity")
     private List<Participant> participants = new ArrayList<>();
 
@@ -49,13 +58,21 @@ public class Activity extends BaseEntity {
                        .semester(dto.getSemester())
                        .personal(dto.isPersonal())
                        .requestStatus(dto.getRequestStatus())
+                       .name(dto.getName())
+                       .weight(dto.getWeight())
+                       .startDate(dto.getStartDate())
+                       .endDate(dto.getEndDate())
                        .build();
     }
 
-    public void update(Category category, ActivityContentDto dto){
+    public void update(Category category, ActivityContentDto dto) {
         this.category = category;
         this.semester = dto.getSemester();
         this.personal = dto.isPersonal();
         this.requestStatus = dto.getRequestStatus();
+        this.name = dto.getName();
+        this.weight = dto.getWeight();
+        this.startDate = dto.getStartDate();
+        this.endDate = dto.getEndDate();
     }
 }

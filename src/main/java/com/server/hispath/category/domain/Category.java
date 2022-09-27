@@ -33,17 +33,13 @@ public class Category extends BaseEntity {
     @OneToMany(mappedBy = "category")
     private List<Activity> activities = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
-    private ActivityType type;
 
     public void update(CategoryCUDto dto) {
-        this.type = dto.getType();
         this.name = dto.getName();
     }
 
     public static Category from(CategoryCUDto dto) {
         return Category.builder()
-                       .type(dto.getType())
                        .name(dto.getName())
                        .build();
     }

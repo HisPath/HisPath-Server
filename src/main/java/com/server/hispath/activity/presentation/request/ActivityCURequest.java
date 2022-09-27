@@ -1,5 +1,7 @@
 package com.server.hispath.activity.presentation.request;
 
+import java.time.LocalDateTime;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,4 +14,8 @@ public class ActivityCURequest {
     private String semester;
     private boolean personal;
     private int requestStatus;
+    private String name;
+    private int weight;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 }

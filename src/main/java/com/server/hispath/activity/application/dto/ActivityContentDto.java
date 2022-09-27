@@ -1,5 +1,7 @@
 package com.server.hispath.activity.application.dto;
 
+import java.time.LocalDateTime;
+
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
 
 import lombok.AllArgsConstructor;
@@ -16,8 +18,13 @@ public class ActivityContentDto {
     private String semester;
     private boolean personal;
     private int requestStatus;
+    private String name;
+    private int weight;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
-    public static ActivityContentDto from(ActivityCURequest request){
-        return new ActivityContentDto(request.getSemester(), request.isPersonal(), request.getRequestStatus());
+    public static ActivityContentDto from(ActivityCURequest request) {
+        return new ActivityContentDto(request.getSemester(), request.isPersonal(), request.getRequestStatus(),
+                request.getName(), request.getWeight(), request.getStartDate(), request.getEndDate());
     }
 }
