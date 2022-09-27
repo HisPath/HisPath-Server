@@ -2,6 +2,7 @@ package com.server.hispath.activity.presentation;
 
 import java.util.List;
 
+import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.MActivityService;
 import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.ActivityDto;
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class MActivityController {
 
     private final MActivityService mActivityService;
+    private final ActivityService activityService;
 
     @PostMapping("/mileage")
     @ApiOperation(value = ApiDoc.MILEAGE_CREATE)
@@ -43,11 +45,18 @@ public class MActivityController {
     }
 
     @PatchMapping("/mileage/{id}")
-    @ApiOperation(value = ApiDoc.ACTIVITY_UPDATE)
+    @ApiOperation(value = ApiDoc.MILEAGE_UPDATE)
     public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @RequestBody MActivityCURequest request) {
         ActivityDto dto = mActivityService.update(id, MActivityContentDto.of(request));
         ActivityResponse response = ActivityResponse.from(dto);
 
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/mileage/{id}")
+    @ApiOperation(value = ApiDoc.MILEAGE_DELETE)
+    public ResponseEntity<Long> delete(@PathVariable Long id) {
+        activityService.delete(id);
+        return ResponseEntity.ok(id);
     }
 }
