@@ -3,17 +3,18 @@ package com.server.hispath.activity.presentation;
 import java.util.List;
 
 import com.server.hispath.activity.application.MActivityService;
+import com.server.hispath.activity.application.dto.ActivityContentDto;
+import com.server.hispath.activity.application.dto.ActivityDto;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
+import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
+import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.util.ExcelManager;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.ApiOperation;
@@ -39,5 +40,14 @@ public class MActivityController {
     public ResponseEntity<Void> createMActivites(MultipartFile file) throws Exception {
         mActivityService.createAll(ExcelManager.getMActivities(ExcelManager.extract(file)));
         return ResponseEntity.ok(null);
+    }
+
+    @PatchMapping("/mileage/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_UPDATE)
+    public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @RequestBody MActivityCURequest request) {
+        ActivityDto dto = mActivityService.update(id, MActivityContentDto.of(request));
+        ActivityResponse response = ActivityResponse.from(dto);
+
+        return ResponseEntity.ok(response);
     }
 }

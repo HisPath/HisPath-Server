@@ -92,4 +92,13 @@ public class Activity extends BaseEntity {
         this.startDate = dto.getStartDate();
         this.endDate = dto.getEndDate();
     }
+
+    public void update(Category category, MActivityContentDto dto) {
+        this.category = category;
+        this.semester = dto.getSemester();
+        this.name = dto.getName();
+        this.weight = dto.getWeight();
+        this.startDate = dto.getStartDate();
+        this.endDate = dto.getEndDate();
+    }
 }
