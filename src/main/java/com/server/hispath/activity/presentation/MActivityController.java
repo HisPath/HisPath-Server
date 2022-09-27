@@ -1,6 +1,7 @@
 package com.server.hispath.activity.presentation;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.MActivityService;
@@ -58,5 +59,15 @@ public class MActivityController {
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         activityService.delete(id);
         return ResponseEntity.ok(id);
+    }
+
+    @GetMapping("/mileage/semester")
+    @ApiOperation(value = ApiDoc.MILEAGE_READ_SEMESTER)
+    public ResponseEntity<List<ActivityResponse>> findAllBySemester(@RequestParam String semester) {
+        List<ActivityDto> activityDtos = mActivityService.findAllBySemester(semester);
+        List<ActivityResponse> responses = activityDtos.stream()
+                                                       .map(ActivityResponse::from)
+                                                       .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 }

@@ -41,10 +41,18 @@ public class MActivityService {
     }
 
     @Transactional
-    public ActivityDto update(Long id, MActivityContentDto dto){
+    public ActivityDto update(Long id, MActivityContentDto dto) {
         Activity activity = activityRepository.findById(id).orElseThrow(ActivityNotFoundException::new);
         Category category = categoryService.findById(dto.getCategoryId());
         activity.update(category, dto);
         return ActivityDto.from(activity);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ActivityDto> findAllBySemester(String semester) {
+        List<Activity> activities = activityRepository.findAllBySemester(semester);
+        return activities.stream()
+                         .map(ActivityDto::from)
+                         .collect(Collectors.toList());
     }
 }
