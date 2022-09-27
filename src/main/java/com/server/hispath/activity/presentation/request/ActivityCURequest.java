@@ -12,5 +12,4 @@ public class ActivityCURequest {
     private String semester;
     private boolean personal;
     private int requestStatus;
-    private String data;
 }

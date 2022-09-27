@@ -16,9 +16,8 @@ public class ActivityContentDto {
     private String semester;
     private boolean personal;
     private int requestStatus;
-    private String data;
 
     public static ActivityContentDto from(ActivityCURequest request){
-        return new ActivityContentDto(request.getSemester(), request.isPersonal(), request.getRequestStatus(), request.getData());
+        return new ActivityContentDto(request.getSemester(), request.isPersonal(), request.getRequestStatus());
     }
 }

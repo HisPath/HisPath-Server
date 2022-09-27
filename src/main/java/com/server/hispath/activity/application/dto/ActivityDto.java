@@ -15,10 +15,9 @@ public class ActivityDto {
     private CategoryDto categoryDto;
     private String semester;
     private boolean personal;
-    private String data;
 
     public static ActivityDto from(Activity activity) {
         return new ActivityDto(activity.getId(), CategoryDto.from(activity.getCategory()),
-                activity.getSemester(), activity.isPersonal(), activity.getData());
+                activity.getSemester(), activity.isPersonal());
     }
 }
