@@ -25,7 +25,7 @@ public class MActivityController {
     @PostMapping("/mileage")
     @ApiOperation(value = ApiDoc.MILEAGE_CREATE)
     public ResponseEntity<Long> create(@RequestBody MActivityCURequest request) {
-        Long id = mActivityService.create(request.getCategoryId(), MActivityContentDto.of(request));
+        Long id = mActivityService.create(MActivityContentDto.of(request));
         return ResponseEntity.ok(id);
     }
 }

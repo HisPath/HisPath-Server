@@ -18,8 +18,8 @@ public class MActivityService {
     private final CategoryService categoryService;
 
     @Transactional
-    public Long create(Long categoryId, MActivityContentDto dto) {
-        Category category = categoryService.findById(categoryId);
+    public Long create(MActivityContentDto dto) {
+        Category category = categoryService.findById(dto.getCategoryId());
         Activity activity = Activity.from(category, dto);
         Activity savedActivity = activityRepository.save(activity);
         return savedActivity.getId();

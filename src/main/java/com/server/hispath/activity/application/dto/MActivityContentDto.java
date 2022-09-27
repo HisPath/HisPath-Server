@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MActivityContentDto {
+    private Long categoryId;
     private String semester;
     private String name;
     private String remark;
@@ -20,7 +21,7 @@ public class MActivityContentDto {
     private LocalDateTime endDate;
 
     public static MActivityContentDto of(MActivityCURequest request) {
-        return new MActivityContentDto(request.getSemester(), request.getName(), request.getRemark(),
-                request.getWeight(), request.getStartDate(), request.getEndDate());
+        return new MActivityContentDto(request.getCategoryId(), request.getSemester(), request.getName(),
+                request.getRemark(), request.getWeight(), request.getStartDate(), request.getEndDate());
     }
 }
