@@ -40,9 +40,6 @@ public class Activity extends BaseEntity {
 
     private int requestStatus;
 
-    @NotNull
-    private String data;
-
     @OneToMany(mappedBy = "activity")
     private List<Participant> participants = new ArrayList<>();
 
@@ -52,7 +49,6 @@ public class Activity extends BaseEntity {
                        .semester(dto.getSemester())
                        .personal(dto.isPersonal())
                        .requestStatus(dto.getRequestStatus())
-                       .data(dto.getData())
                        .build();
     }
 
@@ -61,6 +57,5 @@ public class Activity extends BaseEntity {
         this.semester = dto.getSemester();
         this.personal = dto.isPersonal();
         this.requestStatus = dto.getRequestStatus();
-        this.data = dto.getData();
     }
 }
