@@ -27,4 +27,6 @@ public class Participant extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Activity activity;
+
+    String data;
 }

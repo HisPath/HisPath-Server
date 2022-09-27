@@ -1,5 +1,7 @@
 package com.server.hispath.activity.application.dto;
 
+import java.time.LocalDateTime;
+
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.category.application.dto.CategoryDto;
 
@@ -15,10 +17,13 @@ public class ActivityDto {
     private CategoryDto categoryDto;
     private String semester;
     private boolean personal;
-    private String data;
+    private String name;
+    private int weight;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     public static ActivityDto from(Activity activity) {
-        return new ActivityDto(activity.getId(), CategoryDto.from(activity.getCategory()),
-                activity.getSemester(), activity.isPersonal(), activity.getData());
+        return new ActivityDto(activity.getId(), CategoryDto.from(activity.getCategory()), activity.getSemester(),
+                activity.isPersonal(), activity.getName(), activity.getWeight(), activity.getStartDate(), activity.getEndDate());
     }
 }
