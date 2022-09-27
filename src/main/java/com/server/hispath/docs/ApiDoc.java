@@ -19,4 +19,11 @@ public class ApiDoc {
     public static final String CATEGORY_CREATE = "카테고리 생성";
     public static final String CATEGORY_UPDATE = "카테고리 수정";
     public static final String CATEGORY_DELETE = "카테고리 삭제";
+
+    /* Student 관련 API 명세 */
+    public static final String STUDENT_READ = "단일 학생 조회";
+    public static final String STUDENT_READ_ALL = "모든 학생 조회";
+    public static final String STUDENT_CREATE = "학생 추가";
+    public static final String STUDENT_UPDATE = "학생 수정";
+    public static final String STUDENT_DELETE = "학생 삭제";
 }
