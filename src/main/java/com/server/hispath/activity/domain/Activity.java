@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.server.hispath.activity.application.dto.ActivityContentDto;
+import com.server.hispath.activity.application.dto.MActivityContentDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.common.BaseEntity;
 import com.server.hispath.student.domain.participate.Participant;
@@ -58,6 +59,19 @@ public class Activity extends BaseEntity {
                        .semester(dto.getSemester())
                        .personal(dto.isPersonal())
                        .requestStatus(dto.getRequestStatus())
+                       .name(dto.getName())
+                       .weight(dto.getWeight())
+                       .startDate(dto.getStartDate())
+                       .endDate(dto.getEndDate())
+                       .build();
+    }
+
+    public static Activity from(Category category, MActivityContentDto dto) {
+        return Activity.builder()
+                       .category(category)
+                       .semester(dto.getSemester())
+                       .personal(false)
+                       .requestStatus(1)
                        .name(dto.getName())
                        .weight(dto.getWeight())
                        .startDate(dto.getStartDate())
