@@ -1,6 +1,7 @@
 package com.server.hispath.activity.application;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.ActivityDto;
@@ -11,6 +12,10 @@ import com.server.hispath.category.application.CategoryService;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.common.BaseEntity;
 import com.server.hispath.exception.activity.ActivityNotFoundException;
+import com.server.hispath.exception.activity.ParticipantNotFoundException;
+import com.server.hispath.exception.student.StudentNotFoundException;
+import com.server.hispath.student.domain.Student;
+import com.server.hispath.student.domain.repository.StudentRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class MActivityService {
     private final ActivityRepository activityRepository;
     private final CategoryService categoryService;
+    private final ActivityService activityService;
+    private final StudentRepository studentRepository;
 
     @Transactional
     public Long create(MActivityContentDto dto) {
@@ -43,7 +50,7 @@ public class MActivityService {
 
     @Transactional
     public ActivityDto update(Long id, MActivityContentDto dto) {
-        Activity activity = activityRepository.findById(id).orElseThrow(ActivityNotFoundException::new);
+        Activity activity = activityService.findById(id);
         Category category = categoryService.findById(dto.getCategoryId());
         activity.update(category, dto);
         return ActivityDto.from(activity);
@@ -58,7 +65,18 @@ public class MActivityService {
     }
 
     @Transactional
-    public void deleteAllParticipant(Activity activity){
+    public void deleteAllParticipant(Activity activity) {
         activity.getParticipants().forEach(BaseEntity::deleteContent);
+    }
+
+    @Transactional
+    public void deleteParticipantById(Long activityId, Long studentId) {
+        Activity activity = activityService.findById(activityId);
+        Student student = studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
+        activity.getParticipants()
+                .stream()
+                .filter(participant -> Objects.equals(participant.getStudent(), student))
+                .findFirst().orElseThrow(ParticipantNotFoundException::new)
+                .deleteContent();
     }
 }

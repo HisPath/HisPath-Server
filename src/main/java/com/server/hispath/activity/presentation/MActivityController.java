@@ -8,6 +8,7 @@ import com.server.hispath.activity.application.MActivityService;
 import com.server.hispath.activity.application.dto.ActivityDto;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
+import com.server.hispath.activity.presentation.request.MParticipantRequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.student.application.StudentService;
@@ -80,4 +81,10 @@ public class MActivityController {
         return ResponseEntity.ok(null);
     }
 
+    @DeleteMapping("/mileage/student")
+    @ApiOperation(value = ApiDoc.ACTIVITY_STUDENT_DELETE)
+    public ResponseEntity<Void> deleteParticipant(@RequestBody MParticipantRequest request) {
+        mActivityService.deleteParticipantById(request.getActivityId(), request.getStudentId());
+        return ResponseEntity.ok(null);
+    }
 }
