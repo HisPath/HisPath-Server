@@ -9,6 +9,8 @@ import com.server.hispath.common.BaseEntity;
 import com.server.hispath.major.domain.Major;
 import com.server.hispath.student.domain.participate.Participant;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
@@ -19,6 +21,8 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @Where(clause = "deleted = false")
 @SQLDelete(sql = "UPDATE student SET deleted = true Where id = ?")
+@AllArgsConstructor
+@Builder
 public class Student extends BaseEntity {
 
     @Id

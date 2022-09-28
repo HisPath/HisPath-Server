@@ -5,16 +5,13 @@ import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.MActivityService;
-import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.ActivityDto;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
-import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.util.ExcelManager;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -70,4 +67,5 @@ public class MActivityController {
                                                        .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
+
 }
