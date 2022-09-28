@@ -80,6 +80,7 @@ public class Activity extends BaseEntity {
                        .personal(false)
                        .requestStatus(1)
                        .name(dto.getName())
+                       .remark(dto.getRemark())
                        .weight(dto.getWeight())
                        .startDate(dto.getStartDate())
                        .endDate(dto.getEndDate())
