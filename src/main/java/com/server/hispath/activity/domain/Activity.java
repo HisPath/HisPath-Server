@@ -42,6 +42,8 @@ public class Activity extends BaseEntity {
 
     private boolean personal;
 
+    private String remark;
+
     private int requestStatus;
 
     private String name;

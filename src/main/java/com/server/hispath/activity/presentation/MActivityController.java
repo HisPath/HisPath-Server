@@ -87,4 +87,11 @@ public class MActivityController {
         mActivityService.deleteParticipantById(request.getActivityId(), request.getStudentId());
         return ResponseEntity.ok(null);
     }
+
+    @GetMapping("/mileage/{id}")
+    @ApiOperation(value = ApiDoc.MILEAGE_READ)
+    public ResponseEntity<Void> findMileageActivityById(@PathVariable Long id) {
+
+        return ResponseEntity.ok(null);
+    }
 }

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.ActivityDto;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
+import com.server.hispath.activity.application.dto.MActivityDetailDto;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.category.application.CategoryService;
@@ -14,6 +15,7 @@ import com.server.hispath.common.BaseEntity;
 import com.server.hispath.exception.activity.ActivityNotFoundException;
 import com.server.hispath.exception.activity.ParticipantNotFoundException;
 import com.server.hispath.exception.student.StudentNotFoundException;
+import com.server.hispath.student.application.dto.StudentRefDetailDto;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
 
@@ -78,5 +80,18 @@ public class MActivityService {
                 .filter(participant -> Objects.equals(participant.getStudent(), student))
                 .findFirst().orElseThrow(ParticipantNotFoundException::new)
                 .deleteContent();
+    }
+
+    @Transactional
+    public MActivityDetailDto findDetailActivityInfo(Long activityId){
+        Activity activity = activityRepository.findActivityWithStudents(activityId)
+                                              .orElseThrow(ActivityNotFoundException::new);
+        List<StudentRefDetailDto> students = activity.getParticipants()
+                                                    .stream()
+                                                    .map(participant -> {
+                                                        return StudentRefDetailDto.of(participant.getStudent());
+                                                    })
+                                                    .collect(Collectors.toList());
+        return MActivityDetailDto.from(activity, students);
     }
 }
