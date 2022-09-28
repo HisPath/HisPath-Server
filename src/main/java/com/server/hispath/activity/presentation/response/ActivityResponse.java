@@ -19,6 +19,7 @@ public class ActivityResponse {
     private String semester;
     private boolean personal;
     private String name;
+    private String remark;
     private int weight;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime startDate;
@@ -27,6 +28,6 @@ public class ActivityResponse {
 
     public static ActivityResponse from(ActivityDto dto) {
         return new ActivityResponse(dto.getId(), dto.getCategoryDto().getId(), dto.getCategoryDto().getName(),
-                dto.getSemester(), dto.isPersonal(), dto.getName(), dto.getWeight(), dto.getStartDate(), dto.getEndDate());
+                dto.getSemester(), dto.isPersonal(), dto.getName(), dto.getRemark(), dto.getWeight(), dto.getStartDate(), dto.getEndDate());
     }
 }

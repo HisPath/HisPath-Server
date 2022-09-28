@@ -17,6 +17,7 @@ public class ActivityCURequest {
     private boolean personal;
     private int requestStatus;
     private String name;
+    private String remark;
     private int weight;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")

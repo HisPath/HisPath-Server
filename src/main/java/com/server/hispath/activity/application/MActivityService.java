@@ -83,15 +83,15 @@ public class MActivityService {
     }
 
     @Transactional
-    public MActivityDetailDto findDetailActivityInfo(Long activityId){
+    public MActivityDetailDto findDetailActivityInfo(Long activityId) {
         Activity activity = activityRepository.findActivityWithStudents(activityId)
                                               .orElseThrow(ActivityNotFoundException::new);
         List<StudentRefDetailDto> students = activity.getParticipants()
-                                                    .stream()
-                                                    .map(participant -> {
-                                                        return StudentRefDetailDto.of(participant.getStudent());
-                                                    })
-                                                    .collect(Collectors.toList());
+                                                     .stream()
+                                                     .map(participant -> {
+                                                         return StudentRefDetailDto.of(participant.getStudent());
+                                                     })
+                                                     .collect(Collectors.toList());
         return MActivityDetailDto.from(activity, students);
     }
 }

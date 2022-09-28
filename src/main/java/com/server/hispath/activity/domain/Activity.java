@@ -66,6 +66,7 @@ public class Activity extends BaseEntity {
                        .personal(dto.isPersonal())
                        .requestStatus(dto.getRequestStatus())
                        .name(dto.getName())
+                       .remark(dto.getRemark())
                        .weight(dto.getWeight())
                        .startDate(dto.getStartDate())
                        .endDate(dto.getEndDate())
@@ -91,6 +92,7 @@ public class Activity extends BaseEntity {
         this.personal = dto.isPersonal();
         this.requestStatus = dto.getRequestStatus();
         this.name = dto.getName();
+        this.remark = dto.getRemark();
         this.weight = dto.getWeight();
         this.startDate = dto.getStartDate();
         this.endDate = dto.getEndDate();
@@ -100,12 +102,13 @@ public class Activity extends BaseEntity {
         this.category = category;
         this.semester = dto.getSemester();
         this.name = dto.getName();
+        this.remark = dto.getRemark();
         this.weight = dto.getWeight();
         this.startDate = dto.getStartDate();
         this.endDate = dto.getEndDate();
     }
 
-    public void addParticipant(Student student){
+    public void addParticipant(Student student) {
         Participant participant = new Participant(student, this);
 
         this.participants.add(participant);
