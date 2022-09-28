@@ -10,6 +10,7 @@ import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.common.BaseEntity;
+import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.participate.Participant;
 import com.sun.istack.NotNull;
 
@@ -53,7 +54,7 @@ public class Activity extends BaseEntity {
 
     int weight;
 
-    @OneToMany(mappedBy = "activity")
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Participant> participants = new ArrayList<>();
 
     public static Activity from(Category category, ActivityContentDto dto) {
@@ -100,5 +101,12 @@ public class Activity extends BaseEntity {
         this.weight = dto.getWeight();
         this.startDate = dto.getStartDate();
         this.endDate = dto.getEndDate();
+    }
+
+    public void addParticipant(Student student){
+        Participant participant = new Participant(student, this);
+
+        this.participants.add(participant);
+        student.addParticipant(participant);
     }
 }

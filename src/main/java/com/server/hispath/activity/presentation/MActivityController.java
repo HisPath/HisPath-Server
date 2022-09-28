@@ -10,6 +10,7 @@ import com.server.hispath.activity.application.dto.MActivityContentDto;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.docs.ApiDoc;
+import com.server.hispath.student.application.StudentService;
 import com.server.hispath.util.ExcelManager;
 
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ public class MActivityController {
 
     private final MActivityService mActivityService;
     private final ActivityService activityService;
+    private final StudentService studentService;
 
     @PostMapping("/mileage")
     @ApiOperation(value = ApiDoc.MILEAGE_CREATE)
@@ -66,6 +68,16 @@ public class MActivityController {
                                                        .map(ActivityResponse::from)
                                                        .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
+    }
+
+    @PostMapping("/mileage/students")
+    @ApiOperation(value = ApiDoc.MILEAGE_REGISTER_STUDENTS)
+    public ResponseEntity<Void> registerStudents(@RequestPart(value = "file", required = false) MultipartFile file,
+                                                 @RequestPart(value = "activityId") Long activityId) throws Exception {
+
+        studentService.registerParticipants(activityId, ExcelManager.getStudentDatas(ExcelManager.extract(file)));
+
+        return ResponseEntity.ok(null);
     }
 
 }

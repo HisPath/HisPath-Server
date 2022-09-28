@@ -9,6 +9,7 @@ import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.category.application.CategoryService;
 import com.server.hispath.category.domain.Category;
+import com.server.hispath.common.BaseEntity;
 import com.server.hispath.exception.activity.ActivityNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -54,5 +55,10 @@ public class MActivityService {
         return activities.stream()
                          .map(ActivityDto::from)
                          .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteAllParticipant(Activity activity){
+        activity.getParticipants().forEach(BaseEntity::deleteContent);
     }
 }
