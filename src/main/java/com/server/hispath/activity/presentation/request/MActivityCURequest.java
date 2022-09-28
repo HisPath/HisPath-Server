@@ -11,11 +11,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ActivityCURequest {
-    private Long categoryId;
+public class MActivityCURequest {
     private String semester;
-    private boolean personal;
-    private int requestStatus;
+    private Long categoryId;
     private String name;
     private String remark;
     private int weight;
