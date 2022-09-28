@@ -7,6 +7,7 @@ import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.MActivityService;
 import com.server.hispath.activity.application.dto.ActivityDto;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
+import com.server.hispath.activity.application.dto.MActivityDetailDto;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
 import com.server.hispath.activity.presentation.request.MParticipantRequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
@@ -90,8 +91,7 @@ public class MActivityController {
 
     @GetMapping("/mileage/{id}")
     @ApiOperation(value = ApiDoc.MILEAGE_READ)
-    public ResponseEntity<Void> findMileageActivityById(@PathVariable Long id) {
-
-        return ResponseEntity.ok(null);
+    public ResponseEntity<MActivityDetailDto> findMileageActivityById(@PathVariable Long id) {
+        return ResponseEntity.ok(mActivityService.findDetailActivityInfo(id));
     }
 }
