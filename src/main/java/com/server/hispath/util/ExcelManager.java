@@ -37,7 +37,7 @@ public class ExcelManager {
         return workbook.cloneSheet(0);
     }
 
-    public void validate(String semester) {
+    public static void validate(String semester) {
         String pattern = "[0-9]{4}-[0-9]";
         if (!Pattern.matches(pattern, semester))
             throw new ExcelDataFormatException(semester);
@@ -57,6 +57,7 @@ public class ExcelManager {
                 LocalDateTime endDate = LocalDateTime.parse(row.getCell(4).toString(), dateTimeFormatter);
                 int weight = Integer.parseInt(row.getCell(5).toString());
                 String semester = row.getCell(6).toString();
+                validate(semester);
                 mActivityContentDtos.add(new MActivityContentDto(categoryId, semester, activityName, remark, weight, startDate, endDate));
             } catch (Exception e) {
                 throw new ExcelFormatException(e.getMessage());
