@@ -60,7 +60,7 @@ public class ActivityService {
         activityRepository.deleteById(id);
     }
 
-    private Activity findById(Long id) {
+    public Activity findById(Long id) {
         return activityRepository.findById(id).orElseThrow(ActivityNotFoundException::new);
     }
 }

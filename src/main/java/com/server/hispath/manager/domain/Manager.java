@@ -23,9 +23,6 @@ public class Manager extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "manager")
-    private List<Notice> notices = new ArrayList<>();
-
     private String name;
     private String email;
     private String department;

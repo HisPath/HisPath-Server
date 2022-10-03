@@ -1,4 +1,4 @@
-package com.server.hispath.category.presentation.request;
+package com.server.hispath.activity.presentation.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CategoryCURequest {
+public class MParticipantRequest {
+    private Long activityId;
     private Long studentId;
-    private String name;
 }
