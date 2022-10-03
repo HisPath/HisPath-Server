@@ -22,9 +22,7 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Where(clause = "deleted = false")
 @SQLDelete(sql = "UPDATE student SET deleted = true Where id = ?")
 @AllArgsConstructor
@@ -70,6 +68,7 @@ public class Student extends BaseEntity {
         return Student.builder()
                 .name(dto.getName())
                 .build();
+    }
     public boolean isNameMatch(String name) {
         return Objects.equals(this.name, name);
     }

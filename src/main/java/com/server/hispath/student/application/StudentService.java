@@ -62,9 +62,9 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-    public Student findById(Long id){
+    public Student findById(Long id) {
         return studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
-
+    }
 
     @Transactional
     public void registerParticipants(Long activityId, List<StudentRefDto> studentRefDtos) {
