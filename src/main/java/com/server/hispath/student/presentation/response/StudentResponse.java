@@ -9,7 +9,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class StudentResponse {
+<<<<<<< HEAD
     private Long studentId;
+=======
+    private Long id;
+>>>>>>> 8ab20c858744d241a9fa9cce8c358a8450ff90b5
     private String name;
 
     public static StudentResponse from (StudentDto dto) {
