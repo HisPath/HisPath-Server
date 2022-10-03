@@ -48,8 +48,6 @@ public class Notice extends BaseEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate expDate;
 
-    // repository에서 contentdto로 받아오고 manager와 같이 받아서 notice build
-
     public static Notice from(Manager manager, NoticeContentDto dto) {
         return Notice.builder()
                 .manager(manager)

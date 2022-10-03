@@ -7,6 +7,8 @@ import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.category.domain.repository.CategoryRepository;
+import com.server.hispath.major.domain.repository.MajorRepository;
+import com.server.hispath.notice.domain.repository.NoticeRepository;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
 
@@ -25,6 +27,8 @@ public class TestController {
     private final StudentRepository studentRepository;
     private final CategoryRepository categoryRepository;
     private final ActivityService activityService;
+    private final NoticeRepository noticeRepository;
+    private final MajorRepository majorRepository;
 
     @GetMapping("/register/ref")
     public ResponseEntity<Void> testRegisterRefStudent() {
@@ -40,20 +44,30 @@ public class TestController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping("/init")
-    public ResponseEntity<Void> testInit() {
+    @GetMapping("/init/category")
+    public ResponseEntity<Void> testCategoryInit() {
         categoryRepository.save(Category.builder()
-                                        .name("특강")
+                                        .name("전공마일리지")
                                         .build());
         categoryRepository.save(Category.builder()
-                                        .name("산학")
+                                        .name("산학마일리지")
                                         .build());
         categoryRepository.save(Category.builder()
-                                        .name("대회")
+                                        .name("비교과-연구활동")
                                         .build());
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//        activityService.create(1L, new ActivityContentDto("2022-2", false, 1,
-//                "테스트특강", 3,
+        categoryRepository.save(Category.builder()
+                                        .name("비교과-특강참여")
+                                        .build());
+        categoryRepository.save(Category.builder()
+                                        .name("비교과-행사참여")
+                                        .build());
+        categoryRepository.save(Category.builder()
+                                        .name("비교과-학회할동")
+                                        .build());
+        categoryRepository.save(Category.builder()
+                                        .name("기타")
+                                        .build());
+
         return ResponseEntity.ok(null);
     }
 }
