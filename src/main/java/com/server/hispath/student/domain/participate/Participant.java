@@ -15,7 +15,7 @@ import org.hibernate.annotations.Where;
 @Getter
 @NoArgsConstructor
 @Where(clause = "deleted = false")
-@SQLDelete(sql = "UPDATE participate SET deleted = true Where id = ?")
+@SQLDelete(sql = "UPDATE participant SET deleted = true Where id = ?")
 public class Participant extends BaseEntity {
 
     @Id
@@ -29,4 +29,9 @@ public class Participant extends BaseEntity {
     private Activity activity;
 
     String data;
+
+    public Participant(Student student, Activity activity) {
+        this.student = student;
+        this.activity = activity;
+    }
 }

@@ -19,12 +19,13 @@ public class ActivityContentDto {
     private boolean personal;
     private int requestStatus;
     private String name;
+    private String remark;
     private int weight;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
     public static ActivityContentDto from(ActivityCURequest request) {
         return new ActivityContentDto(request.getSemester(), request.isPersonal(), request.getRequestStatus(),
-                request.getName(), request.getWeight(), request.getStartDate(), request.getEndDate());
+                request.getName(), request.getRemark(), request.getWeight(), request.getStartDate(), request.getEndDate());
     }
 }

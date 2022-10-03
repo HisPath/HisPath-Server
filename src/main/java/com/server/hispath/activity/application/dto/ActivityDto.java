@@ -18,12 +18,13 @@ public class ActivityDto {
     private String semester;
     private boolean personal;
     private String name;
+    private String remark;
     private int weight;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
     public static ActivityDto from(Activity activity) {
         return new ActivityDto(activity.getId(), CategoryDto.from(activity.getCategory()), activity.getSemester(),
-                activity.isPersonal(), activity.getName(), activity.getWeight(), activity.getStartDate(), activity.getEndDate());
+                activity.isPersonal(), activity.getName(), activity.getRemark(), activity.getWeight(), activity.getStartDate(), activity.getEndDate());
     }
 }

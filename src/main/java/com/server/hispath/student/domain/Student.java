@@ -3,9 +3,11 @@ package com.server.hispath.student.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
 
 import com.server.hispath.category.domain.Category;
+import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.common.BaseEntity;
 import com.server.hispath.major.domain.Major;
 import com.server.hispath.student.application.dto.StudentDto;
@@ -25,6 +27,8 @@ import org.hibernate.annotations.Where;
 @AllArgsConstructor
 @Where(clause = "deleted = false")
 @SQLDelete(sql = "UPDATE student SET deleted = true Where id = ?")
+@AllArgsConstructor
+@Builder
 public class Student extends BaseEntity {
 
     @Id
@@ -55,8 +59,9 @@ public class Student extends BaseEntity {
 
     private LocalDateTime lastLoginDate;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Participant> participants = new ArrayList<>();
+
 
     public void update(StudentDto dto) {
         this.name = dto.getName();
@@ -65,5 +70,11 @@ public class Student extends BaseEntity {
         return Student.builder()
                 .name(dto.getName())
                 .build();
+    public boolean isNameMatch(String name) {
+        return Objects.equals(this.name, name);
+    }
+
+    public void addParticipant(Participant participant) {
+        this.participants.add(participant);
     }
 }
