@@ -7,6 +7,8 @@ import javax.persistence.Id;
 
 import com.server.hispath.common.BaseEntity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
@@ -24,4 +26,5 @@ public class Major extends BaseEntity {
     private Long id;
 
     private String name;
+
 }

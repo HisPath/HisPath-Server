@@ -1,14 +1,73 @@
 package com.server.hispath.notice.presentation;
 
+import com.server.hispath.docs.ApiDoc;
+import com.server.hispath.notice.application.dto.NoticeContentDto;
+import com.server.hispath.notice.application.dto.NoticeDto;
 import com.server.hispath.notice.application.NoticeService;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.server.hispath.notice.presentation.request.NoticeRequest;
+import com.server.hispath.notice.presentation.response.NoticeResponse;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class NoticeController {
 
     private final NoticeService noticeService;
+
+
+    // C
+
+    @PostMapping("/notice/add")
+    @ApiOperation(value= ApiDoc.NOTICE_CREATE)
+    public ResponseEntity<Long> create(@RequestBody NoticeRequest request){
+        Long id = noticeService.create(request.getManagerId(), NoticeContentDto.from(request));
+        return ResponseEntity.ok(id);
+    }
+
+    // R
+
+    @GetMapping("/notice")
+    @ApiOperation(value = ApiDoc.NOTICE_READ_ALL)
+    public ResponseEntity<List<NoticeResponse>> findAll() {
+        List<NoticeResponse> responses = noticeService.findAll().stream().map(NoticeResponse::from).collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/notice/{id}")
+    @ApiOperation(value = ApiDoc.NOTICE_READ)
+    public ResponseEntity<NoticeResponse> find(@PathVariable Long id){
+        NoticeResponse response = NoticeResponse.from(noticeService.find(id));
+        return ResponseEntity.ok(response);
+    }
+
+
+    // U
+
+    @PatchMapping("/notice/{id}")
+    @ApiOperation(value = ApiDoc.NOTICE_UPDATE)
+    public ResponseEntity<NoticeResponse> update(@PathVariable Long id, @RequestBody NoticeRequest request){
+        NoticeDto dto = noticeService.update(id, request.getManagerId(), NoticeContentDto.from(request));
+        NoticeResponse response = NoticeResponse.from(dto);
+        return ResponseEntity.ok(response);
+    }
+
+
+    // D
+
+    @DeleteMapping("/notice/{id}")
+    @ApiOperation(value = ApiDoc.NOTICE_DELETE)
+    public ResponseEntity<Long> delete(@PathVariable Long id){
+        noticeService.delete(id);
+        return ResponseEntity.ok(id);
+    }
+
 }
