@@ -14,13 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 public class ManagerDto {
     private Long id;
-    private List<Notice> notices = new ArrayList<>();
     private String name;
     private String email;
     private String department;
 
     public static ManagerDto from (Manager manager){
-        return new ManagerDto(manager.getId(), manager.getNotices(), manager.getName(),
+        return new ManagerDto(manager.getId(), manager.getName(),
                 manager.getEmail(), manager.getDepartment());
     }
 

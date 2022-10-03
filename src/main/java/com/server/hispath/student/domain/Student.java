@@ -9,6 +9,7 @@ import javax.persistence.*;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.common.BaseEntity;
+import com.server.hispath.department.domain.Department;
 import com.server.hispath.major.domain.Major;
 import com.server.hispath.student.application.dto.StudentDto;
 import com.server.hispath.student.domain.participate.Participant;
@@ -56,6 +57,9 @@ public class Student extends BaseEntity {
     private String githubId;
 
     private LocalDateTime lastLoginDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Department department;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Participant> participants = new ArrayList<>();

@@ -1,12 +1,13 @@
-package com.server.hispath.manager.domain;
+package com.server.hispath.department.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import com.server.hispath.common.BaseEntity;
-import com.server.hispath.notice.domain.Notice;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
@@ -15,19 +16,14 @@ import org.hibernate.annotations.Where;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Where(clause = "deleted = false")
-@SQLDelete(sql = "UPDATE manager SET deleted = true Where id = ?")
-public class Manager extends BaseEntity {
+@SQLDelete(sql = "UPDATE department SET deleted = true Where id = ?")
+public class Department extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private String email;
-    private String department;
-
-    private boolean approved;
-
-
 }
