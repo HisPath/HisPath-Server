@@ -26,6 +26,11 @@ dependencies {
 	implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
 	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
 	implementation group: 'commons-io', name: 'commons-io', version: '2.4'
+	implementation 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation("io.netty:netty-resolver-dns-native-macos:4.1.75.Final:osx-aarch_64")
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'mysql:mysql-connector-java'
