@@ -6,12 +6,14 @@ import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.application.dto.StudentDto;
 import com.server.hispath.student.presentation.request.StudentCURequest;
 import com.server.hispath.student.presentation.response.StudentResponse;
+import com.server.hispath.util.ExcelManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +30,13 @@ public class StudentController {
     public ResponseEntity<Long> create(@RequestBody StudentCURequest request) {
         Long savedId = studentService.create(StudentDto.of(request));
         return ResponseEntity.ok(savedId);
+    }
+
+    @PostMapping("/students")
+    @ApiOperation(value = ApiDoc.STUDENTS_CREATE)
+    public ResponseEntity<Void> createStudents(MultipartFile file) throws Exception {
+        studentService.createAll(ExcelManager.getStudentDatas(ExcelManager.extract(file)));
+        return ResponseEntity.ok(null);
     }
 
     @GetMapping("/student/{id}")

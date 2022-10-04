@@ -1,5 +1,7 @@
 package com.server.hispath.student.application;
 
+import com.server.hispath.activity.application.dto.MActivityContentDto;
+import com.server.hispath.category.domain.Category;
 import com.server.hispath.exception.category.CategoryNotFoundException;
 import com.server.hispath.exception.student.StudentNotFoundException;
 import com.server.hispath.student.application.dto.StudentDto;
@@ -9,6 +11,7 @@ import com.server.hispath.activity.application.MActivityService;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.exception.student.StudentDataNotMatchException;
 import com.server.hispath.exception.student.StudentNotFoundException;
+import com.server.hispath.student.application.dto.StudentRefDetailDto;
 import com.server.hispath.student.application.dto.StudentRefDto;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
@@ -34,6 +37,16 @@ public class StudentService {
     public Long create(StudentDto dto){
         Student savedStudent = studentRepository.save(Student.from(dto));
         return savedStudent.getId();
+    }
+
+    @Transactional
+    public void createAll(List<StudentRefDto> dtos) {
+        List<Student> students = dtos.stream()
+                .map(dto -> {
+                    Student student = findById(Long.valueOf(dto.getStudentNum()));
+                    return Student.from(dto);
+                }).collect(Collectors.toList());
+        studentRepository.saveAll(students);
     }
 
     @Transactional
