@@ -79,6 +79,7 @@ public class AuthService {
         String payLoad = jwtProvider.getPayLoad(token, Member.STUDENT);
         Long id = Long.parseLong(payLoad);
         Student student = studentService.findById(id);
+        student.updateLogin();
         return new LoginStudent(student.getId(), student.getStudentNum());
     }
 
