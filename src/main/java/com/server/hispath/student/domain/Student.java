@@ -68,16 +68,23 @@ public class Student extends BaseEntity {
     public void update(StudentDto dto) {
         this.name = dto.getName();
     }
+
     public static Student from(StudentDto dto) {
         return Student.builder()
-                .name(dto.getName())
-                .build();
+                      .name(dto.getName())
+                      .build();
     }
+
     public boolean isNameMatch(String name) {
         return Objects.equals(this.name, name);
     }
 
     public void addParticipant(Participant participant) {
         this.participants.add(participant);
+    }
+
+    public void updateLogin() {
+        loginCnt++;
+        lastLoginDate = LocalDateTime.now();
     }
 }

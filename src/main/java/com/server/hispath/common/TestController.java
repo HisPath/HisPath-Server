@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.dto.ActivityContentDto;
+import com.server.hispath.auth.domain.*;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.category.domain.repository.CategoryRepository;
 import com.server.hispath.exception.manager.ManagerNotFoundException;
@@ -80,6 +81,21 @@ public class TestController {
                                         .name("기타")
                                         .build());
 
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/student/auth")
+    @RequiredStudentLogin
+    public ResponseEntity<Void> testStudentAuth(@StudentLogin LoginStudent loginStudent){
+        System.out.println(loginStudent.getId());
+        System.out.println(loginStudent.getStudentNum());
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/manager/auth")
+    @RequiredManagerLogin
+    public ResponseEntity<Void> testManagerAuth(@ManagerLogin LoginManager loginManager){
+        System.out.println(loginManager.getId());
         return ResponseEntity.ok(null);
     }
 
@@ -210,6 +226,5 @@ public class TestController {
                 .build());
         return ResponseEntity.ok(null);
     }
-
 
 }
