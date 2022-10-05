@@ -34,4 +34,11 @@ public class ApiDoc {
     public static final String STUDENTS_CREATE = "학생 단일 추가";
     public static final String STUDENT_UPDATE = "학생 수정";
     public static final String STUDENT_DELETE = "학생 삭제";
+
+    /* Department 관련 API 명세 */
+    public static final String DEPARTMENT_READ = "단일 학부 조회";
+    public static final String DEPARTMENT_READ_ALL = "모든 학부 조회";
+    public static final String DEPARTMENT_CREATE = "학부 추가";
+    public static final String DEPARTMENT_UPDATE = "학부 수정";
+    public static final String DEPARTMENT_DELETE = "학부 삭제";
 }

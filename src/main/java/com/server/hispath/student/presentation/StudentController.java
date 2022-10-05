@@ -3,6 +3,7 @@ package com.server.hispath.student.presentation;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.student.application.StudentService;
 
+import com.server.hispath.student.application.dto.StudentCUDto;
 import com.server.hispath.student.application.dto.StudentDto;
 import com.server.hispath.student.presentation.request.StudentCURequest;
 import com.server.hispath.student.presentation.response.StudentResponse;
@@ -28,7 +29,7 @@ public class StudentController {
     @PostMapping("/student")
     @ApiOperation(value = ApiDoc.STUDENT_CREATE)
     public ResponseEntity<Long> create(@RequestBody StudentCURequest request) {
-        Long savedId = studentService.create(StudentDto.of(request));
+        Long savedId = studentService.create(StudentCUDto.of(request));
         return ResponseEntity.ok(savedId);
     }
 
@@ -60,7 +61,7 @@ public class StudentController {
     @PatchMapping("/student/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_UPDATE)
     public ResponseEntity<StudentResponse> update(@PathVariable Long id, @RequestBody StudentCURequest request) {
-        StudentDto dto = studentService.update(id, StudentDto.of(request));
+        StudentDto dto = studentService.update(id, StudentCUDto.of(request));
         StudentResponse response = StudentResponse.from(dto);
         return ResponseEntity.ok(response);
     }
