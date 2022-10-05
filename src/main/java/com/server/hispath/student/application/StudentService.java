@@ -78,5 +78,6 @@ public class StudentService {
             }
             activity.addParticipant(student);
         });
+        activity.updateStudentRegister();
     }
 }

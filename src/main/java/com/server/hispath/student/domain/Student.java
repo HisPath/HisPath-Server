@@ -38,6 +38,8 @@ public class Student extends BaseEntity {
 
     private String studentNum;
 
+    private int semester;
+
     private String phone;
 
     private String email;
@@ -57,6 +59,8 @@ public class Student extends BaseEntity {
     private String githubId;
 
     private LocalDateTime lastLoginDate;
+
+    private String readme;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Department department;
