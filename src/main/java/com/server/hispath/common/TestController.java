@@ -21,6 +21,7 @@ import com.server.hispath.notice.domain.repository.NoticeRepository;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,19 +44,22 @@ public class TestController {
     private final ManagerRepository managerRepository;
 
 
-    @GetMapping("/register/ref")
-    public ResponseEntity<Void> testRegisterRefStudent() {
-        for (int i = 0; i < 20; i++) {
-            String studentNum = Integer.toString(i);
-            String name = "학생" + i;
-            Student student = Student.builder()
-                                     .studentNum(studentNum)
-                                     .name(name)
-                                     .build();
-            studentRepository.save(student);
-        }
-        return ResponseEntity.ok(null);
-    }
+//    @GetMapping("/register/ref")
+//    public ResponseEntity<Void> testRegisterRefStudent() {
+//        for (int i = 0; i < 10; i++) {
+//            String studentNum = Integer.toString(22200000 + i);
+//            String name = "학생" + i;
+//            String email = "test" + i + "@handong.ac.kr";
+//            int semester = 1;
+//            Student student = Student.builder()
+//                    .studentNum(studentNum)
+//                    .name(name)
+//                    .email(email)
+//        }      .semester(semester)
+//                .build();
+//        studentRepository.save(student);
+//        return ResponseEntity.ok(null);
+//    }
 
     @GetMapping("/init/category")
     public ResponseEntity<Void> testCategoryInit() {
@@ -226,5 +230,4 @@ public class TestController {
                 .build());
         return ResponseEntity.ok(null);
     }
-
 }

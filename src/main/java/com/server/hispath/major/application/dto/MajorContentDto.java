@@ -14,7 +14,6 @@ public class MajorContentDto {
 
     private String majorName;
 
-
     public static MajorContentDto from(MajorCURequest request) {
         return new MajorContentDto(request.getMajorName());
     }

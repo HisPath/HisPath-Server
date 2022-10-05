@@ -9,8 +9,8 @@ import com.server.hispath.major.domain.repository.MajorRepository;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -46,5 +46,4 @@ public class MajorService {
     public Major findById(Long id) {
         return majorRepository.findById(id).orElseThrow(MajorNotFoundException::new);
     }
-
 }

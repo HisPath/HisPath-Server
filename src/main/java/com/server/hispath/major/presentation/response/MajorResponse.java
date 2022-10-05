@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MajorResponse {
     private Long id;
-    private String majorName;
+    private String name;
 
     public static MajorResponse from(MajorDto dto) {
-        return new MajorResponse(dto.getId(), dto.getMajorName());
+        return new MajorResponse(dto.getId(), dto.getName());
     }
 }
