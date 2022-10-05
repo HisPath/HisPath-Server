@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
 
+import com.server.hispath.category.domain.Category;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.common.BaseEntity;
+import com.server.hispath.department.domain.Department;
 import com.server.hispath.major.domain.Major;
+import com.server.hispath.student.application.dto.StudentDto;
 import com.server.hispath.student.domain.participate.Participant;
 
 import lombok.AllArgsConstructor;
@@ -35,6 +38,8 @@ public class Student extends BaseEntity {
 
     private String studentNum;
 
+    private int semester;
+
     private String phone;
 
     private String email;
@@ -55,8 +60,24 @@ public class Student extends BaseEntity {
 
     private LocalDateTime lastLoginDate;
 
+    private String readme;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Department department;
+
     @OneToMany(mappedBy = "student", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Participant> participants = new ArrayList<>();
+
+
+    public void update(StudentDto dto) {
+        this.name = dto.getName();
+    }
+
+    public static Student from(StudentDto dto) {
+        return Student.builder()
+                      .name(dto.getName())
+                      .build();
+    }
 
     public boolean isNameMatch(String name) {
         return Objects.equals(this.name, name);
@@ -64,5 +85,10 @@ public class Student extends BaseEntity {
 
     public void addParticipant(Participant participant) {
         this.participants.add(participant);
+    }
+
+    public void updateLogin() {
+        loginCnt++;
+        lastLoginDate = LocalDateTime.now();
     }
 }

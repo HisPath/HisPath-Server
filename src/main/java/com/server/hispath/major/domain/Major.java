@@ -5,7 +5,9 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.server.hispath.common.BaseEntity;
 
+
 import com.server.hispath.major.application.dto.MajorContentDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,6 +41,7 @@ public class Major extends BaseEntity {
     public void update(MajorContentDto dto){
         this.name = dto.getMajorName();
     }
+
 
 
 

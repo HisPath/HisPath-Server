@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
+import java.sql.SQLOutput;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -41,7 +43,6 @@ public class MajorController {
     public ResponseEntity<MajorResponse> update(@PathVariable Long id, @RequestBody MajorCURequest request) {
         MajorDto dto = majorService.update(id, MajorContentDto.from(request));
         MajorResponse response = MajorResponse.from(dto);
-
         return ResponseEntity.ok(response);
     }
 

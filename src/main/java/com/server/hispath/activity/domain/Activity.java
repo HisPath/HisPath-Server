@@ -48,6 +48,8 @@ public class Activity extends BaseEntity {
 
     private String name;
 
+    private boolean studentRegistered = false;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime startDate;
 
@@ -114,5 +116,9 @@ public class Activity extends BaseEntity {
 
         this.participants.add(participant);
         student.addParticipant(participant);
+    }
+
+    public void updateStudentRegister() {
+        studentRegistered = true;
     }
 }

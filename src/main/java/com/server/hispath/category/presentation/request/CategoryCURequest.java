@@ -8,5 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CategoryCURequest {
+    private Long studentId;
     private String name;
 }
