@@ -1,17 +1,17 @@
 package com.server.hispath.common;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.server.hispath.activity.application.ActivityService;
-import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.auth.domain.*;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.category.domain.repository.CategoryRepository;
+import com.server.hispath.department.application.dto.DepartmentDto;
+import com.server.hispath.department.domain.Department;
+import com.server.hispath.department.domain.repository.DepartementRepository;
 import com.server.hispath.exception.manager.ManagerNotFoundException;
 import com.server.hispath.major.domain.repository.MajorRepository;
 import com.server.hispath.manager.domain.Manager;
@@ -42,6 +42,7 @@ public class TestController {
     private final NoticeRepository noticeRepository;
     private final MajorRepository majorRepository;
     private final ManagerRepository managerRepository;
+    private final DepartementRepository departementRepository;
 
 
 //    @GetMapping("/register/ref")
@@ -227,6 +228,202 @@ public class TestController {
                 .importance(true)
                 .pubDate(LocalDate.of(2022, Month.SEPTEMBER, 7))
                 .expDate(LocalDate.of(2022, Month.OCTOBER, 12))
+                .build());
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/init/student")
+    public ResponseEntity<Void> initStudent(){
+        studentRepository.save(Student.builder()
+                .name("김한동")
+//                .departmentId(1)
+                .studentNum("22200000")
+                .semester(5)
+//                .major1("전산")
+//                .major2("전자")
+                .phone("010-1234-1234")
+                .email("kim@handong.ac.kr")
+                .profile("profile.url")
+                .blog("blog.com")
+                .githubId("@kim.github")
+                .loginCnt(0L)
+                .readme("kim's readme")
+                .build());
+        studentRepository.save(Student.builder()
+                .name("박한동")
+//                .department("커뮤니케이션학부")
+                .studentNum("22200001")
+                .semester(3)
+//                .major1("공연")
+//                .major2("영상")
+                .phone("010-1234-5678")
+                .email("park@handong.ac.kr")
+                .profile("profile.url")
+                .blog("blog.com")
+                .githubId("@park.github")
+                .loginCnt(0L)
+                .readme("park's readme")
+                .build());
+        studentRepository.save(Student.builder()
+                .name("이한동")
+//                .department("국제어문학부")
+                .studentNum("22200002")
+                .semester(5)
+//                .major1("국제관계학")
+//                .major2("")
+                .phone("010-5678-1234")
+                .email("lee@handong.ac.kr")
+                .profile("profile.url")
+                .blog("blog.com")
+                .githubId("@lee.github")
+                .loginCnt(0L)
+                .readme("lee's readme")
+                .build());
+        studentRepository.save(Student.builder()
+                .name("정한동")
+//                .department("국제어문학부")
+                .studentNum("22200003")
+                .semester(6)
+//                .major1("국제관계학")
+//                .major2("")
+                .phone("010-1111-1111")
+                .email("jeong@handong.ac.kr")
+                .profile("profile.url")
+                .blog("blog.com")
+                .githubId("@jeong.github")
+                .loginCnt(0L)
+                .readme("jeong's readme")
+                .build());
+        studentRepository.save(Student.builder()
+                .name("우한동")
+//                .department("국제어문학부")
+                .studentNum("22200004")
+                .semester(6)
+//                .major1("국제관계학")
+//                .major2("")
+                .phone("010-2222-3333")
+                .email("woo@handong.ac.kr")
+                .profile("profile.url")
+                .blog("blog.com")
+                .githubId("@woo.github")
+                .loginCnt(0L)
+                .readme("woo's readme")
+                .build());
+        studentRepository.save(Student.builder()
+                .name("위한동")
+//                .department("국제어문학부")
+                .studentNum("22200005")
+                .semester(6)
+//                .major1("국제관계학")
+//                .major2("")
+                .phone("010-4444-1234")
+                .email("wi@handong.ac.kr")
+                .profile("profile.url")
+                .blog("blog.com")
+                .githubId("@wi.github")
+                .loginCnt(0L)
+                .readme("wi's readme")
+                .build());
+        studentRepository.save(Student.builder()
+                .name("하한동")
+//                .department("국제어문학부")
+                .studentNum("22200006")
+                .semester(8)
+//                .major1("국제관계학")
+//                .major2("")
+                .phone("010-9999-1111")
+                .email("ha@handong.ac.kr")
+                .profile("profile.url")
+                .blog("blog.com")
+                .githubId("@ha.github")
+                .loginCnt(0L)
+                .readme("ha's readme")
+                .build());
+        studentRepository.save(Student.builder()
+                .name("마한동")
+//                .department("국제어문학부")
+                .studentNum("22200007")
+                .semester(4)
+//                .major1("국제관계학")
+//                .major2("")
+                .phone("010-4312-4312")
+                .email("ma@handong.ac.kr")
+                .profile("profile.url")
+                .blog("blog.com")
+                .githubId("@ma.github")
+                .loginCnt(0L)
+                .readme("ma's readme")
+                .build());
+        studentRepository.save(Student.builder()
+                .name("유한동")
+//                .department("국제어문학부")
+                .studentNum("22200008")
+                .semester(6)
+//                .major1("국제관계학")
+//                .major2("")
+                .phone("010-3434-2323")
+                .email("yu@handong.ac.kr")
+                .profile("profile.url")
+                .blog("blog.com")
+                .githubId("@yu.github")
+                .loginCnt(0L)
+                .readme("yu's readme")
+                .build());
+        studentRepository.save(Student.builder()
+                .name("진한동")
+//                .department("국제어문학부")
+                .studentNum("22200009")
+                .semester(7)
+//                .major1("국제관계학")
+//                .major2("")
+                .phone("010-8787-8787")
+                .email("jin@handong.ac.kr")
+                .profile("profile.url")
+                .blog("blog.com")
+                .githubId("@jin.github")
+                .loginCnt(0L)
+                .readme("jin's readme")
+                .build());
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/init/department")
+    public ResponseEntity<Void> initDepartment(){
+        departementRepository.save(Department.builder()
+                .name("전산전자")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("국제어문")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("경영경제")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("법학부")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("커뮤니케이션")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("상당복지")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("상당복지")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("공간환경시스템")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("콘텐츠융합디자인")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("기계제어")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("ICT창업학부")
+                .build());
+        departementRepository.save(Department.builder()
+                .name("기계제어")
                 .build());
         return ResponseEntity.ok(null);
     }
