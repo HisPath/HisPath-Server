@@ -41,5 +41,6 @@ public class ApiDoc {
     public static final String STUDENT_CREATE = "학생 추가";
     public static final String STUDENT_UPDATE = "학생 수정";
     public static final String STUDENT_DELETE = "학생 삭제";
+    public static final String DASHBOARD = "메인페이지 대시보드 정보 조회";
 
 }
