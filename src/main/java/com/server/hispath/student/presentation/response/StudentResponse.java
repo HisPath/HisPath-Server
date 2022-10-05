@@ -12,6 +12,7 @@ public class StudentResponse {
     private Long studentId;
     private String name;
     private int semester;
+    private String studentNum;
     private String phone;
     private String email;
     private String profile;
@@ -25,7 +26,7 @@ public class StudentResponse {
     private String readme;
 
     public static StudentResponse from (StudentDto dto) {
-        return new StudentResponse(dto.getId(), dto.getName(), dto.getSemester(), dto.getPhone(), dto.getEmail(),
+        return new StudentResponse(dto.getId(), dto.getName(), dto.getSemester(), dto.getStudentNum(), dto.getPhone(), dto.getEmail(),
                 dto.getProfile(), dto.getDepartmentDto().getId(), dto.getDepartmentDto().getName(),
                 dto.getMajor1().getName(), dto.getMajor2().getName(),
                 dto.getLoginCnt(),

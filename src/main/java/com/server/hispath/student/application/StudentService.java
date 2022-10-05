@@ -47,8 +47,11 @@ public class StudentService {
     public void createAll(List<StudentRefDto> dtos) {
         List<Student> students = dtos.stream()
                 .map(dto -> {
-                    Student student = findById(Long.valueOf(dto.getStudentNum()));
-                    return Student.from(dto);
+                    Student student = findById(Long.valueOf(dto.getId()));
+                    Department department = departmentService.findById(dto.getDepartmentId());
+                    Major major1 = majorService.findById(dto.getMajor1Id());
+                    Major major2 = majorService.findById(dto.getMajor2Id());
+                    return student.from(dto, department, major1, major2);
                 }).collect(Collectors.toList());
         studentRepository.saveAll(students);
     }
@@ -65,7 +68,6 @@ public class StudentService {
         students.stream()
                 .forEach(student -> {
                     System.out.println("student.getName() = " + student.getName());
-
                 });
         return students.stream()
                 .map(StudentDto::from)
