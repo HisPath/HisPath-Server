@@ -66,6 +66,8 @@ public class MActivityService {
                          .collect(Collectors.toList());
     }
 
+
+
     @Transactional
     public void deleteAllParticipant(Activity activity) {
         activity.getParticipants().forEach(BaseEntity::deleteContent);

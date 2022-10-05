@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.ActivityDto;
+import com.server.hispath.activity.application.dto.SemesterDto;
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
+import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.docs.ApiDoc;
 
 import org.springframework.http.ResponseEntity;
@@ -65,5 +67,15 @@ public class ActivityController {
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         activityService.delete(id);
         return ResponseEntity.ok(id);
+    }
+
+    @GetMapping("/semester")
+    @ApiOperation(value = ApiDoc.ACTIVITY_READ_SEMESTER)
+    public ResponseEntity<List<SemesterResponse>> findAllBySemester() {
+        List<SemesterDto> semesterDtos = activityService.bringSemester();
+        List<SemesterResponse> responses = semesterDtos.stream()
+                .map(SemesterResponse::from)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 }
