@@ -1,10 +1,12 @@
 package com.server.hispath.activity.application;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.ActivityDto;
+import com.server.hispath.activity.application.dto.SemesterDto;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.category.application.CategoryService;
@@ -62,5 +64,14 @@ public class ActivityService {
 
     public Activity findById(Long id) {
         return activityRepository.findById(id).orElseThrow(ActivityNotFoundException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SemesterDto> bringSemester() {
+        Optional<Activity> semesters = activityRepository.bringSemester();
+        return semesters.stream()
+                .map(SemesterDto::from)
+                .collect(Collectors.toList());
+
     }
 }
