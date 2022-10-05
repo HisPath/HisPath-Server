@@ -34,7 +34,7 @@ public class Activity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.PERSIST )
     private Category category;
 
     @NotNull
@@ -47,6 +47,8 @@ public class Activity extends BaseEntity {
     private int requestStatus;
 
     private String name;
+
+    private boolean studentRegistered = false;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime startDate;
@@ -114,5 +116,9 @@ public class Activity extends BaseEntity {
 
         this.participants.add(participant);
         student.addParticipant(participant);
+    }
+
+    public void updateStudentRegister() {
+        studentRegistered = true;
     }
 }

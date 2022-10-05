@@ -10,6 +10,7 @@ import com.server.hispath.common.BaseEntity;
 import com.server.hispath.department.domain.Department;
 import com.server.hispath.major.domain.Major;
 import com.server.hispath.student.application.dto.StudentCUDto;
+import com.server.hispath.student.application.dto.StudentDto;
 import com.server.hispath.student.application.dto.StudentRefDto;
 import com.server.hispath.student.domain.participate.Participant;
 
@@ -105,11 +106,22 @@ public class Student extends BaseEntity {
                 .name(dto.getName())
                 .build();
     }
+    public static Student from(StudentDto dto) {
+        return Student.builder()
+                      .name(dto.getName())
+                      .build();
+    }
+
     public boolean isNameMatch(String name) {
         return Objects.equals(this.name, name);
     }
 
     public void addParticipant(Participant participant) {
         this.participants.add(participant);
+    }
+
+    public void updateLogin() {
+        loginCnt++;
+        lastLoginDate = LocalDateTime.now();
     }
 }

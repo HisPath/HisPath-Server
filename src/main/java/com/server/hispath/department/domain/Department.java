@@ -40,3 +40,4 @@ public class Department extends BaseEntity {
                 .build();
     }
 }
+

@@ -1,4 +1,5 @@
 package com.server.hispath.major.application.dto;
+
 import com.server.hispath.major.domain.Major;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,4 +16,3 @@ public class MajorDto {
         return new MajorDto(major.getId(), major.getName());
     }
 }
-

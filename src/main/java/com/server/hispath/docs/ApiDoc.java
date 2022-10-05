@@ -27,6 +27,20 @@ public class ApiDoc {
     public static final String CATEGORY_UPDATE = "카테고리 수정";
     public static final String CATEGORY_DELETE = "카테고리 삭제";
 
+    public static final String SCHOLARSHIP_CREATE = "장학금 신청 등록";
+    public static final String ACTIVITY_READ_SEMESTER = "활동 학기별 조회";
+    public static final String MAJOR_CREATE = "전공 생성";
+    public static final String MAJOR_READ = "단일 전공 조회";
+    public static final String MAJOR_UPDATE = "전공 수정";
+    public static final String MAJOR_DELETE = "전공 삭제";
+
+    public static final String NOTICE_CREATE = "공지 생성";
+    public static final String NOTICE_READ_ALL = "전체 공지 조회";
+    public static final String NOTICE_READ = "단일 공지 조회";
+    public static final String NOTICE_DELETE = "공지 삭제";
+    public static final String NOTICE_UPDATE = "공지 수정";
+
+
     /* Student 관련 API 명세 */
     public static final String STUDENT_READ = "단일 학생 조회";
     public static final String STUDENT_READ_ALL = "모든 학생 조회";
@@ -41,4 +55,6 @@ public class ApiDoc {
     public static final String DEPARTMENT_CREATE = "학부 추가";
     public static final String DEPARTMENT_UPDATE = "학부 수정";
     public static final String DEPARTMENT_DELETE = "학부 삭제";
+    public static final String DASHBOARD = "메인페이지 대시보드 정보 조회";
+
 }
