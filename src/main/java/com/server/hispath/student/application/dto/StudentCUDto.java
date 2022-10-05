@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StudentCUDto {
     private Long departmentId;
-//    private Long major1Id;
-//    private Long major2Id;
+    private Long major1Id;
+    private Long major2Id;
     private String studentNum;
     private int semester;
     private String name;
@@ -24,8 +24,8 @@ public class StudentCUDto {
     private String readme;
 
     public static StudentCUDto of(StudentCURequest request) {
-        return new StudentCUDto(request.getDepartmentId(), request.getStudentNum(), request.getSemester(), request.getName(), request.getPhone(),
+        return new StudentCUDto(request.getDepartmentId(), request.getMajor1Id(), request.getMajor2Id(),
+                request.getStudentNum(), request.getSemester(), request.getName(), request.getPhone(),
                 request.getEmail(), request.getProfile(), request.getBlog(), request.getGithubId(), request.getReadme());
     }
-
 }

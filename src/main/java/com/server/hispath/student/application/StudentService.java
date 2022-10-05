@@ -4,6 +4,7 @@ import com.server.hispath.department.application.DepartmentService;
 import com.server.hispath.department.domain.Department;
 import com.server.hispath.exception.student.StudentNotFoundException;
 import com.server.hispath.major.application.MajorService;
+import com.server.hispath.major.domain.Major;
 import com.server.hispath.student.application.dto.StudentCUDto;
 import com.server.hispath.student.application.dto.StudentDto;
 import java.util.List;
@@ -36,7 +37,9 @@ public class StudentService {
     @Transactional
     public Long create(StudentCUDto dto) {
         Department department = departmentService.findById(dto.getDepartmentId());
-        Student savedStudent = studentRepository.save(Student.from(dto, department));
+        Major major1 = majorService.findById(dto.getMajor1Id());
+        Major major2 = majorService.findById(dto.getMajor2Id());
+        Student savedStudent = studentRepository.save(Student.from(dto, department, major1, major2));
         return savedStudent.getId();
     }
 
@@ -70,11 +73,12 @@ public class StudentService {
     }
 
     @Transactional
-    public StudentDto update(Long id, StudentCUDto dto) {
-        Department department = departmentService.findById(id);
+    public StudentDto update(Long id, Long departmentId, Long major1Id, Long major2Id, StudentCUDto dto) {
+        Department department = departmentService.findById(departmentId);
         Student student = studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
-//        Major major = majorService.findById(majorId);
-        student.update(department, dto);
+        Major major1 = majorService.findById(major1Id);
+        Major major2 = majorService.findById(major2Id);
+        student.update(department, major1, major2, dto);
         return StudentDto.from(student);
     }
 

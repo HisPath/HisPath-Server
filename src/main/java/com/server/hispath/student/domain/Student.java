@@ -58,7 +58,6 @@ public class Student extends BaseEntity {
 
     private String githubId;
 
-
     private LocalDateTime lastLoginDate;
 
     private String readme;
@@ -70,7 +69,7 @@ public class Student extends BaseEntity {
     private List<Participant> participants = new ArrayList<>();
 
 
-    public void update(Department department, StudentCUDto dto) {
+    public void update(Department department, Major major1, Major major2, StudentCUDto dto) {
         this.name = dto.getName();
         this.studentNum = dto.getStudentNum();
         this.semester = dto.getSemester();
@@ -78,19 +77,21 @@ public class Student extends BaseEntity {
         this.email = dto.getEmail();
         this.profile = dto.getProfile();
         this.department = department;
-//        this.major1 = major;
-//        this.major2 = major;
+        this.major1 = major1;
+        this.major2 = major2;
         this.blog = dto.getBlog();
         this.githubId = dto.getGithubId();
         this.readme = dto.getReadme();
     }
 
-    public static Student from(StudentCUDto dto, Department department) {
+    public static Student from(StudentCUDto dto, Department department, Major major1, Major major2) {
         return Student.builder()
                 .name(dto.getName())
                 .department(department)
                 .studentNum(dto.getStudentNum())
                 .semester(dto.getSemester())
+                .major1(major1)
+                .major2(major2)
                 .phone(dto.getPhone())
                 .email(dto.getEmail())
                 .profile(dto.getProfile())

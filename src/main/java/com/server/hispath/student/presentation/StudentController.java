@@ -61,7 +61,7 @@ public class StudentController {
     @PatchMapping("/student/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_UPDATE)
     public ResponseEntity<StudentResponse> update(@PathVariable Long id, @RequestBody StudentCURequest request) {
-        StudentDto dto = studentService.update(id, StudentCUDto.of(request));
+        StudentDto dto = studentService.update(id, request.getDepartmentId(), request.getMajor1Id(), request.getMajor2Id(), StudentCUDto.of(request));
         StudentResponse response = StudentResponse.from(dto);
         return ResponseEntity.ok(response);
     }
