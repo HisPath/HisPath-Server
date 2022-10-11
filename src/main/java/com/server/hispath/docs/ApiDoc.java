@@ -64,6 +64,5 @@ public class ApiDoc {
     public static final String DEPARTMENT_CREATE = "학부 추가";
     public static final String DEPARTMENT_UPDATE = "학부 수정";
     public static final String DEPARTMENT_DELETE = "학부 삭제";
-    public static final String DASHBOARD = "메인페이지 대시보드 정보 조회";
 
 }

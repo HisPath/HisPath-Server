@@ -1,19 +1,26 @@
 package com.server.hispath.student.presentation;
 
 import com.server.hispath.docs.ApiDoc;
+import com.server.hispath.notice.application.NoticeService;
+import com.server.hispath.notice.application.dto.DashboardNoticeDto;
+import com.server.hispath.notice.application.dto.NoticeDto;
 import com.server.hispath.student.application.StudentService;
 
 import com.server.hispath.student.application.dto.StudentCUDto;
 import com.server.hispath.student.application.dto.StudentDto;
 import com.server.hispath.student.presentation.request.StudentCURequest;
+import com.server.hispath.student.presentation.response.DashboardResponse;
 import com.server.hispath.student.presentation.response.StudentResponse;
 import com.server.hispath.util.ExcelManager;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -25,6 +32,7 @@ import java.util.stream.Collectors;
 public class StudentController {
 
     private final StudentService studentService;
+    private final NoticeService noticeService;
 
     @PostMapping("/student")
     @ApiOperation(value = ApiDoc.STUDENT_CREATE)
@@ -53,8 +61,8 @@ public class StudentController {
     public ResponseEntity<List<StudentResponse>> findAll() {
         List<StudentDto> dtos = studentService.findAll();
         List<StudentResponse> responses = dtos.stream()
-                .map(StudentResponse::from)
-                .collect(Collectors.toList());
+                                              .map(StudentResponse::from)
+                                              .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 
@@ -71,5 +79,13 @@ public class StudentController {
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         studentService.delete(id);
         return ResponseEntity.ok(id);
+    }
+
+    @GetMapping("/student/dashboard/{id}")
+    @ApiOperation(value = ApiDoc.DASHBOARD)
+    public ResponseEntity<DashboardResponse> getDashboardInfo(@PathVariable Long id) {
+        StudentDto studentDto = studentService.find(id);
+        List<DashboardNoticeDto> dashboardNoticeDtos = noticeService.findRecentNotice();
+        return ResponseEntity.ok(DashboardResponse.from(studentDto, dashboardNoticeDtos));
     }
 }
