@@ -22,6 +22,7 @@ import com.server.hispath.student.domain.repository.StudentRepository;
 
 import lombok.Builder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -131,6 +132,10 @@ public class TestController {
         return ResponseEntity.ok(null);
     }
 
+
+
+
+
     @GetMapping("/init/notice")
     public ResponseEntity<Void> initNotice(){
         List<Manager> l = new ArrayList<Manager>();
@@ -207,6 +212,24 @@ public class TestController {
                 .importance(true)
                 .pubDate(LocalDate.of(2022, Month.SEPTEMBER, 7))
                 .expDate(LocalDate.of(2022, Month.OCTOBER, 12))
+                .build());
+        noticeRepository.save(Notice.builder()
+                .manager(l.get(1))
+                .title("SW news for Novem")
+                .content("Is going to be FUNNN")
+                .viewCnt(0)
+                .importance(true)
+                .pubDate(LocalDate.of(2022, Month.OCTOBER, 21))
+                .expDate(LocalDate.of(2022, Month.OCTOBER, 30))
+                .build());
+        noticeRepository.save(Notice.builder()
+                .manager(l.get(6))
+                .title("SW Festival ends")
+                .content("See you next year!")
+                .viewCnt(0)
+                .importance(true)
+                .pubDate(LocalDate.of(2022, Month.NOVEMBER, 2))
+                .expDate(LocalDate.of(2022, Month.NOVEMBER, 9))
                 .build());
         return ResponseEntity.ok(null);
     }
