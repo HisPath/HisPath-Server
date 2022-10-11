@@ -11,5 +11,4 @@ public class HispathApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HispathApplication.class, args);
 	}
-
 }

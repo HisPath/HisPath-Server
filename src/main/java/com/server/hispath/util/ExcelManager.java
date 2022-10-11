@@ -1,17 +1,23 @@
 package com.server.hispath.util;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
+import com.server.hispath.department.application.dto.DepartmentDto;
 import com.server.hispath.exception.common.ExcelDataFormatException;
 import com.server.hispath.exception.common.ExcelFormatException;
 import com.server.hispath.exception.common.NotExcelExtensionException;
+import com.server.hispath.major.application.dto.MajorDto;
 import com.server.hispath.student.application.dto.StudentRefDto;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.apache.commons.io.FilenameUtils;
@@ -69,14 +75,22 @@ public class ExcelManager {
 
     public static List<StudentRefDto> getStudentDatas(Sheet worksheet) {
         List<StudentRefDto> studentRefDtos = new ArrayList<>();
-
         for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             try {
                 Row row = worksheet.getRow(i);
-                String studentNum = row.getCell(0).toString();
-                String studentName = row.getCell(1).toString();
+                String studentName = row.getCell(0).toString();
+                String str = row.getCell(1).toString();
+                int num = new BigDecimal(str).intValue();
+                String studentNum = Integer.toString(num);
+                int studentSemester = Integer.parseInt(row.getCell(2).toString().split("\\.")[0]);
+                Long departmentId = Long.parseLong(row.getCell(3).toString().split("\\.")[0]);//                int departmentId = 0;
+                Long major1Id = Long.parseLong(row.getCell(4).toString().split("\\.")[0]);
+                Long major2Id = Long.parseLong(row.getCell(5).toString().split("\\.")[0]);
 
-                studentRefDtos.add(new StudentRefDto(studentNum, studentName));
+                studentRefDtos.add(new StudentRefDto((long) i, studentName, studentNum,
+                        studentSemester, departmentId, major1Id, major2Id, "010-1234-1234", "handong@ac.kr",
+                        "url", "blog.com", "@github", "readme content"));
+
             } catch (Exception e) {
                 throw new ExcelFormatException(e.getMessage());
             }

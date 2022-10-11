@@ -16,4 +16,8 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
             "left join fetch p.student " +
             "where a.id = :id" )
     Optional<Activity> findActivityWithStudents(Long id);
+
+    @Query("select distinct semester from Activity")
+    Optional<Activity> bringSemester();
+
 }

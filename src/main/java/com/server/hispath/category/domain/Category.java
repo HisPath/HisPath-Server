@@ -33,7 +33,6 @@ public class Category extends BaseEntity {
     @OneToMany(mappedBy = "category")
     private List<Activity> activities = new ArrayList<>();
 
-
     public void update(CategoryCUDto dto) {
         this.name = dto.getName();
     }
