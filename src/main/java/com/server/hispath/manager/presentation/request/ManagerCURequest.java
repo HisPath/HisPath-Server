@@ -8,5 +8,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ManagerCURequest {
+
     private String name;
+    private int power;
+    private String email;
+    private String department;
+
 }
