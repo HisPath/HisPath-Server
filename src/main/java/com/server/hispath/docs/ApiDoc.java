@@ -65,4 +65,5 @@ public class ApiDoc {
     public static final String DEPARTMENT_UPDATE = "학부 수정";
     public static final String DEPARTMENT_DELETE = "학부 삭제";
 
+
 }
