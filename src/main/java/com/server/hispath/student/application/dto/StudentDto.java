@@ -16,6 +16,7 @@ public class StudentDto {
     private Long id;
     private String name;
     private int semester;
+    private String studentNum;
     private String phone;
     private String email;
     private String profile;
@@ -28,7 +29,7 @@ public class StudentDto {
     private String readme;
 
     public static StudentDto from (Student student) {
-        return new StudentDto(student.getId(), student.getName(), student.getSemester(), student.getPhone(),
+        return new StudentDto(student.getId(), student.getName(), student.getSemester(),  student.getStudentNum(), student.getPhone(),
                 student.getEmail(), student.getProfile(), DepartmentDto.from(student.getDepartment()),
                 MajorDto.from(student.getMajor1()), MajorDto.from(student.getMajor2()),
                 student.getLoginCnt(), student.getBlog(), student.getGithubId(), student.getReadme());

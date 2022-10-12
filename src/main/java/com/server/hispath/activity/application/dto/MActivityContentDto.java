@@ -18,7 +18,6 @@ public class MActivityContentDto {
     private String remark;
     private int weight;
 
-
     public static MActivityContentDto of(MActivityCURequest request) {
         return new MActivityContentDto(request.getCategoryId(), request.getSemester(), request.getName(),
                 request.getRemark(), request.getWeight());

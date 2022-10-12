@@ -22,8 +22,6 @@ public class ActivityContentDto {
     private String remark;
     private int weight;
 
-
-
     public static ActivityContentDto from(ActivityCURequest request) {
         return new ActivityContentDto(request.getSemester(), request.isPersonal(), request.getRequestStatus(),
                 request.getName(), request.getRemark(), request.getWeight());

@@ -23,7 +23,6 @@ public class MActivityDetailDto {
     private CategoryDto category;
     private String semester;
     private String remark;
-
     private int weight;
     private List<StudentRefDetailDto> students = new ArrayList<>();
 

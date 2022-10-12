@@ -23,7 +23,6 @@ public class ActivityResponse {
     private int weight;
     private boolean studentRegistered;
 
-
     public static ActivityResponse from(ActivityDto dto) {
         return new ActivityResponse(dto.getId(), dto.getCategoryDto().getId(), dto.getCategoryDto().getName(),
                 dto.getSemester(), dto.isPersonal(), dto.getName(), dto.getRemark(), dto.getWeight(),

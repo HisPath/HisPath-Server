@@ -2,6 +2,7 @@ package com.server.hispath.manager.application.dto;
 
 import com.server.hispath.manager.domain.Manager;
 import com.server.hispath.notice.domain.Notice;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,12 @@ public class ManagerDto {
     private String name;
     private String email;
     private String department;
+    private int power;
+    private boolean approved;
 
-    public static ManagerDto from (Manager manager){
-        return new ManagerDto(manager.getId(), manager.getName(),
-                manager.getEmail(), manager.getDepartment());
+    public static ManagerDto of(Manager manager) {
+        return new ManagerDto(manager.getId(), manager.getName(), manager.getEmail(),
+                manager.getDepartment(), manager.getPower(), manager.isApproved());
     }
 
 

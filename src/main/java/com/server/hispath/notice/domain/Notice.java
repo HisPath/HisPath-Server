@@ -60,7 +60,6 @@ public class Notice extends BaseEntity {
                 .build();
     }
 
-    // dto와 manager를 받아서 notice로 병합
     public void update(Manager manager, NoticeContentDto dto) {
         this.manager = manager;
         this.title = dto.getTitle();

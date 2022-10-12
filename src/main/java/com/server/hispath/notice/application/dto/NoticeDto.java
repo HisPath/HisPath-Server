@@ -27,7 +27,7 @@ public class NoticeDto{
     private LocalDate expDate;
 
     public static NoticeDto from(Notice notice) {
-        return new NoticeDto(notice.getId(), ManagerDto.from(notice.getManager()), notice.getTitle(),
+        return new NoticeDto(notice.getId(), ManagerDto.of(notice.getManager()), notice.getTitle(),
                 notice.getContent(), notice.getViewCnt(), notice.isImportance(), notice.getPubDate(), notice.getExpDate());
     }
 }

@@ -12,7 +12,6 @@ import com.server.hispath.major.domain.Major;
 import com.server.hispath.student.application.dto.StudentCUDto;
 import com.server.hispath.student.application.dto.StudentDto;
 import com.server.hispath.student.application.dto.StudentRefDto;
-import com.server.hispath.student.domain.participate.Participant;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -102,9 +101,21 @@ public class Student extends BaseEntity {
                 .build();
     }
 
-    public static Student from(StudentRefDto dto) {
+    public static Student from(StudentRefDto dto, Department department, Major major1, Major major2) {
         return Student.builder()
                 .name(dto.getName())
+                .studentNum(dto.getStudentNum())
+                .semester(dto.getSemester())
+                .department(department)
+                .major1(major1)
+                .major2(major2)
+                .phone(dto.getPhone())
+                .email(dto.getEmail())
+                .profile(dto.getProfile())
+                .blog(dto.getBlog())
+                .githubId(dto.getGithubId())
+                .loginCnt(0L)
+                .readme(dto.getReadme())
                 .build();
     }
     public static Student from(StudentDto dto) {
