@@ -6,11 +6,13 @@ import javax.persistence.*;
 
 import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
+import com.server.hispath.activity.application.dto.ParticipantContentDto;
+import com.server.hispath.activity.application.dto.StudentActivityContentDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.common.BaseEntity;
+import com.server.hispath.student.domain.Participant;
 import com.server.hispath.student.domain.Section;
 import com.server.hispath.student.domain.Student;
-import com.server.hispath.student.domain.Participant;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -33,7 +35,7 @@ public class Activity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY , cascade = CascadeType.PERSIST )
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Category category;
 
     @NotNull
@@ -78,6 +80,18 @@ public class Activity extends BaseEntity {
                        .build();
     }
 
+    public static Activity from(StudentActivityContentDto dto, Category category) {
+        return Activity.builder()
+                       .category(category)
+                       .semester(dto.getSemester())
+                       .remark(dto.getRemark())
+                       .personal(true)
+                       .requestStatus(0)
+                       .name(dto.getName())
+                       .weight(0)
+                       .build();
+    }
+
     public void update(Category category, ActivityContentDto dto) {
         this.category = category;
         this.semester = dto.getSemester();
@@ -98,7 +112,15 @@ public class Activity extends BaseEntity {
 
     public void addParticipant(Student student, Section section) {
         Participant participant = new Participant(student, this, section);
+        this.connectParticipant(student, participant);
+    }
 
+    public void addParticipant(Student student, ParticipantContentDto participantContentDto) {
+        Participant participant = new Participant(student, this, participantContentDto);
+        this.connectParticipant(student, participant);
+    }
+
+    private void connectParticipant(Student student, Participant participant) {
         this.participants.add(participant);
         student.addParticipant(participant);
     }

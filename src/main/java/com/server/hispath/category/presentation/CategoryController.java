@@ -51,7 +51,7 @@ public class CategoryController {
         return ResponseEntity.ok(responses);
     }
 
-    @PatchMapping("/category/{id}")
+    @PutMapping("/category/{id}")
     @ApiOperation(value = ApiDoc.CATEGORY_UPDATE)
     public ResponseEntity<CategoryResponse> update(@PathVariable Long id, @RequestBody CategoryCURequest request) {
         CategoryContentDto dto = categoryService.update(id, CategoryCUDto.of(request));

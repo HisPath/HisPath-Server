@@ -46,7 +46,7 @@ public class MActivityController {
         return ResponseEntity.ok(null);
     }
 
-    @PatchMapping("/mileage/{id}")
+    @PutMapping("/mileage/{id}")
     @ApiOperation(value = ApiDoc.MILEAGE_UPDATE)
     public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @RequestBody MActivityCURequest request) {
         ActivityDto dto = mActivityService.update(id, MActivityContentDto.of(request));

@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
-import com.server.hispath.activity.application.dto.ActivityContentDto;
-import com.server.hispath.activity.application.dto.ActivityDto;
-import com.server.hispath.activity.application.dto.SemesterDto;
+import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
+import com.server.hispath.activity.presentation.request.StudentActivityCURequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.docs.ApiDoc;
@@ -56,7 +55,7 @@ public class ActivityController {
 
     }
 
-    @PatchMapping("/activity/{id}")
+    @PutMapping("/activity/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_UPDATE)
     public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @RequestBody ActivityCURequest request) {
         ActivityDto dto = activityService.update(id, request.getCategoryId(), ActivityContentDto.from(request));
@@ -89,5 +88,12 @@ public class ActivityController {
                                       .map(Section::getName)
                                       .collect(Collectors.toList());
         return ResponseEntity.ok(sections);
+    }
+
+    @PostMapping("/student-activity/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_CREATE)
+    public ResponseEntity<Long> createStudentActivity(@PathVariable Long id, @RequestBody StudentActivityCURequest request) {
+        Long response = activityService.createStudentActivity(id, StudentActivityContentDto.of(request), ParticipantContentDto.of(request));
+        return ResponseEntity.ok(response);
     }
 }
