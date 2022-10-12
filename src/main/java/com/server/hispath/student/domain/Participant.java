@@ -1,10 +1,11 @@
 package com.server.hispath.student.domain;
 
+import java.util.Objects;
 import javax.persistence.*;
 
+import com.server.hispath.activity.application.dto.ParticipantContentDto;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.common.BaseEntity;
-import com.server.hispath.student.domain.Student;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,5 +38,27 @@ public class Participant extends BaseEntity {
         this.student = student;
         this.activity = activity;
         this.section = section;
+        this.data = "";
+    }
+
+    public Participant(Student student, Activity activity, ParticipantContentDto dto) {
+        this.student = student;
+        this.activity = activity;
+        this.section = dto.getSection();
+        this.data = dto.getData();
+    }
+
+    public boolean isSameSemester(String semester){
+        if(Objects.equals(semester, "All")) return true;
+        return activity.isSameSemester(semester);
+    }
+
+    public boolean isSameStudent(Student student){
+        return Objects.equals(this.student, student);
+    }
+
+    public void update(ParticipantContentDto participantContentDto){
+        this.section = participantContentDto.getSection();
+        this.data = participantContentDto.getData();
     }
 }

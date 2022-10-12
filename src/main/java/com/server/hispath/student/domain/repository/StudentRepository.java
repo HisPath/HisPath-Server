@@ -17,4 +17,10 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             "where a.id = :id" )
     Optional<Student> findActivitiesByStudent(Long id);
     Optional<Student> findByEmail(String email);
+
+    @Query("select s from Student s " +
+            "left join fetch s.participants as p " +
+            "left join fetch p.activity as a "  +
+            "where s.id = :id ")
+    Optional<Student> findStudentWithActivities(Long id);
 }

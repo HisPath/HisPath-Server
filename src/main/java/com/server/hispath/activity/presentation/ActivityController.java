@@ -1,18 +1,23 @@
 package com.server.hispath.activity.presentation;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
+import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.application.MActivityService;
 import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.ActivityDto;
 import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
 import com.server.hispath.activity.application.dto.SemesterDto;
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
+import com.server.hispath.activity.presentation.request.StudentActivityCURequest;
+import com.server.hispath.activity.presentation.response.ActivityParticipantResponse;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.docs.ApiDoc;
+import com.server.hispath.student.domain.Section;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +62,7 @@ public class ActivityController {
 
     }
 
-    @PatchMapping("/activity/{id}")
+    @PutMapping("/activity/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_UPDATE)
     public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @RequestBody ActivityCURequest request) {
         ActivityDto dto = activityService.update(id, request.getCategoryId(), ActivityContentDto.from(request));
@@ -73,8 +78,6 @@ public class ActivityController {
         return ResponseEntity.ok(id);
     }
 
-
-
     @GetMapping("/semester")
     @ApiOperation(value = ApiDoc.ACTIVITY_READ_SEMESTER)
     public ResponseEntity<List<SemesterResponse>> findAllBySemester() {
@@ -82,6 +85,39 @@ public class ActivityController {
         List<SemesterResponse> responses = semesterDtos.stream()
                 .map(SemesterResponse::from)
                 .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/sections")
+    @ApiOperation(value = ApiDoc.SECTION_READ_ALL)
+    public ResponseEntity<List<String>> getSections() {
+        List<String> sections = Arrays.stream(Section.values())
+                                      .map(Section::getName)
+                                      .collect(Collectors.toList());
+        return ResponseEntity.ok(sections);
+    }
+
+    @PostMapping("/student-activity/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_CREATE)
+    public ResponseEntity<Long> createStudentActivity(@PathVariable Long id, @RequestBody StudentActivityCURequest request) {
+        Long response = activityService.createStudentActivity(id, StudentActivityContentDto.of(request), ParticipantContentDto.of(request));
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/student-activity/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_UPDATE)
+    public ResponseEntity<ActivityParticipantResponse> updateStudentActivity(@PathVariable Long id, @RequestBody StudentActivityCURequest request) {
+        ActivityParticipantDto activityParticipantDto = activityService.updateStudentActivity(id, 1L, StudentActivityContentDto.of(request), ParticipantContentDto.of(request));
+        return ResponseEntity.ok(ActivityParticipantResponse.of(activityParticipantDto));
+    }
+
+    @GetMapping("/student-activities/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_SEMESTER)
+    public ResponseEntity<List<ActivityParticipantResponse>> findParticipatedActivities(@PathVariable Long id, @RequestParam String semester) {
+        List<ActivityParticipantResponse> responses = activityService.findAllParticipantActivites(id, semester)
+                                                                     .stream()
+                                                                     .map(ActivityParticipantResponse::of)
+                                                                     .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 

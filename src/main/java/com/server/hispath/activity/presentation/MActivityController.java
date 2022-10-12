@@ -8,9 +8,11 @@ import com.server.hispath.activity.application.MActivityService;
 import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
 import com.server.hispath.activity.presentation.request.MParticipantRequest;
+import com.server.hispath.activity.presentation.request.MStudentRegisterRequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.student.application.StudentService;
+import com.server.hispath.student.application.dto.StudentSimpleRefDto;
 import com.server.hispath.util.ExcelManager;
 
 import org.springframework.http.ResponseEntity;
@@ -44,7 +46,7 @@ public class MActivityController {
         return ResponseEntity.ok(null);
     }
 
-    @PatchMapping("/mileage/{id}")
+    @PutMapping("/mileage/{id}")
     @ApiOperation(value = ApiDoc.MILEAGE_UPDATE)
     public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @RequestBody MActivityCURequest request) {
         ActivityDto dto = mActivityService.update(id, MActivityContentDto.of(request));
@@ -70,6 +72,16 @@ public class MActivityController {
         return ResponseEntity.ok(responses);
     }
 
+    @GetMapping("/mileages")
+    @ApiOperation(value = ApiDoc.MILEAGE_READ_ALL)
+    public ResponseEntity<List<ActivityResponse>> findAll() {
+        List<ActivityResponse> responses = mActivityService.findAll()
+                                                           .stream()
+                                                           .map(ActivityResponse::from)
+                                                           .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
+
     @PostMapping("/mileage/students")
     @ApiOperation(value = ApiDoc.MILEAGE_REGISTER_STUDENTS)
     public ResponseEntity<Void> registerStudents(@RequestPart(value = "file", required = false) MultipartFile file,
@@ -77,6 +89,14 @@ public class MActivityController {
 
         studentService.registerParticipants(activityId, ExcelManager.getStudentSimpleDatas(ExcelManager.extract(file)));
 
+        return ResponseEntity.ok(null);
+    }
+
+    @PostMapping("/mileage/student")
+    @ApiOperation(value = ApiDoc.MILEAGE_REGISTER_STUDENT)
+    public ResponseEntity<Void> registerStudent(@RequestBody MStudentRegisterRequest request) {
+
+        studentService.registerParticipant(request.getActivityId(), StudentSimpleRefDto.of(request));
         return ResponseEntity.ok(null);
     }
 

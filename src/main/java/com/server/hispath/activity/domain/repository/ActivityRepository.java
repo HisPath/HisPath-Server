@@ -14,12 +14,16 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     @Query("select a from Activity a " +
             "left join fetch a.participants as p " +
             "left join fetch p.student " +
-            "where a.id = :id" )
+            "where a.id = :id")
     Optional<Activity> findActivityWithStudents(Long id);
 
 
 
     @Query("select distinct semester from Activity")
     List<String> bringSemester();
+
+    List<Activity> findAllBySemesterAndRequestStatus(String semester, int requestStatus);
+
+    List<Activity> findAllByRequestStatus(int requestStatus);
 
 }
