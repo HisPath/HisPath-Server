@@ -13,6 +13,7 @@ import com.server.hispath.activity.application.MActivityService;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.exception.student.StudentDataNotMatchException;
 import com.server.hispath.student.application.dto.StudentRefDto;
+import com.server.hispath.student.domain.Section;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
 
@@ -103,7 +104,7 @@ public class StudentService {
             if (!student.isNameMatch(dto.getName())) {
                 throw new StudentDataNotMatchException(dto.getStudentNum(), dto.getName());
             }
-            activity.addParticipant(student);
+            activity.addParticipant(student, Section.ETC);
         });
         activity.updateStudentRegister();
     }

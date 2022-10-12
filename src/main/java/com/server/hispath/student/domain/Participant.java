@@ -33,8 +33,9 @@ public class Participant extends BaseEntity {
 
     String data;
 
-    public Participant(Student student, Activity activity) {
+    public Participant(Student student, Activity activity, Section section) {
         this.student = student;
         this.activity = activity;
+        this.section = section;
     }
 }

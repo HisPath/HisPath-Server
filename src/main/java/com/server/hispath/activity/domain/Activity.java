@@ -8,6 +8,7 @@ import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.common.BaseEntity;
+import com.server.hispath.student.domain.Section;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.Participant;
 import com.sun.istack.NotNull;
@@ -95,8 +96,8 @@ public class Activity extends BaseEntity {
         this.weight = dto.getWeight();
     }
 
-    public void addParticipant(Student student) {
-        Participant participant = new Participant(student, this);
+    public void addParticipant(Student student, Section section) {
+        Participant participant = new Participant(student, this, section);
 
         this.participants.add(participant);
         student.addParticipant(participant);
