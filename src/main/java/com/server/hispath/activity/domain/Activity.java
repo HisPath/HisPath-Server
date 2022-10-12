@@ -11,6 +11,7 @@ import com.server.hispath.activity.application.dto.ParticipantContentDto;
 import com.server.hispath.activity.application.dto.StudentActivityContentDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.common.BaseEntity;
+import com.server.hispath.exception.activity.ParticipantNotFoundException;
 import com.server.hispath.student.domain.Participant;
 import com.server.hispath.student.domain.Section;
 import com.server.hispath.student.domain.Student;
@@ -112,6 +113,12 @@ public class Activity extends BaseEntity {
         this.weight = dto.getWeight();
     }
 
+    public void update(StudentActivityContentDto dto) {
+        this.semester = dto.getSemester();
+        this.name = dto.getName();
+        this.remark = dto.getRemark();
+    }
+
     public void addParticipant(Student student, Section section) {
         Participant participant = new Participant(student, this, section);
         this.connectParticipant(student, participant);
@@ -131,7 +138,7 @@ public class Activity extends BaseEntity {
         studentRegistered = true;
     }
 
-    public boolean isSameSemester(String semester){
+    public boolean isSameSemester(String semester) {
         return Objects.equals(this.semester, semester);
     }
 }

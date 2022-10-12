@@ -97,6 +97,13 @@ public class ActivityController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/student-activity/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_UPDATE)
+    public ResponseEntity<ActivityParticipantResponse> updateStudentActivity(@PathVariable Long id, @RequestBody StudentActivityCURequest request) {
+        ActivityParticipantDto activityParticipantDto = activityService.updateStudentActivity(id, 1L, StudentActivityContentDto.of(request), ParticipantContentDto.of(request));
+        return ResponseEntity.ok(ActivityParticipantResponse.of(activityParticipantDto));
+    }
+
     @GetMapping("/student-activities/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_SEMESTER)
     public ResponseEntity<List<ActivityParticipantResponse>> findParticipatedActivities(@PathVariable Long id, @RequestParam String semester) {

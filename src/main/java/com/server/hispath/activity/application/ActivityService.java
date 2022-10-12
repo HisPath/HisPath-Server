@@ -11,6 +11,7 @@ import com.server.hispath.category.application.CategoryService;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.category.domain.repository.CategoryRepository;
 import com.server.hispath.exception.activity.ActivityNotFoundException;
+import com.server.hispath.exception.activity.ParticipantNotFoundException;
 import com.server.hispath.exception.student.StudentNotFoundException;
 import com.server.hispath.student.domain.Participant;
 import com.server.hispath.student.domain.Student;
@@ -90,6 +91,23 @@ public class ActivityService {
         Activity activity = Activity.from(activityContentDto, category);
         activity.addParticipant(student, participantContentDto);
         return activityRepository.save(activity).getId();
+    }
+
+    @Transactional
+    public ActivityParticipantDto updateStudentActivity(Long activityId, Long studentId,
+                                                        StudentActivityContentDto activityContentDto,
+                                                        ParticipantContentDto participantContentDto) {
+
+        Activity activity = this.findById(activityId);
+        activity.update(activityContentDto);
+        Student student = studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
+        Participant updatedParticipant = activity.getParticipants()
+                                                 .stream()
+                                                 .filter(participant -> participant.isSameStudent(student))
+                                                 .findFirst()
+                                                 .orElseThrow(ParticipantNotFoundException::new);
+        updatedParticipant.update(participantContentDto);
+        return ActivityParticipantDto.of(updatedParticipant);
     }
 
     @Transactional(readOnly = true)

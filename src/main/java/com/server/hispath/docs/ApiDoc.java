@@ -22,7 +22,7 @@ public class ApiDoc {
     public static final String ACTIVITY_STUDENT_DELETE = "마일리지 활동 학생 참가 정보 삭제";
     public static final String MILEAGE_READ = "단일 마일리지 활동 조회";
     public static final String STUDENT_ACTIVITY_CREATE = "학생의 개인 활동 생성";
-    public static final String STUDENT_ACTIVITY_READ_ALL = "학생의 모든 참여 활동 조회";
+    public static final String STUDENT_ACTIVITY_UPDATE = "학생의 참여 활동 수정";
     public static final String STUDENT_ACTIVITY_READ_SEMESTER = "학생의 참여 활동 학기별 조회";
     public static final String SECTION_READ_ALL = "모든 섹션 조회";
     public static final String PARTICIPANT_UPDATE = "학생 참여 데이터 수정";

@@ -52,4 +52,13 @@ public class Participant extends BaseEntity {
         if(Objects.equals(semester, "All")) return true;
         return activity.isSameSemester(semester);
     }
+
+    public boolean isSameStudent(Student student){
+        return Objects.equals(this.student, student);
+    }
+
+    public void update(ParticipantContentDto participantContentDto){
+        this.section = participantContentDto.getSection();
+        this.data = participantContentDto.getData();
+    }
 }
