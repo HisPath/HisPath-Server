@@ -1,5 +1,6 @@
 package com.server.hispath.activity.presentation;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,10 +12,12 @@ import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.docs.ApiDoc;
+import com.server.hispath.student.domain.Section;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import lombok.RequiredArgsConstructor;
@@ -74,8 +77,17 @@ public class ActivityController {
     public ResponseEntity<List<SemesterResponse>> findAllBySemester() {
         List<SemesterDto> semesterDtos = activityService.bringSemester();
         List<SemesterResponse> responses = semesterDtos.stream()
-                .map(SemesterResponse::from)
-                .collect(Collectors.toList());
+                                                       .map(SemesterResponse::from)
+                                                       .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/sections")
+    @ApiOperation(value = ApiDoc.SECTION_READ_ALL)
+    public ResponseEntity<List<String>> getSections() {
+        List<String> sections = Arrays.stream(Section.values())
+                                      .map(Section::getName)
+                                      .collect(Collectors.toList());
+        return ResponseEntity.ok(sections);
     }
 }

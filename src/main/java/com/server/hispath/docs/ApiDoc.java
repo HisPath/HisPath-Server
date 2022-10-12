@@ -20,6 +20,11 @@ public class ApiDoc {
     public static final String MILEAGE_REGISTER_STUDENTS = "마일리지 활동 참가 학생 엑셀 등록";
     public static final String ACTIVITY_STUDENT_DELETE = "마일리지 활동 학생 참가 정보 삭제";
     public static final String MILEAGE_READ = "단일 마일리지 활동 조회";
+    public static final String STUDENT_ACTIVITY_CREATE = "학생의 개인 활동 생성";
+    public static final String STUDENT_ACTIVITY_READ = "학생의 참여 활동 조회";
+    public static final String STUDENT_ACTIVITY_READ_SEMESTER = "학생의 참여 활동 학기별 조회";
+    public static final String SECTION_READ_ALL = "모든 섹션 조회";
+    public static final String PARTICIPANT_UPDATE = "학생 참여 데이터 수정";
     /* Category 관련 API 명세 */
     public static final String CATEGORY_READ = "단일 카테고리 조회";
     public static final String CATEGORY_READ_ALL = "모든 카테고리 조회";
