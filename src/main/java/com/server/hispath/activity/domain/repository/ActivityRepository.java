@@ -23,4 +23,5 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findAllBySemesterAndRequestStatus(String semester, int requestStatus);
 
     List<Activity> findAllByRequestStatus(int requestStatus);
+
 }

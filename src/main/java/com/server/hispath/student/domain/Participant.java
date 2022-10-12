@@ -1,5 +1,6 @@
 package com.server.hispath.student.domain;
 
+import java.util.Objects;
 import javax.persistence.*;
 
 import com.server.hispath.activity.application.dto.ParticipantContentDto;
@@ -37,6 +38,7 @@ public class Participant extends BaseEntity {
         this.student = student;
         this.activity = activity;
         this.section = section;
+        this.data = "";
     }
 
     public Participant(Student student, Activity activity, ParticipantContentDto dto) {
@@ -44,5 +46,10 @@ public class Participant extends BaseEntity {
         this.activity = activity;
         this.section = dto.getSection();
         this.data = dto.getData();
+    }
+
+    public boolean isSameSemester(String semester){
+        if(Objects.equals(semester, "All")) return true;
+        return activity.isSameSemester(semester);
     }
 }

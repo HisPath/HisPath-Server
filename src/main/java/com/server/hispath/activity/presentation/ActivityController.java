@@ -8,6 +8,7 @@ import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.request.StudentActivityCURequest;
+import com.server.hispath.activity.presentation.response.ActivityParticipantResponse;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.docs.ApiDoc;
@@ -16,7 +17,6 @@ import com.server.hispath.student.domain.Section;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import lombok.RequiredArgsConstructor;
@@ -95,5 +95,15 @@ public class ActivityController {
     public ResponseEntity<Long> createStudentActivity(@PathVariable Long id, @RequestBody StudentActivityCURequest request) {
         Long response = activityService.createStudentActivity(id, StudentActivityContentDto.of(request), ParticipantContentDto.of(request));
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/student-activities/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_SEMESTER)
+    public ResponseEntity<List<ActivityParticipantResponse>> findParticipatedActivities(@PathVariable Long id, @RequestParam String semester) {
+        List<ActivityParticipantResponse> responses = activityService.findAllParticipantActivites(id, semester)
+                                                                     .stream()
+                                                                     .map(ActivityParticipantResponse::of)
+                                                                     .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 }

@@ -2,6 +2,7 @@ package com.server.hispath.activity.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.*;
 
 import com.server.hispath.activity.application.dto.ActivityContentDto;
@@ -128,5 +129,9 @@ public class Activity extends BaseEntity {
 
     public void updateStudentRegister() {
         studentRegistered = true;
+    }
+
+    public boolean isSameSemester(String semester){
+        return Objects.equals(this.semester, semester);
     }
 }

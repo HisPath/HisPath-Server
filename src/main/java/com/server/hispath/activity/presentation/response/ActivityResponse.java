@@ -1,8 +1,5 @@
 package com.server.hispath.activity.presentation.response;
 
-import java.time.LocalDateTime;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.server.hispath.activity.application.dto.ActivityDto;
 
 import lombok.AllArgsConstructor;
