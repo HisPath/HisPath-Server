@@ -102,12 +102,24 @@ public class StudentService {
         studentRefDtos.forEach(dto -> {
             Student student = studentRepository.findByStudentNum(dto.getStudentNum())
                     .orElseThrow(StudentNotFoundException::new);
-            if (!student.isNameMatch(dto.getName())) {
-                throw new StudentDataNotMatchException(dto.getStudentNum(), dto.getName());
-            }
+            validateStudent(student, dto);
             activity.addParticipant(student, Section.ETC);
         });
         activity.updateStudentRegister();
     }
 
+    @Transactional
+    public void registerParticipant(Long activityId, StudentSimpleRefDto dto){
+        Activity activity = activityService.findById(activityId);
+        Student student = studentRepository.findByStudentNum(dto.getStudentNum())
+                                           .orElseThrow(StudentNotFoundException::new);
+        validateStudent(student, dto);
+        activity.addParticipant(student, Section.ETC);
+    }
+
+    private void validateStudent(Student student, StudentSimpleRefDto dto){
+        if (!student.isNameMatch(dto.getName())) {
+            throw new StudentDataNotMatchException(dto.getStudentNum(), dto.getName());
+        }
+    }
 }
