@@ -72,6 +72,16 @@ public class MActivityController {
         return ResponseEntity.ok(responses);
     }
 
+    @GetMapping("/mileages")
+    @ApiOperation(value = ApiDoc.MILEAGE_READ_ALL)
+    public ResponseEntity<List<ActivityResponse>> findAll() {
+        List<ActivityResponse> responses = mActivityService.findAll()
+                                                           .stream()
+                                                           .map(ActivityResponse::from)
+                                                           .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
+
     @PostMapping("/mileage/students")
     @ApiOperation(value = ApiDoc.MILEAGE_REGISTER_STUDENTS)
     public ResponseEntity<Void> registerStudents(@RequestPart(value = "file", required = false) MultipartFile file,

@@ -60,13 +60,19 @@ public class MActivityService {
 
     @Transactional(readOnly = true)
     public List<ActivityDto> findAllBySemester(String semester) {
-        List<Activity> activities = activityRepository.findAllBySemester(semester);
+        List<Activity> activities = activityRepository.findAllBySemesterAndRequestStatus(semester, 1);
         return activities.stream()
                          .map(ActivityDto::from)
                          .collect(Collectors.toList());
     }
 
-
+    @Transactional(readOnly = true)
+    public List<ActivityDto> findAll() {
+        List<Activity> activities = activityRepository.findAllByRequestStatus(1);
+        return activities.stream()
+                         .map(ActivityDto::from)
+                         .collect(Collectors.toList());
+    }
 
     @Transactional
     public void deleteAllParticipant(Activity activity) {
