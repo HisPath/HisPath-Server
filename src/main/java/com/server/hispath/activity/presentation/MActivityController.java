@@ -5,9 +5,7 @@ import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.MActivityService;
-import com.server.hispath.activity.application.dto.ActivityDto;
-import com.server.hispath.activity.application.dto.MActivityContentDto;
-import com.server.hispath.activity.application.dto.MActivityDetailDto;
+import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
 import com.server.hispath.activity.presentation.request.MParticipantRequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
@@ -87,7 +85,7 @@ public class MActivityController {
     public ResponseEntity<Void> registerStudents(@RequestPart(value = "file", required = false) MultipartFile file,
                                                  @RequestPart(value = "activityId") Long activityId) throws Exception {
 
-        studentService.registerParticipants(activityId, ExcelManager.getStudentDatas(ExcelManager.extract(file)));
+        studentService.registerParticipants(activityId, ExcelManager.getStudentSimpleDatas(ExcelManager.extract(file)));
 
         return ResponseEntity.ok(null);
     }
@@ -112,4 +110,13 @@ public class MActivityController {
     public ResponseEntity<MActivityDetailDto> findMileageActivityById(@PathVariable Long id) {
         return ResponseEntity.ok(mActivityService.findDetailActivityInfo(id));
     }
+
+    @GetMapping("/studentmileage/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_MILEAGE_READ)
+    public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
+        return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
+    }
+
+
+
 }

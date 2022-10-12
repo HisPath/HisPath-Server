@@ -17,8 +17,10 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
             "where a.id = :id")
     Optional<Activity> findActivityWithStudents(Long id);
 
+
+
     @Query("select distinct semester from Activity")
-    Optional<Activity> bringSemester();
+    List<String> bringSemester();
 
     List<Activity> findAllBySemesterAndRequestStatus(String semester, int requestStatus);
 

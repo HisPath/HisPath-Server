@@ -74,7 +74,7 @@ public class ActivityService {
 
     @Transactional(readOnly = true)
     public List<SemesterDto> bringSemester() {
-        Optional<Activity> semesters = activityRepository.bringSemester();
+        List<String> semesters = activityRepository.bringSemester();
         return semesters.stream()
                         .map(SemesterDto::from)
                         .collect(Collectors.toList());

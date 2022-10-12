@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.dto.*;
+import com.server.hispath.activity.application.MActivityService;
+import com.server.hispath.activity.application.dto.ActivityContentDto;
+import com.server.hispath.activity.application.dto.ActivityDto;
+import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
+import com.server.hispath.activity.application.dto.SemesterDto;
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.request.StudentActivityCURequest;
 import com.server.hispath.activity.presentation.response.ActivityParticipantResponse;
@@ -26,6 +31,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 public class ActivityController {
     private final ActivityService activityService;
+
+    private final MActivityService mActivityService;
 
     @PostMapping("/activity")
     @ApiOperation(value = ApiDoc.ACTIVITY_CREATE)
@@ -76,8 +83,8 @@ public class ActivityController {
     public ResponseEntity<List<SemesterResponse>> findAllBySemester() {
         List<SemesterDto> semesterDtos = activityService.bringSemester();
         List<SemesterResponse> responses = semesterDtos.stream()
-                                                       .map(SemesterResponse::from)
-                                                       .collect(Collectors.toList());
+                .map(SemesterResponse::from)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 
@@ -112,5 +119,11 @@ public class ActivityController {
                                                                      .map(ActivityParticipantResponse::of)
                                                                      .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/studentactivity/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_MILEAGE_READ)
+    public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
+        return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
     }
 }
