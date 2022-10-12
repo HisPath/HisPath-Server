@@ -92,6 +92,14 @@ public class MActivityController {
         return ResponseEntity.ok(null);
     }
 
+    @PostMapping("/mileage/student")
+    @ApiOperation(value = ApiDoc.MILEAGE_REGISTER_STUDENT)
+    public ResponseEntity<Void> registerStudent() throws Exception {
+        
+
+        return ResponseEntity.ok(null);
+    }
+
     @DeleteMapping("/mileage/student")
     @ApiOperation(value = ApiDoc.ACTIVITY_STUDENT_DELETE)
     public ResponseEntity<Void> deleteParticipant(@RequestBody MParticipantRequest request) {
