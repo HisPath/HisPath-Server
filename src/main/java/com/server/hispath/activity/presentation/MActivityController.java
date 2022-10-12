@@ -75,7 +75,7 @@ public class MActivityController {
     public ResponseEntity<Void> registerStudents(@RequestPart(value = "file", required = false) MultipartFile file,
                                                  @RequestPart(value = "activityId") Long activityId) throws Exception {
 
-        studentService.registerParticipants(activityId, ExcelManager.getStudentDatas(ExcelManager.extract(file)));
+        studentService.registerParticipants(activityId, ExcelManager.getStudentSimpleDatas(ExcelManager.extract(file)));
 
         return ResponseEntity.ok(null);
     }

@@ -11,6 +11,7 @@ import com.server.hispath.exception.common.ExcelDataFormatException;
 import com.server.hispath.exception.common.ExcelFormatException;
 import com.server.hispath.exception.common.NotExcelExtensionException;
 import com.server.hispath.student.application.dto.StudentRefDto;
+import com.server.hispath.student.application.dto.StudentSimpleRefDto;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,6 +62,23 @@ public class ExcelManager {
 
         }
         return mActivityContentDtos;
+    }
+
+    public static List<StudentSimpleRefDto> getStudentSimpleDatas(Sheet worksheet){
+        List<StudentSimpleRefDto> studentRefDtos = new ArrayList<>();
+
+        for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+            try {
+                Row row = worksheet.getRow(i);
+                String studentNum = row.getCell(0).toString();
+                String studentName = row.getCell(1).toString();
+
+                studentRefDtos.add(new StudentSimpleRefDto(studentNum, studentName));
+            } catch (Exception e) {
+                throw new ExcelFormatException(e.getMessage());
+            }
+        }
+        return studentRefDtos;
     }
 
     public static List<StudentRefDto> getStudentDatas(Sheet worksheet) {

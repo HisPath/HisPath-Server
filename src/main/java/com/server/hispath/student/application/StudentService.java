@@ -13,6 +13,7 @@ import com.server.hispath.activity.application.MActivityService;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.exception.student.StudentDataNotMatchException;
 import com.server.hispath.student.application.dto.StudentRefDto;
+import com.server.hispath.student.application.dto.StudentSimpleRefDto;
 import com.server.hispath.student.domain.Section;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
@@ -95,7 +96,7 @@ public class StudentService {
     }
 
     @Transactional
-    public void registerParticipants(Long activityId, List<StudentRefDto> studentRefDtos) {
+    public void registerParticipants(Long activityId, List<StudentSimpleRefDto> studentRefDtos) {
         Activity activity = activityService.findById(activityId);
         mActivityService.deleteAllParticipant(activity);
         studentRefDtos.forEach(dto -> {

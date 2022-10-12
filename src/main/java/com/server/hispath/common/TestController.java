@@ -22,12 +22,11 @@ import com.server.hispath.manager.domain.repository.ManagerRepository;
 import com.server.hispath.notice.domain.Notice;
 import com.server.hispath.notice.domain.repository.NoticeRepository;
 import com.server.hispath.student.application.StudentService;
-import com.server.hispath.student.application.dto.StudentRefDto;
+import com.server.hispath.student.application.dto.StudentSimpleRefDto;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -138,10 +137,7 @@ public class TestController {
         activities.forEach(activity -> {
             studentService.registerParticipants(activity.getId(),
                     students.stream().map(student -> {
-                                return new StudentRefDto(student.getId(), student.getName(), student.getStudentNum(), student.getSemester(),
-                                        student.getDepartment().getId(), student.getMajor1().getId(), student.getMajor2().getId(),
-                                        student.getPhone(), student.getEmail(), student.getProfile(), student.getBlog(), student.getGithubId(),
-                                        student.getReadme());
+                                return new StudentSimpleRefDto(student.getStudentNum(), student.getName());
                             })
                             .collect(Collectors.toList()));
 
