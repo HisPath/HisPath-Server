@@ -28,7 +28,7 @@ public class ApiDoc {
     public static final String CATEGORY_DELETE = "카테고리 삭제";
 
     public static final String SCHOLARSHIP_CREATE = "장학금 신청 등록";
-    public static final String ACTIVITY_READ_SEMESTER = "활동 학기별 조회";
+    public static final String ACTIVITY_READ_SEMESTER = "활동 학기 조회";
     public static final String MAJOR_CREATE = "전공 생성";
     public static final String MAJOR_READ = "단일 전공 조회";
     public static final String MAJOR_UPDATE = "전공 수정";

@@ -23,15 +23,13 @@ public class MActivityDetailDto {
     private CategoryDto category;
     private String semester;
     private String remark;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
     private int weight;
     private List<StudentRefDetailDto> students = new ArrayList<>();
 
 
     public static MActivityDetailDto from(Activity activity, List<StudentRefDetailDto> students) {
         return new MActivityDetailDto(activity.getId(), activity.getName(), CategoryDto.from(activity.getCategory()),
-                activity.getSemester(), activity.getRemark(), activity.getStartDate(), activity.getEndDate(), activity.getWeight(), students);
+                activity.getSemester(), activity.getRemark(), activity.getWeight(), students);
 
     }
 }

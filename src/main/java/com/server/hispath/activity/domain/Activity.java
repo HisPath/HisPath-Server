@@ -1,17 +1,15 @@
 package com.server.hispath.activity.domain;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.common.BaseEntity;
 import com.server.hispath.student.domain.Student;
-import com.server.hispath.student.domain.participate.Participant;
+import com.server.hispath.student.domain.Participant;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -50,12 +48,6 @@ public class Activity extends BaseEntity {
 
     private boolean studentRegistered = false;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-    private LocalDateTime startDate;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-    private LocalDateTime endDate;
-
     int weight;
 
     @OneToMany(mappedBy = "activity", cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -70,8 +62,6 @@ public class Activity extends BaseEntity {
                        .name(dto.getName())
                        .remark(dto.getRemark())
                        .weight(dto.getWeight())
-                       .startDate(dto.getStartDate())
-                       .endDate(dto.getEndDate())
                        .build();
     }
 
@@ -84,8 +74,6 @@ public class Activity extends BaseEntity {
                        .name(dto.getName())
                        .remark(dto.getRemark())
                        .weight(dto.getWeight())
-                       .startDate(dto.getStartDate())
-                       .endDate(dto.getEndDate())
                        .build();
     }
 
@@ -97,8 +85,6 @@ public class Activity extends BaseEntity {
         this.name = dto.getName();
         this.remark = dto.getRemark();
         this.weight = dto.getWeight();
-        this.startDate = dto.getStartDate();
-        this.endDate = dto.getEndDate();
     }
 
     public void update(Category category, MActivityContentDto dto) {
@@ -107,8 +93,6 @@ public class Activity extends BaseEntity {
         this.name = dto.getName();
         this.remark = dto.getRemark();
         this.weight = dto.getWeight();
-        this.startDate = dto.getStartDate();
-        this.endDate = dto.getEndDate();
     }
 
     public void addParticipant(Student student) {

@@ -1,4 +1,4 @@
-package com.server.hispath.student.domain.participate;
+package com.server.hispath.student.domain;
 
 import javax.persistence.*;
 
@@ -27,6 +27,9 @@ public class Participant extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Activity activity;
+
+    @Enumerated(EnumType.STRING)
+    private Section section;
 
     String data;
 

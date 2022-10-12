@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.server.hispath.activity.application.ActivityService;
+import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.auth.domain.*;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.category.domain.repository.CategoryRepository;
-import com.server.hispath.department.application.dto.DepartmentDto;
 import com.server.hispath.department.domain.Department;
 import com.server.hispath.department.domain.repository.DepartementRepository;
 import com.server.hispath.exception.manager.ManagerNotFoundException;
@@ -21,14 +21,12 @@ import com.server.hispath.notice.domain.repository.NoticeRepository;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -44,24 +42,7 @@ public class TestController {
     private final MajorRepository majorRepository;
     private final ManagerRepository managerRepository;
     private final DepartementRepository departementRepository;
-
-
-//    @GetMapping("/register/ref")
-//    public ResponseEntity<Void> testRegisterRefStudent() {
-//        for (int i = 0; i < 10; i++) {
-//            String studentNum = Integer.toString(22200000 + i);
-//            String name = "학생" + i;
-//            String email = "test" + i + "@handong.ac.kr";
-//            int semester = 1;
-//            Student student = Student.builder()
-//                    .studentNum(studentNum)
-//                    .name(name)
-//                    .email(email)
-//        }      .semester(semester)
-//                .build();
-//        studentRepository.save(student);
-//        return ResponseEntity.ok(null);
-//    }
+    private final ActivityRepository activityRepository;
 
     @GetMapping("/init/category")
     public ResponseEntity<Void> testCategoryInit() {
@@ -450,4 +431,6 @@ public class TestController {
                 .build());
         return ResponseEntity.ok(null);
     }
+
+
 }

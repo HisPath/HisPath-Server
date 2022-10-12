@@ -12,7 +12,6 @@ import com.server.hispath.major.domain.Major;
 import com.server.hispath.student.application.dto.StudentCUDto;
 import com.server.hispath.student.application.dto.StudentDto;
 import com.server.hispath.student.application.dto.StudentRefDto;
-import com.server.hispath.student.domain.participate.Participant;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

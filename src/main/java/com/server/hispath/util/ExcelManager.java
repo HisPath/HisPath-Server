@@ -1,23 +1,17 @@
 package com.server.hispath.util;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.hispath.activity.application.dto.MActivityContentDto;
-import com.server.hispath.department.application.dto.DepartmentDto;
 import com.server.hispath.exception.common.ExcelDataFormatException;
 import com.server.hispath.exception.common.ExcelFormatException;
 import com.server.hispath.exception.common.NotExcelExtensionException;
-import com.server.hispath.major.application.dto.MajorDto;
 import com.server.hispath.student.application.dto.StudentRefDto;
 
-import org.apache.tomcat.util.json.JSONParser;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 
 import org.apache.commons.io.FilenameUtils;
@@ -51,20 +45,16 @@ public class ExcelManager {
 
     public static List<MActivityContentDto> getMActivities(Sheet worksheet) {
         List<MActivityContentDto> mActivityContentDtos = new ArrayList<>();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             try {
                 Row row = worksheet.getRow(i);
                 Long categoryId = Long.parseLong(row.getCell(0).toString().split("\\.")[0].toString());
                 String activityName = row.getCell(1).toString();
-                String remark = row.getCell(2).toString();
-
-                LocalDateTime startDate = LocalDateTime.parse(row.getCell(3).toString(), dateTimeFormatter);
-                LocalDateTime endDate = LocalDateTime.parse(row.getCell(4).toString(), dateTimeFormatter);
-                int weight = Integer.parseInt(row.getCell(5).toString());
-                String semester = row.getCell(6).toString();
+                String remark = Objects.isNull(row.getCell(2)) ? "" : row.getCell(2).toString();
+                int weight = Integer.parseInt(row.getCell(3).toString());
+                String semester = row.getCell(4).toString();
                 validate(semester);
-                mActivityContentDtos.add(new MActivityContentDto(categoryId, semester, activityName, remark, weight, startDate, endDate));
+                mActivityContentDtos.add(new MActivityContentDto(categoryId, semester, activityName, remark, weight));
             } catch (Exception e) {
                 throw new ExcelFormatException(e.getMessage());
             }
@@ -83,7 +73,9 @@ public class ExcelManager {
                 int num = new BigDecimal(str).intValue();
                 String studentNum = Integer.toString(num);
                 int studentSemester = Integer.parseInt(row.getCell(2).toString().split("\\.")[0]);
-                Long departmentId = Long.parseLong(row.getCell(3).toString().split("\\.")[0]);//                int departmentId = 0;
+                Long departmentId = Long.parseLong(row.getCell(3)
+                                                      .toString()
+                                                      .split("\\.")[0]);//                int departmentId = 0;
                 Long major1Id = Long.parseLong(row.getCell(4).toString().split("\\.")[0]);
                 Long major2Id = Long.parseLong(row.getCell(5).toString().split("\\.")[0]);
 
