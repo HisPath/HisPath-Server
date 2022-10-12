@@ -53,6 +53,7 @@ public class Activity extends BaseEntity {
 
     int weight;
 
+    @Builder.Default
     @OneToMany(mappedBy = "activity", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Participant> participants = new ArrayList<>();
 
