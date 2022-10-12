@@ -17,11 +17,10 @@ public class MActivityContentDto {
     private String name;
     private String remark;
     private int weight;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+
 
     public static MActivityContentDto of(MActivityCURequest request) {
         return new MActivityContentDto(request.getCategoryId(), request.getSemester(), request.getName(),
-                request.getRemark(), request.getWeight(), request.getStartDate(), request.getEndDate());
+                request.getRemark(), request.getWeight());
     }
 }

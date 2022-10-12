@@ -13,8 +13,8 @@ import lombok.Setter;
 public class SemesterDto {
     private String semester;
 
-    public static SemesterDto from(Activity activity) {
-        return new SemesterDto(activity.getSemester());
+    public static SemesterDto from(String semester) {
+        return new SemesterDto(semester);
     }
 }
 

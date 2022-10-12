@@ -22,14 +22,11 @@ public class ActivityResponse {
     private String remark;
     private int weight;
     private boolean studentRegistered;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-    private LocalDateTime startDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-    private LocalDateTime endDate;
+
 
     public static ActivityResponse from(ActivityDto dto) {
         return new ActivityResponse(dto.getId(), dto.getCategoryDto().getId(), dto.getCategoryDto().getName(),
                 dto.getSemester(), dto.isPersonal(), dto.getName(), dto.getRemark(), dto.getWeight(),
-                dto.isStudentRegistered(), dto.getStartDate(), dto.getEndDate());
+                dto.isStudentRegistered());
     }
 }

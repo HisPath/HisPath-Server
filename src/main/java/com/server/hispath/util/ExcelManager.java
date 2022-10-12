@@ -58,7 +58,7 @@ public class ExcelManager {
                 int weight = Integer.parseInt(row.getCell(5).toString());
                 String semester = row.getCell(6).toString();
                 validate(semester);
-                mActivityContentDtos.add(new MActivityContentDto(categoryId, semester, activityName, remark, weight, startDate, endDate));
+                mActivityContentDtos.add(new MActivityContentDto(categoryId, semester, activityName, remark, weight));
             } catch (Exception e) {
                 throw new ExcelFormatException(e.getMessage());
             }

@@ -50,11 +50,11 @@ public class Activity extends BaseEntity {
 
     private boolean studentRegistered = false;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-    private LocalDateTime startDate;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
-    private LocalDateTime endDate;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+//    private LocalDateTime startDate;
+//
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
+//    private LocalDateTime endDate;
 
     int weight;
 
@@ -70,8 +70,6 @@ public class Activity extends BaseEntity {
                        .name(dto.getName())
                        .remark(dto.getRemark())
                        .weight(dto.getWeight())
-                       .startDate(dto.getStartDate())
-                       .endDate(dto.getEndDate())
                        .build();
     }
 
@@ -84,8 +82,6 @@ public class Activity extends BaseEntity {
                        .name(dto.getName())
                        .remark(dto.getRemark())
                        .weight(dto.getWeight())
-                       .startDate(dto.getStartDate())
-                       .endDate(dto.getEndDate())
                        .build();
     }
 
@@ -97,8 +93,7 @@ public class Activity extends BaseEntity {
         this.name = dto.getName();
         this.remark = dto.getRemark();
         this.weight = dto.getWeight();
-        this.startDate = dto.getStartDate();
-        this.endDate = dto.getEndDate();
+
     }
 
     public void update(Category category, MActivityContentDto dto) {
@@ -107,8 +102,7 @@ public class Activity extends BaseEntity {
         this.name = dto.getName();
         this.remark = dto.getRemark();
         this.weight = dto.getWeight();
-        this.startDate = dto.getStartDate();
-        this.endDate = dto.getEndDate();
+
     }
 
     public void addParticipant(Student student) {

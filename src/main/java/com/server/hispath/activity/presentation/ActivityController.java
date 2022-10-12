@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
+import com.server.hispath.activity.application.MActivityService;
 import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.ActivityDto;
+import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
 import com.server.hispath.activity.application.dto.SemesterDto;
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
@@ -24,6 +26,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 public class ActivityController {
     private final ActivityService activityService;
+
+    private final MActivityService mActivityService;
 
     @PostMapping("/activity")
     @ApiOperation(value = ApiDoc.ACTIVITY_CREATE)
@@ -69,6 +73,8 @@ public class ActivityController {
         return ResponseEntity.ok(id);
     }
 
+
+
     @GetMapping("/semester")
     @ApiOperation(value = ApiDoc.ACTIVITY_READ_SEMESTER)
     public ResponseEntity<List<SemesterResponse>> findAllBySemester() {
@@ -77,5 +83,11 @@ public class ActivityController {
                 .map(SemesterResponse::from)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/studentactivity/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_MILEAGE_READ)
+    public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
+        return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
     }
 }
