@@ -19,6 +19,7 @@ public class ActivityParticipantResponse {
 
     public static ActivityParticipantResponse of(ActivityParticipantDto dto) {
         return new ActivityParticipantResponse(dto.getId(), dto.getSemester(), dto.getName(), dto.getRemark(),
+
                 dto.getParticipant().getSection().getName(), dto.getParticipant().getData());
     }
 }

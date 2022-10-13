@@ -1,10 +1,12 @@
 package com.server.hispath.activity.application;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.server.hispath.activity.application.dto.*;
+import com.server.hispath.activity.application.dto.ActivityDto;
+import com.server.hispath.activity.application.dto.MActivityContentDto;
+import com.server.hispath.activity.application.dto.MActivityDetailDto;
+import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.category.application.CategoryService;
@@ -78,17 +80,6 @@ public class MActivityService {
     }
 
     @Transactional
-    public void deleteParticipantById(Long activityId, Long studentId) {
-        Activity activity = activityService.findById(activityId);
-        Student student = studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
-        activity.getParticipants()
-                .stream()
-                .filter(participant -> Objects.equals(participant.getStudent(), student))
-                .findFirst().orElseThrow(ParticipantNotFoundException::new)
-                .deleteContent();
-    }
-
-    @Transactional
     public MActivityDetailDto findDetailActivityInfo(Long activityId) {
         Activity activity = activityRepository.findActivityWithStudents(activityId)
                                               .orElseThrow(ActivityNotFoundException::new);
@@ -103,14 +94,27 @@ public class MActivityService {
 
     @Transactional
     public MStudentActivityDetailDto findActivitiesByStudent(Long studentId) {
-        Student student = studentRepository.findActivitiesByStudent(studentId).orElseThrow(StudentNotFoundException::new);
+        Student student = studentRepository.findActivitiesByStudent(studentId)
+                                           .orElseThrow(StudentNotFoundException::new);
         List<ActivityDto> activities = student.getParticipants()
-                                                            .stream()
-                                                            .map(participant -> {
-                                                                return ActivityDto.from(participant.getActivity());
-                                                            })
-                                                            .collect(Collectors.toList());
+                                              .stream()
+                                              .map(participant -> {
+                                                  return ActivityDto.from(participant.getActivity());
+                                              })
+                                              .collect(Collectors.toList());
 
-       return MStudentActivityDetailDto.from(student, activities);
+        return MStudentActivityDetailDto.from(student, activities);
+    }
+
+    @Transactional
+    public void deleteParticipant(Long studentId, Long activityId) {
+        Student student = studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
+        Activity activity = activityService.findById(activityId);
+        activity.getParticipants()
+                .stream()
+                .filter(participant -> participant.isSameStudent(student))
+                .findFirst()
+                .orElseThrow(ParticipantNotFoundException::new)
+                .deleteContent();
     }
 }
