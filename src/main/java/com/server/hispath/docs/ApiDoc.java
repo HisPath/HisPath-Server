@@ -27,7 +27,7 @@ public class ApiDoc {
     public static final String STUDENT_ACTIVITY_UPDATE = "학생의 참여 활동 수정";
     public static final String STUDENT_ACTIVITY_READ_SEMESTER = "학생의 참여 활동 학기별 조회";
     public static final String SECTION_READ_ALL = "모든 섹션 조회";
-    public static final String PARTICIPANT_UPDATE = "학생 참여 데이터 수정";
+    public static final String PARTICIPANT_DELETE = "학생 참여 데이터 삭제";
     /* Category 관련 API 명세 */
     public static final String CATEGORY_READ = "단일 카테고리 조회";
     public static final String CATEGORY_READ_ALL = "모든 카테고리 조회";

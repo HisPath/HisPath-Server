@@ -2,6 +2,7 @@ package com.server.hispath.student.application;
 
 import com.server.hispath.department.application.DepartmentService;
 import com.server.hispath.department.domain.Department;
+import com.server.hispath.exception.activity.ParticipantNotFoundException;
 import com.server.hispath.exception.student.StudentNotFoundException;
 import com.server.hispath.major.application.MajorService;
 import com.server.hispath.major.domain.Major;

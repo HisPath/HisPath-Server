@@ -5,7 +5,10 @@ import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.MActivityService;
-import com.server.hispath.activity.application.dto.*;
+import com.server.hispath.activity.application.dto.ActivityDto;
+import com.server.hispath.activity.application.dto.MActivityContentDto;
+import com.server.hispath.activity.application.dto.MActivityDetailDto;
+import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
 import com.server.hispath.activity.presentation.request.MParticipantRequest;
 import com.server.hispath.activity.presentation.request.MStudentRegisterRequest;
@@ -103,7 +106,7 @@ public class MActivityController {
     @DeleteMapping("/mileage/student")
     @ApiOperation(value = ApiDoc.ACTIVITY_STUDENT_DELETE)
     public ResponseEntity<Void> deleteParticipant(@RequestBody MParticipantRequest request) {
-        mActivityService.deleteParticipantById(request.getActivityId(), request.getStudentId());
+        mActivityService.deleteParticipant(request.getStudentId(), request.getActivityId());
         return ResponseEntity.ok(null);
     }
 
@@ -118,7 +121,4 @@ public class MActivityController {
     public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
         return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
     }
-
-
-
 }
