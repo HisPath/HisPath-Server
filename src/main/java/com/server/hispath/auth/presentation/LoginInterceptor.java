@@ -3,9 +3,8 @@ package com.server.hispath.auth.presentation;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.server.hispath.auth.domain.Member;
-import com.server.hispath.auth.domain.RequiredManagerLogin;
-import com.server.hispath.auth.domain.RequiredStudentLogin;
+import com.server.hispath.auth.application.AuthService;
+import com.server.hispath.auth.domain.*;
 import com.server.hispath.auth.infrastructure.JwtProvider;
 import com.server.hispath.util.AuthorizationExtractor;
 
@@ -20,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginInterceptor implements HandlerInterceptor {
     private final JwtProvider jwtProvider;
+    private final AuthService authService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -27,7 +27,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-        if (!(handlerMethod.hasMethodAnnotation(RequiredStudentLogin.class) || handlerMethod.hasMethodAnnotation(RequiredManagerLogin.class))) {
+        if (!(hasAnnotation(handlerMethod))) {
             return true;
         }
         String token = AuthorizationExtractor.extractAccessToken(request);
@@ -36,9 +36,19 @@ public class LoginInterceptor implements HandlerInterceptor {
             jwtProvider.validateToken(token, Member.STUDENT);
         } else if (handlerMethod.hasMethodAnnotation(RequiredManagerLogin.class)) {
             jwtProvider.validateToken(token, Member.MANAGER);
+        } else if (handlerMethod.hasMethodAnnotation(RequiredLogin.class)){
+            jwtProvider.validateBothToken(token);
+        } else if (handlerMethod.hasMethodAnnotation(RequiredSuperManagerLogin.class)){
+            authService.checkSuperManagerByToken(token);
         }
 
         return true;
+    }
+
+    private boolean hasAnnotation(HandlerMethod handlerMethod){
+       return handlerMethod.hasMethodAnnotation(RequiredLogin.class)
+               || handlerMethod.hasMethodAnnotation(RequiredStudentLogin.class)
+               || handlerMethod.hasMethodAnnotation(RequiredManagerLogin.class);
     }
 
     private boolean isPreflight(HttpServletRequest request) {

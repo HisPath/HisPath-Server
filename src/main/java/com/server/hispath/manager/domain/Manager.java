@@ -54,4 +54,8 @@ public class Manager extends BaseEntity {
     public void approve() {
         this.approved = true;
     }
+
+    public boolean isSuperManager(){
+        return this.power > 1;
+    }
 }

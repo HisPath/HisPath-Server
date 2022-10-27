@@ -11,6 +11,7 @@ import com.server.hispath.auth.domain.Member;
 import com.server.hispath.auth.domain.OauthUserInfo;
 import com.server.hispath.auth.infrastructure.JwtProvider;
 import com.server.hispath.auth.infrastructure.OauthHandler;
+import com.server.hispath.exception.manager.ManagerNoAuthorizationException;
 import com.server.hispath.exception.oauth.InvalidTokenException;
 import com.server.hispath.exception.oauth.NotHandongEmailException;
 import com.server.hispath.manager.application.ManagerService;
@@ -92,5 +93,31 @@ public class AuthService {
         Long id = Long.parseLong(payLoad);
         Manager manager = managerService.findById(id);
         return new LoginManager(manager.getId());
+    }
+
+
+
+    @Transactional(readOnly = true)
+    public void checkSuperManagerByToken(String token) {
+        Manager manager = findSuperManagerByToken(token);
+        if(!manager.isSuperManager()) throw new ManagerNoAuthorizationException();
+    }
+
+    @Transactional(readOnly = true)
+    public LoginManager getSuperManagerId(String token){
+        Manager manager = findSuperManagerByToken(token);
+        return new LoginManager(manager.getId());
+    }
+
+    @Transactional(readOnly = true)
+    public Manager findSuperManagerByToken(String token){
+        if (!jwtProvider.isValidToken(token, Member.SUPER_MANAGER)) {
+            throw new InvalidTokenException();
+        }
+        String payLoad = jwtProvider.getPayLoad(token, Member.SUPER_MANAGER);
+        Long id = Long.parseLong(payLoad);
+        Manager manager = managerService.findById(id);
+        if(!manager.isSuperManager()) throw new ManagerNoAuthorizationException();
+        return manager;
     }
 }
