@@ -49,6 +49,21 @@ public class JwtProvider {
         return managerSecretKey;
     }
 
+    public boolean validateBothToken(String token){
+
+        try{
+            validateToken(token, Member.STUDENT);
+            return true;
+        } catch (JwtException | IllegalArgumentException e){
+            try{
+                validateToken(token, Member.MANAGER);
+                return true;
+            } catch (JwtException | IllegalArgumentException e2){
+                return false;
+            }
+        }
+    }
+
     public void validateToken(String token, Member member) {
         try {
             JwtParser jwtParser = getJwtParser(member);

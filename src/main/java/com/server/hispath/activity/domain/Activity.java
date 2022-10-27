@@ -3,6 +3,7 @@ package com.server.hispath.activity.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import javax.persistence.*;
 
 import com.server.hispath.activity.application.dto.ActivityContentDto;
@@ -11,7 +12,7 @@ import com.server.hispath.activity.application.dto.ParticipantContentDto;
 import com.server.hispath.activity.application.dto.StudentActivityContentDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.common.BaseEntity;
-import com.server.hispath.exception.activity.ParticipantNotFoundException;
+import com.server.hispath.exception.activity.ParticipantDuplicateException;
 import com.server.hispath.student.domain.Participant;
 import com.server.hispath.student.domain.Section;
 import com.server.hispath.student.domain.Student;
@@ -120,8 +121,20 @@ public class Activity extends BaseEntity {
     }
 
     public void addParticipant(Student student, Section section) {
+        checkDuplicate(student);
         Participant participant = new Participant(student, this, section);
         this.connectParticipant(student, participant);
+    }
+
+    public void checkDuplicate(Student student) {
+        Optional<Participant> dupParticipant = this.getParticipants()
+                                                   .stream()
+                                                   .filter(participant -> participant.isSameStudent(student))
+                                                   .findFirst();
+        if (dupParticipant.isPresent()) {
+            Student duplicatedStudent = dupParticipant.get().getStudent();
+            throw new ParticipantDuplicateException(duplicatedStudent.getStudentNum(), duplicatedStudent.getName());
+        }
     }
 
     public void addParticipant(Student student, ParticipantContentDto participantContentDto) {
