@@ -60,9 +60,6 @@ public class NoticeController {
         return ResponseEntity.ok(response);
     }
 
-
-    // D
-
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/notice/{id}")
     @ApiOperation(value = ApiDoc.NOTICE_DELETE)
