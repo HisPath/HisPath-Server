@@ -29,13 +29,10 @@ public class ScholarshipService {
         Student student = studentService.findById(studentId);
 
         Scholarship existScholarship = scholarshipRepository.findFirstByStudentAndSemester(student, semester);
-        System.out.println("existScholarship = " + existScholarship);
-        if(Objects.nonNull(existScholarship)) scholarshipRepository.delete(existScholarship);
+        if (Objects.nonNull(existScholarship))
+            scholarshipRepository.delete(existScholarship);
 
-        Integer totalWeight = activityRepository.findActivityWithStudents(studentId)
-                                                .stream()
-                                                .map(Activity::getWeight)
-                                                .reduce(0, Integer::sum);
+        int totalWeight = getTotalWeight(studentId);
 
         Scholarship scholarship = Scholarship.builder()
                                              .student(student)
@@ -48,6 +45,13 @@ public class ScholarshipService {
 
         Scholarship savedScholarship = scholarshipRepository.save(scholarship);
         return savedScholarship.getId();
+    }
+
+    private int getTotalWeight(Long studentId) {
+        return activityRepository.findActivityWithStudents(studentId)
+                                 .stream()
+                                 .map(Activity::getWeight)
+                                 .reduce(0, Integer::sum);
     }
 
     @Transactional

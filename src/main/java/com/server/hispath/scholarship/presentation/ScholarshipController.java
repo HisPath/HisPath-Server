@@ -5,10 +5,7 @@ import com.server.hispath.scholarship.application.ScholarshipService;
 import com.server.hispath.scholarship.presentation.request.ScholarshipCURequest;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -21,7 +18,6 @@ public class ScholarshipController {
 
     private final ScholarshipService scholarshipService;
 
-    // 장학금 신청
     @PostMapping("/scholarship")
     @ApiOperation(value = ApiDoc.SCHOLARSHIP_CREATE)
     public ResponseEntity<Long> create(@RequestBody ScholarshipCURequest request) {
