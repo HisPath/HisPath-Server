@@ -2,19 +2,17 @@ package com.server.hispath.major.presentation;
 
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.major.application.MajorService;
-
 import com.server.hispath.major.application.dto.MajorContentDto;
 import com.server.hispath.major.application.dto.MajorDto;
 import com.server.hispath.major.presentation.request.MajorCURequest;
 import com.server.hispath.major.presentation.response.MajorResponse;
 
-import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import lombok.RequiredArgsConstructor;
+import io.swagger.annotations.ApiOperation;
 
-import java.sql.SQLOutput;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
