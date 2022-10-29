@@ -52,6 +52,7 @@ public class ManagerService {
         return id;
     }
 
+    @Transactional
     public Long approve(Long managerId, int level) {
         Manager manager = this.findById(managerId);
         manager.approve();
