@@ -39,6 +39,7 @@ public class ApiDoc {
     public static final String ACTIVITY_READ_SEMESTER = "활동 학기 조회";
     public static final String MAJOR_CREATE = "전공 생성";
     public static final String MAJOR_READ = "단일 전공 조회";
+    public static final String MAJOR_READ_ALL = "모든 전공 조회";
     public static final String MAJOR_UPDATE = "전공 수정";
     public static final String MAJOR_DELETE = "전공 삭제";
 
