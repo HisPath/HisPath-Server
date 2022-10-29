@@ -14,6 +14,7 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Where(clause = "deleted = false")

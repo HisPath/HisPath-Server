@@ -135,6 +135,10 @@ public class Student extends BaseEntity {
         this.participants.add(participant);
     }
 
+    public void addResume(Resume resume){
+        this.resumes.add(resume);
+    }
+
     public void updateLogin() {
         loginCnt++;
         lastLoginDate = LocalDateTime.now();
