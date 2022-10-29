@@ -1,34 +1,73 @@
 package com.server.hispath.scholarship.application;
 
-import com.server.hispath.category.application.dto.CategoryContentDto;
-import com.server.hispath.category.domain.Category;
-import com.server.hispath.scholarship.application.dto.ScholarshipCUDto;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import com.server.hispath.activity.domain.Activity;
+import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.scholarship.application.dto.ScholarshipContentDto;
+import com.server.hispath.scholarship.application.dto.ScholarshipDto;
 import com.server.hispath.scholarship.domain.Scholarship;
 import com.server.hispath.scholarship.domain.repository.ScholarshipRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.server.hispath.student.application.StudentService;
+import com.server.hispath.student.domain.Student;
 
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class ScholarshipService {
     private final ScholarshipRepository scholarshipRepository;
+    private final StudentService studentService;
+    private final ActivityRepository activityRepository;
 
     @Transactional
-    public Long apply(ScholarshipCUDto dto){
-        Scholarship savedScholarship = scholarshipRepository.save(Scholarship.from(dto));
+    public Long create(Long studentId, String semester) {
+        Student student = studentService.findById(studentId);
+
+        Scholarship existScholarship = scholarshipRepository.findFirstByStudentAndSemester(student, semester);
+        if (Objects.nonNull(existScholarship))
+            scholarshipRepository.delete(existScholarship);
+
+        int totalWeight = getTotalWeight(studentId);
+
+        Scholarship scholarship = Scholarship.builder()
+                                             .student(student)
+                                             .semester(semester)
+                                             .totalMileage(totalWeight)
+                                             .sMajor1(student.getMajor1())
+                                             .sMajor2(student.getMajor2())
+                                             .sDepartment(student.getDepartment())
+                                             .build();
+
+        Scholarship savedScholarship = scholarshipRepository.save(scholarship);
         return savedScholarship.getId();
     }
 
-    @Transactional
+    private int getTotalWeight(Long studentId) {
+        return activityRepository.findActivityWithStudents(studentId)
+                                 .stream()
+                                 .map(Activity::getWeight)
+                                 .reduce(0, Integer::sum);
+    }
+
+    @Transactional(readOnly = true)
     public List<ScholarshipContentDto> findAll() {
         List<Scholarship> scholarships = scholarshipRepository.findAll();
         return scholarships.stream()
-                .map(ScholarshipContentDto::from)
-                .collect(Collectors.toList());
+                           .map(ScholarshipContentDto::from)
+                           .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ScholarshipDto> findAllScholarshipStudent(boolean approved, String semester) {
+        List<Scholarship> scholarships = scholarshipRepository.findAllByApprovedAndSemester(approved, semester);
+        return scholarships.stream()
+                           .map(ScholarshipDto::of)
+                           .collect(Collectors.toList());
     }
 }

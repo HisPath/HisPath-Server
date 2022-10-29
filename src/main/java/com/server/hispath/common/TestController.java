@@ -24,6 +24,8 @@ import com.server.hispath.notice.domain.repository.NoticeRepository;
 import com.server.hispath.resume.application.ResumeService;
 import com.server.hispath.resume.domain.Resume;
 import com.server.hispath.resume.domain.repository.ResumeRepository;
+import com.server.hispath.scholarship.application.ScholarshipService;
+import com.server.hispath.scholarship.domain.repository.ScholarshipRepository;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.application.dto.StudentSimpleRefDto;
 import com.server.hispath.student.domain.Student;
@@ -54,6 +56,8 @@ public class TestController {
     private final StudentService studentService;
     private final ResumeRepository resumeRepository;
     private final ResumeService resumeService;
+    private final ScholarshipRepository scholarshipRepository;
+    private final ScholarshipService scholarshipService;
 
     @GetMapping("/init/all")
     public ResponseEntity<Void> initAll() {
@@ -138,6 +142,23 @@ public class TestController {
     public ResponseEntity<Void> initResume() {
 
         saveResumes();
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("init/scholarship")
+    public ResponseEntity<Void> initScholarship() {
+
+        scholarshipService.create(1L, "2022-2");
+        scholarshipService.create(2L, "2022-2");
+        scholarshipService.create(3L, "2022-2");
+        scholarshipService.create(4L, "2022-2");
+        scholarshipService.create(5L, "2022-2");
+        scholarshipService.create(6L, "2022-2");
+        scholarshipService.create(7L, "2022-2");
+        scholarshipService.create(8L, "2022-2");
+        scholarshipService.create(9L, "2022-2");
+        scholarshipService.create(9L, "2022-2");
+
         return ResponseEntity.ok(null);
     }
 
@@ -342,7 +363,7 @@ public class TestController {
                                       .studentNum("22200000")
                                       .semester(5)
                                       .major1(majorRepository.findByName("컴퓨터공학전공"))
-                                      .major2(majorRepository.findByName("컴퓨터공학전공"))
+                                      .major2(majorRepository.findByName("생명과학전공"))
                                       .phone("010-1234-1234")
                                       .email("kim@handong.ac.kr")
                                       .profile("profile.url")
@@ -353,10 +374,10 @@ public class TestController {
                                       .build());
         studentRepository.save(Student.builder()
                                       .name("박한동")
-                                      .department(departementRepository.findByName("전산전자"))
+                                      .department(departementRepository.findByName("국제어문"))
                                       .studentNum("22200001")
                                       .semester(3)
-                                      .major1(majorRepository.findByName("컴퓨터공학전공"))
+                                      .major1(majorRepository.findByName("국제지역학전공"))
                                       .major2(majorRepository.findByName("컴퓨터공학전공"))
                                       .phone("010-1234-5678")
                                       .email("park@handong.ac.kr")
@@ -368,10 +389,10 @@ public class TestController {
                                       .build());
         studentRepository.save(Student.builder()
                                       .name("이한동")
-                                      .department(departementRepository.findByName("전산전자"))
+                                      .department(departementRepository.findByName("경영경제"))
                                       .studentNum("22200002")
                                       .semester(5)
-                                      .major1(majorRepository.findByName("컴퓨터공학전공"))
+                                      .major1(majorRepository.findByName("경영학전공"))
                                       .major2(majorRepository.findByName("컴퓨터공학전공"))
                                       .phone("010-5678-1234")
                                       .email("lee@handong.ac.kr")
@@ -383,10 +404,10 @@ public class TestController {
                                       .build());
         studentRepository.save(Student.builder()
                                       .name("정한동")
-                                      .department(departementRepository.findByName("전산전자"))
+                                      .department(departementRepository.findByName("법학부"))
                                       .studentNum("22200003")
                                       .semester(6)
-                                      .major1(majorRepository.findByName("컴퓨터공학전공"))
+                                      .major1(majorRepository.findByName("한국법전공"))
                                       .major2(majorRepository.findByName("컴퓨터공학전공"))
                                       .phone("010-1111-1111")
                                       .email("jeong@handong.ac.kr")
@@ -398,10 +419,10 @@ public class TestController {
                                       .build());
         studentRepository.save(Student.builder()
                                       .name("우한동")
-                                      .department(departementRepository.findByName("전산전자"))
+                                      .department(departementRepository.findByName("커뮤니케이션"))
                                       .studentNum("22200004")
                                       .semester(6)
-                                      .major1(majorRepository.findByName("컴퓨터공학전공"))
+                                      .major1(majorRepository.findByName("공연영상학전공"))
                                       .major2(majorRepository.findByName("컴퓨터공학전공"))
                                       .phone("010-2222-3333")
                                       .email("woo@handong.ac.kr")
@@ -413,10 +434,10 @@ public class TestController {
                                       .build());
         studentRepository.save(Student.builder()
                                       .name("위한동")
-                                      .department(departementRepository.findByName("전산전자"))
+                                      .department(departementRepository.findByName("상담복지"))
                                       .studentNum("22200005")
                                       .semester(6)
-                                      .major1(majorRepository.findByName("컴퓨터공학전공"))
+                                      .major1(majorRepository.findByName("사회복지학전공"))
                                       .major2(majorRepository.findByName("컴퓨터공학전공"))
                                       .phone("010-4444-1234")
                                       .email("wi@handong.ac.kr")
@@ -428,10 +449,10 @@ public class TestController {
                                       .build());
         studentRepository.save(Student.builder()
                                       .name("하한동")
-                                      .department(departementRepository.findByName("전산전자"))
+                                      .department(departementRepository.findByName("공간환경시스템"))
                                       .studentNum("22200006")
                                       .semester(8)
-                                      .major1(majorRepository.findByName("컴퓨터공학전공"))
+                                      .major1(majorRepository.findByName("도시환경공학전공"))
                                       .major2(majorRepository.findByName("컴퓨터공학전공"))
                                       .phone("010-9999-1111")
                                       .email("ha@handong.ac.kr")
@@ -443,7 +464,7 @@ public class TestController {
                                       .build());
         studentRepository.save(Student.builder()
                                       .name("마한동")
-                                      .department(departementRepository.findByName("전산전자"))
+                                      .department(departementRepository.findByName("제품디자인전공"))
                                       .studentNum("22200007")
                                       .semester(4)
                                       .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -458,10 +479,10 @@ public class TestController {
                                       .build());
         studentRepository.save(Student.builder()
                                       .name("유한동")
-                                      .department(departementRepository.findByName("전산전자"))
+                                      .department(departementRepository.findByName("기계제어"))
                                       .studentNum("22200008")
                                       .semester(6)
-                                      .major1(majorRepository.findByName("컴퓨터공학전공"))
+                                      .major1(majorRepository.findByName("기계공학전공"))
                                       .major2(majorRepository.findByName("컴퓨터공학전공"))
                                       .phone("010-3434-2323")
                                       .email("yu@handong.ac.kr")
@@ -473,10 +494,10 @@ public class TestController {
                                       .build());
         studentRepository.save(Student.builder()
                                       .name("진한동")
-                                      .department(departementRepository.findByName("전산전자"))
+                                      .department(departementRepository.findByName("ICT창업학부"))
                                       .studentNum("22200009")
                                       .semester(7)
-                                      .major1(majorRepository.findByName("컴퓨터공학전공"))
+                                      .major1(majorRepository.findByName("ICT 융합전공"))
                                       .major2(majorRepository.findByName("컴퓨터공학전공"))
                                       .phone("010-8787-8787")
                                       .email("jin@handong.ac.kr")
@@ -530,10 +551,7 @@ public class TestController {
                                              .name("커뮤니케이션")
                                              .build());
         departementRepository.save(Department.builder()
-                                             .name("상당복지")
-                                             .build());
-        departementRepository.save(Department.builder()
-                                             .name("상당복지")
+                                             .name("상담복지")
                                              .build());
         departementRepository.save(Department.builder()
                                              .name("공간환경시스템")
