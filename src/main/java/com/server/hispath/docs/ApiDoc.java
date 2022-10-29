@@ -75,4 +75,11 @@ public class ApiDoc {
     public static final String DEPARTMENT_DELETE = "학부 삭제";
 
 
+    /* Resume 관련 API 명세 */
+    public static final String RESUME_READ = "학생의 단일 이력서 조회";
+    public static final String RESUME_READ_ALL = "학생의 모든 이력서 조회";
+    public static final String RESUME_CREATE = "단일 이력서 생성";
+    public static final String RESUME_UPDATE = "이력서 수정";
+    public static final String RESUME_DELETE = "이력서 삭제";
+    public static final String RESUME_INFO = "학생의 모든 정보 및 활동정보 조회";
 }

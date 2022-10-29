@@ -21,6 +21,9 @@ import com.server.hispath.manager.domain.Manager;
 import com.server.hispath.manager.domain.repository.ManagerRepository;
 import com.server.hispath.notice.domain.Notice;
 import com.server.hispath.notice.domain.repository.NoticeRepository;
+import com.server.hispath.resume.application.ResumeService;
+import com.server.hispath.resume.domain.Resume;
+import com.server.hispath.resume.domain.repository.ResumeRepository;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.application.dto.StudentSimpleRefDto;
 import com.server.hispath.student.domain.Student;
@@ -49,6 +52,8 @@ public class TestController {
     private final DepartementRepository departementRepository;
     private final ActivityRepository activityRepository;
     private final StudentService studentService;
+    private final ResumeRepository resumeRepository;
+    private final ResumeService resumeService;
 
     @GetMapping("/init/all")
     public ResponseEntity<Void> initAll() {
@@ -60,6 +65,7 @@ public class TestController {
         saveNotice();
         saveActivities();
         saveParticipant();
+        saveResumes();
         return ResponseEntity.ok(null);
     }
 
@@ -126,6 +132,47 @@ public class TestController {
     public ResponseEntity<Void> testManagerAuth(@ManagerLogin LoginManager loginManager) {
         System.out.println(loginManager.getId());
         return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("init/resume")
+    public ResponseEntity<Void> initResume() {
+
+        saveResumes();
+        return ResponseEntity.ok(null);
+    }
+
+    private void saveResumes() {
+        Student student = studentService.findById(1L);
+        resumeRepository.save(Resume.builder()
+                                    .student(student)
+                                    .title("첫번째 이력서")
+                                    .content("jsonData가 들어가야해")
+                                    .build());
+        resumeRepository.save(Resume.builder()
+                                    .student(student)
+                                    .title("두번째 이력서")
+                                    .content("jsonData가 들어가야해")
+                                    .build());
+        resumeRepository.save(Resume.builder()
+                                    .student(student)
+                                    .title("세번째 이력서")
+                                    .content("jsonData가 들어가야해")
+                                    .build());
+        resumeRepository.save(Resume.builder()
+                                    .student(student)
+                                    .title("네번째 이력서")
+                                    .content("jsonData가 들어가야해")
+                                    .build());
+        resumeRepository.save(Resume.builder()
+                                    .student(student)
+                                    .title("다섯번째 이력서")
+                                    .content("jsonData가 들어가야해")
+                                    .build());
+        resumeRepository.save(Resume.builder()
+                                    .student(student)
+                                    .title("여섯번째 이력서")
+                                    .content("jsonData가 들어가야해")
+                                    .build());
     }
 
 
