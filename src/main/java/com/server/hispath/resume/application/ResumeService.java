@@ -8,6 +8,7 @@ import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.domain.Student;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +19,7 @@ public class ResumeService {
     private final ResumeRepository resumeRepository;
     private final StudentService studentService;
 
+    @Transactional
     public Long create(ResumeDto resumeDto) {
         Student student = studentService.findById(resumeDto.getId());
         Resume resume = Resume.builder()
@@ -30,6 +32,7 @@ public class ResumeService {
         return savedResume.getId();
     }
 
+    @Transactional
     public ResumeDto update(ResumeDto resumeDto) {
         Resume resume = this.findById(resumeDto.getId());
         resume.updateContent(resumeDto);
@@ -38,5 +41,10 @@ public class ResumeService {
 
     public Resume findById(Long id) {
         return resumeRepository.findById(id).orElseThrow(ResumeNotFoundException::new);
+    }
+
+    @Transactional
+    public void delete(Long id){
+        resumeRepository.deleteById(id);
     }
 }
