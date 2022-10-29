@@ -24,6 +24,8 @@ import com.server.hispath.notice.domain.repository.NoticeRepository;
 import com.server.hispath.resume.application.ResumeService;
 import com.server.hispath.resume.domain.Resume;
 import com.server.hispath.resume.domain.repository.ResumeRepository;
+import com.server.hispath.scholarship.application.ScholarshipService;
+import com.server.hispath.scholarship.domain.repository.ScholarshipRepository;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.application.dto.StudentSimpleRefDto;
 import com.server.hispath.student.domain.Student;
@@ -54,6 +56,8 @@ public class TestController {
     private final StudentService studentService;
     private final ResumeRepository resumeRepository;
     private final ResumeService resumeService;
+    private final ScholarshipRepository scholarshipRepository;
+    private final ScholarshipService scholarshipService;
 
     @GetMapping("/init/all")
     public ResponseEntity<Void> initAll() {
@@ -138,6 +142,23 @@ public class TestController {
     public ResponseEntity<Void> initResume() {
 
         saveResumes();
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("init/scholarship")
+    public ResponseEntity<Void> initScholarship() {
+
+        scholarshipService.create(1L, "2022-2");
+        scholarshipService.create(2L, "2022-2");
+        scholarshipService.create(3L, "2022-2");
+        scholarshipService.create(4L, "2022-2");
+        scholarshipService.create(5L, "2022-2");
+        scholarshipService.create(6L, "2022-2");
+        scholarshipService.create(7L, "2022-2");
+        scholarshipService.create(8L, "2022-2");
+        scholarshipService.create(9L, "2022-2");
+        scholarshipService.create(9L, "2022-2");
+
         return ResponseEntity.ok(null);
     }
 
