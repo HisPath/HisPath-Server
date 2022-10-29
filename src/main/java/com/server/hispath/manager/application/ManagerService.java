@@ -3,8 +3,6 @@ package com.server.hispath.manager.application;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.server.hispath.category.domain.Category;
-import com.server.hispath.exception.category.CategoryNotFoundException;
 import com.server.hispath.exception.manager.ManagerNotFoundException;
 import com.server.hispath.manager.application.dto.ManagerCUDto;
 import com.server.hispath.manager.application.dto.ManagerDto;
@@ -42,21 +40,23 @@ public class ManagerService {
     }
 
     @Transactional
-    public ManagerDto update(Long id, ManagerCUDto dto){
+    public ManagerDto update(Long id, ManagerCUDto dto) {
         Manager manager = this.findById(id);
         manager.update(dto);
         return ManagerDto.of(manager);
     }
 
     @Transactional
-    public Long delete(Long id){
+    public Long delete(Long id) {
         managerRepository.deleteById(id);
         return id;
     }
 
-    public Long approve(Long id){
-        this.findById(id).approve();
-        return id;
+    public Long approve(Long managerId, int level) {
+        Manager manager = this.findById(managerId);
+        manager.approve();
+        manager.updateLevel(level);
+        return managerId;
     }
 
     public Manager findById(Long id) {
