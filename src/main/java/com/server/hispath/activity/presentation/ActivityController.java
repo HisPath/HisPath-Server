@@ -113,8 +113,8 @@ public class ActivityController {
 
     @GetMapping("/student-activities/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_SEMESTER)
-    public ResponseEntity<List<ActivityParticipantResponse>> findParticipatedActivities(@PathVariable Long id, @RequestParam String semester) {
-        List<ActivityParticipantResponse> responses = activityService.findAllParticipantActivites(id, semester)
+    public ResponseEntity<List<ActivityParticipantResponse>> findParticipatedActivities(@PathVariable Long id, @RequestParam String semester, @RequestParam String section) {
+        List<ActivityParticipantResponse> responses = activityService.findAllParticipantActivites(id, semester, section)
                                                                      .stream()
                                                                      .map(ActivityParticipantResponse::of)
                                                                      .collect(Collectors.toList());

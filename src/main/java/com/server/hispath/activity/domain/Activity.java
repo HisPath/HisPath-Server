@@ -154,4 +154,5 @@ public class Activity extends BaseEntity {
     public boolean isSameSemester(String semester) {
         return Objects.equals(this.semester, semester);
     }
+
 }

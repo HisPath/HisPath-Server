@@ -48,16 +48,23 @@ public class Participant extends BaseEntity {
         this.data = dto.getData();
     }
 
-    public boolean isSameSemester(String semester){
-        if(Objects.equals(semester, "All")) return true;
+    public boolean isSameSemester(String semester) {
+        if (Objects.equals(semester, "ALL"))
+            return true;
         return activity.isSameSemester(semester);
     }
 
-    public boolean isSameStudent(Student student){
+    public boolean isSameSection(String section) {
+        if (Objects.equals(section, "ALL"))
+            return true;
+        return Objects.equals(this.section.getName(), section);
+    }
+
+    public boolean isSameStudent(Student student) {
         return Objects.equals(this.student, student);
     }
 
-    public void update(ParticipantContentDto participantContentDto){
+    public void update(ParticipantContentDto participantContentDto) {
         this.section = participantContentDto.getSection();
         this.data = participantContentDto.getData();
     }
