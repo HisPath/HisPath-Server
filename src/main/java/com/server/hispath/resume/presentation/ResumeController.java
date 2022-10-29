@@ -77,7 +77,7 @@ public class ResumeController {
         // Todo @Login 을 통해 API 를 호출 할 수 있도록 하기
         // Todo 현재는 그냥 단순 테스트를 위해 1번에 넣기
         StudentDto studentDto = studentService.find(1L);
-        List<ActivityParticipantDto> activities = activityService.findAllParticipantActivites(studentDto.getId(), "All");
+        List<ActivityParticipantDto> activities = activityService.findAllParticipantActivites(studentDto.getId(), "ALL", "ALL");
         return ResponseEntity.ok(new ResumeStudentInfo(studentDto, activities));
     }
 }
