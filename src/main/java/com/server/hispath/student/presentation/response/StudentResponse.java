@@ -20,7 +20,7 @@ public class StudentResponse {
     private String departmentName;
     private Long major1Id;
     private String major1Name;
-    private Long major2;
+    private Long major2Id;
     private String major2Name;
     private long loginCnt;
     private String blog;
