@@ -13,5 +13,5 @@ import java.util.Optional;
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
-    List<Notice> findTop5ByPubDateLessThanEqualAndExpDateGreaterThanEqualOrderByPubDateDesc(LocalDate pubDate, LocalDate expDate);
+    List<Notice> findTop6ByPubDateLessThanEqualAndExpDateGreaterThanEqualOrderByPubDateDesc(LocalDate pubDate, LocalDate expDate);
 }
