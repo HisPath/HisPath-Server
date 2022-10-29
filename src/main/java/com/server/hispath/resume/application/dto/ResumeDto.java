@@ -1,5 +1,7 @@
 package com.server.hispath.resume.application.dto;
 
+import java.time.LocalDateTime;
+
 import com.server.hispath.resume.domain.Resume;
 import com.server.hispath.resume.presentation.request.ResumeCURequest;
 
@@ -14,6 +16,8 @@ public class ResumeDto {
     private Long id;
     private String title;
     private String content;
+    private LocalDateTime createdAt;
+    private LocalDateTime updateAt;
 
     public ResumeDto(Long id, ResumeCURequest request) {
         this.id = id;
@@ -27,6 +31,7 @@ public class ResumeDto {
     }
 
     public static ResumeDto of(Resume resume) {
-        return new ResumeDto(resume.getId(), resume.getTitle(), resume.getContent());
+        return new ResumeDto(resume.getId(), resume.getTitle(), resume.getContent(),
+                resume.getCreatedAt(), resume.getUpdatedAt());
     }
 }
