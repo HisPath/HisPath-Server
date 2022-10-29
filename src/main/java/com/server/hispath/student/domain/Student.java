@@ -10,6 +10,7 @@ import com.server.hispath.common.BaseEntity;
 import com.server.hispath.department.domain.Department;
 import com.server.hispath.major.domain.Major;
 import com.server.hispath.resume.domain.Resume;
+import com.server.hispath.scholarship.domain.Scholarship;
 import com.server.hispath.student.application.dto.StudentCUDto;
 import com.server.hispath.student.application.dto.StudentDto;
 import com.server.hispath.student.application.dto.StudentRefDto;
@@ -70,6 +71,9 @@ public class Student extends BaseEntity {
 
     @OneToMany(mappedBy = "student")
     private List<Resume> resumes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "student")
+    private List<Scholarship> scholarships = new ArrayList<>();
 
     public void update(Department department, Major major1, Major major2, StudentCUDto dto) {
         this.name = dto.getName();

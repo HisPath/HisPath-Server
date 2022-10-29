@@ -530,10 +530,7 @@ public class TestController {
                                              .name("커뮤니케이션")
                                              .build());
         departementRepository.save(Department.builder()
-                                             .name("상당복지")
-                                             .build());
-        departementRepository.save(Department.builder()
-                                             .name("상당복지")
+                                             .name("상담복지")
                                              .build());
         departementRepository.save(Department.builder()
                                              .name("공간환경시스템")
