@@ -54,6 +54,7 @@ public class ManagerService {
         return id;
     }
 
+    @Transactional
     public Long approve(Long id){
         this.findById(id).approve();
         return id;
