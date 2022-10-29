@@ -1,5 +1,8 @@
 package com.server.hispath.resume.presentation;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.resume.application.ResumeService;
 import com.server.hispath.resume.application.dto.ResumeDto;
@@ -46,5 +49,18 @@ public class ResumeController {
     @ApiOperation(value = ApiDoc.RESUME_READ)
     public ResponseEntity<ResumeResponse> find(@PathVariable Long id) {
         return ResponseEntity.ok(ResumeResponse.of(resumeService.find(id)));
+    }
+
+    @GetMapping("/resumes")
+    @ApiOperation(value = ApiDoc.RESUME_READ_ALL)
+    public ResponseEntity<List<ResumeResponse>> findALl() {
+        // Todo @Login 을 통해 API 를 호출 할 수 있도록 하기
+        // Todo 현재는 그냥 단순 테스트를 위해 1번에 넣기
+        List<ResumeResponse> responses = resumeService.findAllStudentResumes(1L)
+                                                      .stream()
+                                                      .map(ResumeResponse::of)
+                                                      .collect(Collectors.toList());
+
+        return ResponseEntity.ok(responses);
     }
 }

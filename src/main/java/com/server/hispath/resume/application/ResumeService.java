@@ -1,5 +1,8 @@
 package com.server.hispath.resume.application;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.server.hispath.exception.resume.ResumeNotFoundException;
 import com.server.hispath.resume.application.dto.ResumeDto;
 import com.server.hispath.resume.domain.Resume;
@@ -52,5 +55,14 @@ public class ResumeService {
     @Transactional(readOnly = true)
     public ResumeDto find(Long id) {
         return ResumeDto.of(this.findById(id));
+    }
+
+    @Transactional(readOnly = true)
+    public List<ResumeDto> findAllStudentResumes(Long studentId) {
+        Student student = studentService.findById(studentId);
+        return resumeRepository.findByStudent(student)
+                               .stream()
+                               .map(ResumeDto::of)
+                               .collect(Collectors.toList());
     }
 }
