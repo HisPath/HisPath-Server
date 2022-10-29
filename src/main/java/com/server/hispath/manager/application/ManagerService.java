@@ -12,6 +12,7 @@ import com.server.hispath.manager.domain.Manager;
 import com.server.hispath.manager.domain.repository.ManagerRepository;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,15 +22,18 @@ public class ManagerService {
 
     private final ManagerRepository managerRepository;
 
+    @Transactional
     public Long create(ManagerCUDto dto) {
         Manager savedManager = managerRepository.save(Manager.of(dto));
         return savedManager.getId();
     }
 
+    @Transactional(readOnly = true)
     public ManagerDto findManager(Long id) {
         return ManagerDto.of(this.findById(id));
     }
 
+    @Transactional(readOnly = true)
     public List<ManagerDto> findManagers() {
         return managerRepository.findAll()
                                 .stream()
@@ -37,12 +41,14 @@ public class ManagerService {
                                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public ManagerDto update(Long id, ManagerCUDto dto){
         Manager manager = this.findById(id);
         manager.update(dto);
         return ManagerDto.of(manager);
     }
 
+    @Transactional
     public Long delete(Long id){
         managerRepository.deleteById(id);
         return id;
