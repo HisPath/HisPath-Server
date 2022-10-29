@@ -35,6 +35,7 @@ public class Notice extends BaseEntity {
 
     private String title;
 
+    @Column(length = 5555)
     private String content;
 
     private int viewCnt;

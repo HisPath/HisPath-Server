@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 
 
@@ -23,7 +24,6 @@ public class NoticeResponse {
     private String content;
     private int viewCnt;
     private boolean importance;
-    private boolean deleted;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate pubDate;
@@ -33,6 +33,6 @@ public class NoticeResponse {
 
     public static NoticeResponse from(NoticeDto dto) {
         return new NoticeResponse(dto.getId(), dto.getManager().getId(), dto.getManager().getName(),
-                dto.getTitle(), dto.getContent(), dto.getViewCnt(), dto.isImportance(), dto.isDeleted(), dto.getPubDate(), dto.getExpDate());
+                dto.getTitle(), dto.getContent(), dto.getViewCnt(), dto.isImportance(), dto.getPubDate(), dto.getExpDate());
     }
 }
