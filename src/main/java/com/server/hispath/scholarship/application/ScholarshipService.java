@@ -3,17 +3,18 @@ package com.server.hispath.scholarship.application;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.transaction.Transactional;
 
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.scholarship.application.dto.ScholarshipContentDto;
+import com.server.hispath.scholarship.application.dto.ScholarshipDto;
 import com.server.hispath.scholarship.domain.Scholarship;
 import com.server.hispath.scholarship.domain.repository.ScholarshipRepository;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.domain.Student;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -54,11 +55,19 @@ public class ScholarshipService {
                                  .reduce(0, Integer::sum);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ScholarshipContentDto> findAll() {
         List<Scholarship> scholarships = scholarshipRepository.findAll();
         return scholarships.stream()
                            .map(ScholarshipContentDto::from)
+                           .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ScholarshipDto> findAllScholarshipStudent(boolean approved, String semester) {
+        List<Scholarship> scholarships = scholarshipRepository.findAllByApprovedAndSemester(approved, semester);
+        return scholarships.stream()
+                           .map(ScholarshipDto::of)
                            .collect(Collectors.toList());
     }
 }
