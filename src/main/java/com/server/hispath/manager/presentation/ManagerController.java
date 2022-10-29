@@ -55,7 +55,7 @@ public class ManagerController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/manager/approve/{id}")
+    @PutMapping("/manager/approve")
     @ApiOperation(value = ApiDoc.MANAGER_APPROVE)
     public ResponseEntity<Long> approve(@RequestBody ManagerApproveRequest request) {
         Long response = managerService.approve(request.getManagerId(), request.getLevel());
