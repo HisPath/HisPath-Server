@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.manager.application.ManagerService;
 import com.server.hispath.manager.application.dto.ManagerCUDto;
+import com.server.hispath.manager.presentation.request.ManagerApproveRequest;
 import com.server.hispath.manager.presentation.request.ManagerCURequest;
 import com.server.hispath.manager.presentation.response.ManagerResponse;
 
@@ -56,8 +57,8 @@ public class ManagerController {
 
     @PutMapping("/manager/approve/{id}")
     @ApiOperation(value = ApiDoc.MANAGER_APPROVE)
-    public ResponseEntity<Long> approve(@PathVariable Long id) {
-        Long response = managerService.approve(id);
+    public ResponseEntity<Long> approve(@RequestBody ManagerApproveRequest request) {
+        Long response = managerService.approve(request.getManagerId(), request.getLevel());
         return ResponseEntity.ok(response);
     }
 

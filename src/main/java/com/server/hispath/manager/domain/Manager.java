@@ -44,7 +44,7 @@ public class Manager extends BaseEntity {
                       .build();
     }
 
-    public void update(ManagerCUDto dto){
+    public void update(ManagerCUDto dto) {
         this.email = dto.getEmail();
         this.name = dto.getName();
         this.department = dto.getDepartment();
@@ -55,7 +55,9 @@ public class Manager extends BaseEntity {
         this.approved = true;
     }
 
-    public boolean isSuperManager(){
+    public void updateLevel(int level) {this.power = level;}
+
+    public boolean isSuperManager() {
         return this.power > 1;
     }
 }
