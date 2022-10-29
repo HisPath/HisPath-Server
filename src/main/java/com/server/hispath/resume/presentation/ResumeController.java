@@ -24,14 +24,14 @@ public class ResumeController {
     public ResponseEntity<Long> create(@RequestBody ResumeCURequest request) {
         // Todo @Login 을 통해 API 를 호출 할 수 있도록 하기
         // Todo 현재는 그냥 단순 테스트를 위해 1번에 넣기
-        Long response = resumeService.create(new ResumeDto(1L, request.getContent()));
+        Long response = resumeService.create(1L, new ResumeDto(request));
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/resume/{id}")
     @ApiOperation(value = ApiDoc.RESUME_UPDATE)
     public ResponseEntity<ResumeResponse> update(@PathVariable Long id, @RequestBody ResumeCURequest request) {
-        ResumeResponse response = ResumeResponse.of(resumeService.update(new ResumeDto(id, request.getContent())));
+        ResumeResponse response = ResumeResponse.of(resumeService.update(new ResumeDto(id, request)));
         return ResponseEntity.ok(response);
     }
 

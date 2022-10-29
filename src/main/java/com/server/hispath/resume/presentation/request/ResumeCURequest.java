@@ -8,5 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ResumeCURequest {
+    private String title;
     private String content;
 }

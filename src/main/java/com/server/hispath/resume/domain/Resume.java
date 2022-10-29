@@ -29,6 +29,8 @@ public class Resume extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Student student;
 
+    private String title;
+
     @Column(length = 5555)
     private String content;
 
@@ -36,6 +38,7 @@ public class Resume extends BaseEntity {
     // private Template template;
 
     public void updateContent(ResumeDto resumeDto){
+        this.title = resumeDto.getTitle();
         this.content = resumeDto.getContent();
     }
 }

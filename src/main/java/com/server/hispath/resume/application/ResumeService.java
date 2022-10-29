@@ -20,10 +20,11 @@ public class ResumeService {
     private final StudentService studentService;
 
     @Transactional
-    public Long create(ResumeDto resumeDto) {
-        Student student = studentService.findById(resumeDto.getId());
+    public Long create(Long studentId, ResumeDto resumeDto) {
+        Student student = studentService.findById(studentId);
         Resume resume = Resume.builder()
                               .student(student)
+                              .title(resumeDto.getTitle())
                               .content(resumeDto.getContent())
                               .build();
 
@@ -44,7 +45,7 @@ public class ResumeService {
     }
 
     @Transactional
-    public void delete(Long id){
+    public void delete(Long id) {
         resumeRepository.deleteById(id);
     }
 }
