@@ -42,5 +42,9 @@ public class ResumeController {
         return ResponseEntity.ok(null);
     }
 
-
+    @GetMapping("/resume/{id}")
+    @ApiOperation(value = ApiDoc.RESUME_READ)
+    public ResponseEntity<ResumeResponse> find(@PathVariable Long id) {
+        return ResponseEntity.ok(ResumeResponse.of(resumeService.find(id)));
+    }
 }

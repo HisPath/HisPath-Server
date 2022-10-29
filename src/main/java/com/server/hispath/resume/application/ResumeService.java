@@ -48,4 +48,9 @@ public class ResumeService {
     public void delete(Long id) {
         resumeRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public ResumeDto find(Long id) {
+        return ResumeDto.of(this.findById(id));
+    }
 }
