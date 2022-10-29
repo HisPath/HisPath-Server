@@ -3,9 +3,13 @@ package com.server.hispath.scholarship.presentation;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.scholarship.application.ScholarshipService;
+import com.server.hispath.scholarship.application.dto.ScholarshipDto;
 import com.server.hispath.scholarship.presentation.request.ScholarshipCURequest;
+import com.server.hispath.scholarship.presentation.response.ScholarshipActivityResponse;
+import com.server.hispath.scholarship.presentation.response.ScholarshipDetailResponse;
 import com.server.hispath.scholarship.presentation.response.ScholarshipResponse;
 
 import org.springframework.http.ResponseEntity;
@@ -21,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class ScholarshipController {
 
     private final ScholarshipService scholarshipService;
+    private final ActivityService activityService;
 
     @PostMapping("/scholarship")
     @ApiOperation(value = ApiDoc.SCHOLARSHIP_CREATE)
@@ -40,5 +45,18 @@ public class ScholarshipController {
                                                                 .map(ScholarshipResponse::of)
                                                                 .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/scholarship/activities")
+    @ApiOperation(value = ApiDoc.SCHOLARSHIP_ACTIVITIES)
+    public ResponseEntity<ScholarshipDetailResponse> getScholarshipDetailInfo(@RequestParam Long studentId, @RequestParam String semester) {
+        List<ScholarshipActivityResponse> scholarshipActivityResponses = activityService.findAllByStudentAndSemster(studentId, semester)
+                                                                                        .stream()
+                                                                                        .map(ScholarshipActivityResponse::of)
+                                                                                        .collect(Collectors.toList());
+        ScholarshipDto scholarshipDto = scholarshipService.findScholarshipStudent(studentId, semester);
+        ScholarshipDetailResponse response = ScholarshipDetailResponse.from(scholarshipDto, scholarshipActivityResponses);
+        return ResponseEntity.ok(response);
+
     }
 }

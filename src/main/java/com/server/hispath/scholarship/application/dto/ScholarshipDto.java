@@ -20,12 +20,13 @@ public class ScholarshipDto {
     private String major2Name;
     private String email;
     private String phone;
+    private String result;
     private int totalWeight;
 
     public static ScholarshipDto of(Scholarship scholarship) {
         return new ScholarshipDto(scholarship.getStudent().getName(), scholarship.getStudent().getStudentNum(),
                 scholarship.getSemester(), scholarship.getSDepartment().getName(), scholarship.getSMajor1().getName(),
                 scholarship.getSMajor2().getName(), scholarship.getStudent().getEmail(),
-                scholarship.getStudent().getPhone(), scholarship.getTotalMileage());
+                scholarship.getStudent().getPhone(), scholarship.getResult(), scholarship.getTotalMileage());
     }
 }

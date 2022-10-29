@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
+import com.server.hispath.exception.scholarship.ScholarshipNotFoundException;
 import com.server.hispath.scholarship.application.dto.ScholarshipContentDto;
 import com.server.hispath.scholarship.application.dto.ScholarshipDto;
 import com.server.hispath.scholarship.domain.Scholarship;
@@ -33,7 +34,7 @@ public class ScholarshipService {
         if (Objects.nonNull(existScholarship))
             scholarshipRepository.delete(existScholarship);
 
-        int totalWeight = getTotalWeight(studentId);
+        int totalWeight = getTotalWeight(student, semester);
 
         Scholarship scholarship = Scholarship.builder()
                                              .student(student)
@@ -48,8 +49,8 @@ public class ScholarshipService {
         return savedScholarship.getId();
     }
 
-    private int getTotalWeight(Long studentId) {
-        return activityRepository.findActivityWithStudents(studentId)
+    private int getTotalWeight(Student student, String semester) {
+        return activityRepository.findActivitiesByStudentAndSemester(student, semester)
                                  .stream()
                                  .map(Activity::getWeight)
                                  .reduce(0, Integer::sum);
@@ -69,5 +70,12 @@ public class ScholarshipService {
         return scholarships.stream()
                            .map(ScholarshipDto::of)
                            .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public ScholarshipDto findScholarshipStudent(Long studentId, String semester) {
+        Scholarship scholarship = scholarshipRepository.findStudentIdAndSemester(studentId, semester)
+                                                       .orElseThrow(ScholarshipNotFoundException::new);
+        return ScholarshipDto.of(scholarship);
     }
 }
