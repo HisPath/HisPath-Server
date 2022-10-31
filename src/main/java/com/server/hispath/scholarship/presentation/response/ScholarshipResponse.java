@@ -15,6 +15,7 @@ public class ScholarshipResponse {
     private String name;
     private String studentNum;
     private String semester;
+    private int studentSemester;
     private String departmentName;
     private String major1Name;
     private String major2Name;
@@ -24,7 +25,7 @@ public class ScholarshipResponse {
 
     public static ScholarshipResponse of(ScholarshipDto dto){
         return new ScholarshipResponse(dto.getName(), dto.getStudentNum(),
-                dto.getSemester(), dto.getDepartmentName(), dto.getMajor1Name(),
+                dto.getSemester(), dto.getStudentSemester(), dto.getDepartmentName(), dto.getMajor1Name(),
                 dto.getMajor2Name(), dto.getEmail(), dto.getPhone(), dto.getTotalWeight());
     }
 }

@@ -1,6 +1,5 @@
 package com.server.hispath.scholarship.application;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -46,6 +45,7 @@ public class ScholarshipService {
         Scholarship scholarship = Scholarship.builder()
                                              .student(student)
                                              .semester(semester)
+                                             .studentSemester(student.getSemester())
                                              .totalMileage(totalWeight)
                                              .sMajor1(student.getMajor1())
                                              .sMajor2(student.getMajor2())
@@ -123,6 +123,8 @@ public class ScholarshipService {
         if (optionalScholarship.isEmpty())
             return true;
         Scholarship scholarship = optionalScholarship.get();
+        if (!scholarship.isStudentSemesterMatch(dto.getStudentSemester()))
+            return true;
         return scholarship.getTotalMileage() != dto.getWeight();
     }
 
