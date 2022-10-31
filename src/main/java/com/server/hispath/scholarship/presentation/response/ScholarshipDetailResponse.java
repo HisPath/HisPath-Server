@@ -18,6 +18,7 @@ public class ScholarshipDetailResponse {
     private String name;
     private String studentNum;
     private String semester;
+    private int studentSemester;
     private String departmentName;
     private String major1Name;
     private String major2Name;
@@ -26,8 +27,9 @@ public class ScholarshipDetailResponse {
     private int totalWeight;
     private String result;
     private List<ScholarshipActivityResponse> activities = new ArrayList<>();
-    public static ScholarshipDetailResponse from(ScholarshipDto dto, List<ScholarshipActivityResponse> activities){
-        return new ScholarshipDetailResponse(dto.getName(), dto.getStudentNum(), dto.getSemester(),
+
+    public static ScholarshipDetailResponse from(ScholarshipDto dto, List<ScholarshipActivityResponse> activities) {
+        return new ScholarshipDetailResponse(dto.getName(), dto.getStudentNum(), dto.getSemester(), dto.getStudentSemester(),
                 dto.getDepartmentName(), dto.getMajor1Name(), dto.getMajor2Name(), dto.getEmail(),
                 dto.getPhone(), dto.getTotalWeight(), dto.getResult(), activities);
     }

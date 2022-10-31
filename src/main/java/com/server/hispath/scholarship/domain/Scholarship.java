@@ -34,6 +34,8 @@ public class Scholarship extends BaseEntity {
     @NotNull
     private String semester;
 
+    int studentSemester;
+
     private int totalMileage;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,7 +51,11 @@ public class Scholarship extends BaseEntity {
 
     private boolean approved = false;
 
-    public void approve(){
+    public void approve() {
         approved = true;
+    }
+
+    public boolean isStudentSemesterMatch(int studentSemester) {
+        return this.studentSemester == studentSemester;
     }
 }

@@ -65,7 +65,7 @@ public class ExcelManager {
         return mActivityContentDtos;
     }
 
-    public static List<StudentSimpleRefDto> getStudentSimpleDatas(Sheet worksheet){
+    public static List<StudentSimpleRefDto> getStudentSimpleDatas(Sheet worksheet) {
         List<StudentSimpleRefDto> studentRefDtos = new ArrayList<>();
 
         for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
@@ -109,16 +109,17 @@ public class ExcelManager {
         return studentRefDtos;
     }
 
-    public static List<ScholarshipApprovalDto> getScholarshipApproveDatas(Sheet worksheet){
+    public static List<ScholarshipApprovalDto> getScholarshipApproveDatas(Sheet worksheet) {
         List<ScholarshipApprovalDto> scholarshipDtos = new ArrayList<>();
-        for(int i=1; i<worksheet.getPhysicalNumberOfRows(); i++){
+        for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             try {
                 Row row = worksheet.getRow(i);
                 String studentNum = row.getCell(0).toString().trim();
                 String name = row.getCell(1).toString().trim();
-                int weight = Integer.parseInt(row.getCell(2).toString().trim());
-                String result = row.getCell(3).toString().trim();
-                scholarshipDtos.add(new ScholarshipApprovalDto(name, studentNum, weight, result));
+                int studentSemester = Integer.parseInt(row.getCell(2).toString().trim());
+                int weight = Integer.parseInt(row.getCell(3).toString().trim());
+                String result = row.getCell(4).toString().trim();
+                scholarshipDtos.add(new ScholarshipApprovalDto(name, studentNum, studentSemester, weight, result));
             } catch (Exception e) {
                 throw new ExcelFormatException(e.getMessage());
             }
