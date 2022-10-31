@@ -11,9 +11,11 @@ import com.server.hispath.scholarship.presentation.request.ScholarshipCURequest;
 import com.server.hispath.scholarship.presentation.response.ScholarshipActivityResponse;
 import com.server.hispath.scholarship.presentation.response.ScholarshipDetailResponse;
 import com.server.hispath.scholarship.presentation.response.ScholarshipResponse;
+import com.server.hispath.util.ExcelManager;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -57,6 +59,13 @@ public class ScholarshipController {
         ScholarshipDto scholarshipDto = scholarshipService.findScholarshipStudent(studentId, semester);
         ScholarshipDetailResponse response = ScholarshipDetailResponse.from(scholarshipDto, scholarshipActivityResponses);
         return ResponseEntity.ok(response);
+    }
 
+    @PutMapping("/scholarship/approval")
+    @ApiOperation(value = ApiDoc.APPROVE_SCHOLARSHIPS)
+    public ResponseEntity<Void> approveAll(@RequestPart(value = "file", required = false) MultipartFile file,
+                                           @RequestPart(value = "semester") String semester) throws Exception {
+        scholarshipService.approveAll(ExcelManager.getScholarshipApproveDatas(ExcelManager.extract(file)), semester);
+        return ResponseEntity.ok(null);
     }
 }

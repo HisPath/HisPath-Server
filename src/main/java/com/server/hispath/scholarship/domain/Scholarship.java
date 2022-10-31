@@ -49,4 +49,7 @@ public class Scholarship extends BaseEntity {
 
     private boolean approved = false;
 
+    public void approve(){
+        approved = true;
+    }
 }

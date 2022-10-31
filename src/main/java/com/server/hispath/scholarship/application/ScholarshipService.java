@@ -1,18 +1,25 @@
 package com.server.hispath.scholarship.application;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
+import com.server.hispath.exception.scholarship.ScholarshipDuplicateException;
 import com.server.hispath.exception.scholarship.ScholarshipNotFoundException;
+import com.server.hispath.exception.scholarship.ScholarshipNotMatchException;
+import com.server.hispath.exception.student.StudentNotFoundException;
+import com.server.hispath.scholarship.application.dto.ScholarshipApprovalDto;
 import com.server.hispath.scholarship.application.dto.ScholarshipContentDto;
 import com.server.hispath.scholarship.application.dto.ScholarshipDto;
 import com.server.hispath.scholarship.domain.Scholarship;
 import com.server.hispath.scholarship.domain.repository.ScholarshipRepository;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.domain.Student;
+import com.server.hispath.student.domain.repository.StudentRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,14 +32,14 @@ public class ScholarshipService {
     private final ScholarshipRepository scholarshipRepository;
     private final StudentService studentService;
     private final ActivityRepository activityRepository;
+    private final StudentRepository studentRepository;
 
     @Transactional
     public Long create(Long studentId, String semester) {
         Student student = studentService.findById(studentId);
 
-        Scholarship existScholarship = scholarshipRepository.findFirstByStudentAndSemester(student, semester);
-        if (Objects.nonNull(existScholarship))
-            scholarshipRepository.delete(existScholarship);
+        Optional<Scholarship> existScholarship = scholarshipRepository.findFirstByStudentAndSemester(student, semester);
+        existScholarship.ifPresent(scholarshipRepository::delete);
 
         int totalWeight = getTotalWeight(student, semester);
 
@@ -77,5 +84,57 @@ public class ScholarshipService {
         Scholarship scholarship = scholarshipRepository.findStudentIdAndSemester(studentId, semester)
                                                        .orElseThrow(ScholarshipNotFoundException::new);
         return ScholarshipDto.of(scholarship);
+    }
+
+    @Transactional
+    public void approveAll(List<ScholarshipApprovalDto> scholarshipApprovalDtos, String semester) {
+        validateScholarshipDatas(scholarshipApprovalDtos, semester);
+        checkDuplicate(scholarshipApprovalDtos);
+
+        scholarshipApprovalDtos.forEach(dto -> {
+            Student student = studentRepository.findByStudentNum(dto.getStudentNum())
+                                               .orElseThrow(StudentNotFoundException::new);
+            Scholarship scholarship = scholarshipRepository.findFirstByStudentAndSemester(student, semester)
+                                                           .orElseThrow(ScholarshipNotFoundException::new);
+            scholarship.approve();
+        });
+
+
+    }
+
+    private void checkDuplicate(List<ScholarshipApprovalDto> scholarshipApprovalDtos) {
+        Set<String> set = scholarshipApprovalDtos.stream()
+                                                 .map(ScholarshipApprovalDto::StudentInfo)
+                                                 .collect(Collectors.toSet());
+
+        if (set.size() < scholarshipApprovalDtos.size()) {
+            throw new ScholarshipDuplicateException();
+        }
+    }
+
+    private boolean validateError(ScholarshipApprovalDto dto, String semester) {
+        Optional<Student> optionalStudent = studentRepository.findByStudentNum(dto.getStudentNum());
+        if (optionalStudent.isEmpty())
+            return true;
+        Student student = optionalStudent.get();
+        if (!student.isNameMatch(dto.getName()))
+            return true;
+        Optional<Scholarship> optionalScholarship = scholarshipRepository.findFirstByStudentAndSemester(student, semester);
+        if (optionalScholarship.isEmpty())
+            return true;
+        Scholarship scholarship = optionalScholarship.get();
+        return scholarship.getTotalMileage() != dto.getWeight();
+    }
+
+    private void validateScholarshipDatas(List<ScholarshipApprovalDto> scholarshipApprovalDtos, String semester) {
+        List<ScholarshipApprovalDto> errors = scholarshipApprovalDtos.stream()
+                                                                     .filter(dto -> validateError(dto, semester))
+                                                                     .collect(Collectors.toList());
+        if (errors.size() != 0) {
+            String errorMsg = errors.stream()
+                                    .map(ScholarshipApprovalDto::toString)
+                                    .collect(Collectors.joining("\n"));
+            throw new ScholarshipNotMatchException(errorMsg);
+        }
     }
 }
