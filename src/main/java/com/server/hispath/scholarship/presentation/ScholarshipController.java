@@ -3,13 +3,23 @@ package com.server.hispath.scholarship.presentation;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.server.hispath.activity.application.ActivityService;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.scholarship.application.ScholarshipService;
+import com.server.hispath.scholarship.application.dto.ScholarshipDto;
 import com.server.hispath.scholarship.presentation.request.ScholarshipCURequest;
+import com.server.hispath.scholarship.presentation.response.ScholarshipActivityResponse;
+import com.server.hispath.scholarship.presentation.response.ScholarshipDetailResponse;
 import com.server.hispath.scholarship.presentation.response.ScholarshipResponse;
+import com.server.hispath.util.ExcelManager;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import io.swagger.annotations.ApiOperation;
 
@@ -21,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class ScholarshipController {
 
     private final ScholarshipService scholarshipService;
+    private final ActivityService activityService;
 
     @PostMapping("/scholarship")
     @ApiOperation(value = ApiDoc.SCHOLARSHIP_CREATE)
@@ -40,5 +51,25 @@ public class ScholarshipController {
                                                                 .map(ScholarshipResponse::of)
                                                                 .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/scholarship/activities")
+    @ApiOperation(value = ApiDoc.SCHOLARSHIP_ACTIVITIES)
+    public ResponseEntity<ScholarshipDetailResponse> getScholarshipDetailInfo(@RequestParam Long studentId, @RequestParam String semester) {
+        List<ScholarshipActivityResponse> scholarshipActivityResponses = activityService.findAllByStudentAndSemster(studentId, semester)
+                                                                                        .stream()
+                                                                                        .map(ScholarshipActivityResponse::of)
+                                                                                        .collect(Collectors.toList());
+        ScholarshipDto scholarshipDto = scholarshipService.findScholarshipStudent(studentId, semester);
+        ScholarshipDetailResponse response = ScholarshipDetailResponse.from(scholarshipDto, scholarshipActivityResponses);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/scholarship/approval")
+    @ApiOperation(value = ApiDoc.APPROVE_SCHOLARSHIPS)
+    public ResponseEntity<Void> approveAll(@RequestPart(value = "file", required = false) MultipartFile file,
+                                           @RequestPart(value = "semester") String semester) throws Exception {
+        scholarshipService.approveAll(ExcelManager.getScholarshipApproveDatas(ExcelManager.extract(file)), semester);
+        return ResponseEntity.ok(null);
     }
 }

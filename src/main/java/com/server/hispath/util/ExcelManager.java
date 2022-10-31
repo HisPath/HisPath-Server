@@ -10,6 +10,7 @@ import com.server.hispath.activity.application.dto.MActivityContentDto;
 import com.server.hispath.exception.common.ExcelDataFormatException;
 import com.server.hispath.exception.common.ExcelFormatException;
 import com.server.hispath.exception.common.NotExcelExtensionException;
+import com.server.hispath.scholarship.application.dto.ScholarshipApprovalDto;
 import com.server.hispath.student.application.dto.StudentRefDto;
 import com.server.hispath.student.application.dto.StudentSimpleRefDto;
 
@@ -106,5 +107,22 @@ public class ExcelManager {
             }
         }
         return studentRefDtos;
+    }
+
+    public static List<ScholarshipApprovalDto> getScholarshipApproveDatas(Sheet worksheet){
+        List<ScholarshipApprovalDto> scholarshipDtos = new ArrayList<>();
+        for(int i=1; i<worksheet.getPhysicalNumberOfRows(); i++){
+            try {
+                Row row = worksheet.getRow(i);
+                String studentNum = row.getCell(0).toString().trim();
+                String name = row.getCell(1).toString().trim();
+                int weight = Integer.parseInt(row.getCell(2).toString().trim());
+                String result = row.getCell(3).toString().trim();
+                scholarshipDtos.add(new ScholarshipApprovalDto(name, studentNum, weight, result));
+            } catch (Exception e) {
+                throw new ExcelFormatException(e.getMessage());
+            }
+        }
+        return scholarshipDtos;
     }
 }

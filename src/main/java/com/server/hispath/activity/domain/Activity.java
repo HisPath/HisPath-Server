@@ -48,6 +48,7 @@ public class Activity extends BaseEntity {
 
     private String remark;
 
+    // 1 일떄 마일리지 처리, 0이면 마일리지 아님
     private int requestStatus;
 
     private String name;

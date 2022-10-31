@@ -1,7 +1,6 @@
 package com.server.hispath.activity.application;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.*;
@@ -121,4 +120,13 @@ public class ActivityService {
                       .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<ActivityDto> findAllByStudentAndSemster(Long id, String semester) {
+        Student student = studentRepository.findStudentWithIdAndSemester(id, semester)
+                                           .orElseThrow(StudentNotFoundException::new);
+        return student.getParticipants()
+                      .stream()
+                      .map(participant -> ActivityDto.from(participant.getActivity()))
+                      .collect(Collectors.toList());
+    }
 }
