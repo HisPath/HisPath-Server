@@ -91,7 +91,7 @@ public class Activity extends BaseEntity {
                        .semester(dto.getSemester())
                        .remark(dto.getRemark())
                        .personal(true)
-                       .requestStatus(0)
+                       .requestStatus(3)
                        .name(dto.getName())
                        .weight(0)
                        .build();
