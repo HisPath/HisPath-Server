@@ -11,6 +11,7 @@ import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.ActivityDto;
 import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
 import com.server.hispath.activity.application.dto.SemesterDto;
+import com.server.hispath.activity.presentation.request.ActivityApproveRequest;
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.request.StudentActivityCURequest;
 import com.server.hispath.activity.presentation.response.ActivityParticipantResponse;
@@ -137,8 +138,8 @@ public class ActivityController {
 
     @PutMapping("/activity/approve/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_APPROVE)
-    public ResponseEntity<Void> approveActivity(@PathVariable Long id){
-        activityService.approve(id);
+    public ResponseEntity<Void> approveActivity(@PathVariable Long id, @RequestBody ActivityApproveRequest request){
+        activityService.approve(id, request.getWeight());
         return ResponseEntity.ok(null);
     }
 

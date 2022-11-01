@@ -160,8 +160,9 @@ public class Activity extends BaseEntity {
         this.requestStatus = 0;
     }
 
-    public void approve(){
+    public void approve(int weight){
         this.requestStatus = 1;
+        this.weight = weight;
     }
 
     public void reject(){
