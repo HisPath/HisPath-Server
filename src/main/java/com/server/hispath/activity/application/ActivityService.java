@@ -137,7 +137,7 @@ public class ActivityService {
 
     @Transactional
     public void approve(Long activityId, int weight){
-        this.findById(activityId).approve();
+        this.findById(activityId).approve(weight);
     }
 
     @Transactional
