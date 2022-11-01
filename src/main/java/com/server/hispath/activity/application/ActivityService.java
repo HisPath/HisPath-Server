@@ -129,4 +129,19 @@ public class ActivityService {
                       .map(participant -> ActivityDto.from(participant.getActivity()))
                       .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void apply(Long activityId){
+        this.findById(activityId).apply();
+    }
+
+    @Transactional
+    public void approve(Long activityId, int weight){
+        this.findById(activityId).approve();
+    }
+
+    @Transactional
+    public void reject(Long activityId){
+        this.findById(activityId).reject();
+    }
 }

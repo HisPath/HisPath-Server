@@ -11,6 +11,7 @@ import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.ActivityDto;
 import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
 import com.server.hispath.activity.application.dto.SemesterDto;
+import com.server.hispath.activity.presentation.request.ActivityApproveRequest;
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.request.StudentActivityCURequest;
 import com.server.hispath.activity.presentation.response.ActivityParticipantResponse;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.ApiOperation;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.EvaluationName;
 
 @RestController
 @RequiredArgsConstructor
@@ -125,5 +127,26 @@ public class ActivityController {
     @ApiOperation(value = ApiDoc.STUDENT_MILEAGE_READ)
     public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
         return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
+    }
+
+    @PutMapping("/activity/apply/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_APPLY)
+    public ResponseEntity<Void> applyActivity(@PathVariable Long id){
+        activityService.apply(id);
+        return ResponseEntity.ok(null);
+    }
+
+    @PutMapping("/activity/approve/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_APPROVE)
+    public ResponseEntity<Void> approveActivity(@PathVariable Long id, @RequestBody ActivityApproveRequest request){
+        activityService.approve(id, request.getWeight());
+        return ResponseEntity.ok(null);
+    }
+
+    @PutMapping("/activity/reject/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_REJECT)
+    public ResponseEntity<Void> rejectActivity(@PathVariable Long id){
+        activityService.reject(id);
+        return ResponseEntity.ok(null);
     }
 }
