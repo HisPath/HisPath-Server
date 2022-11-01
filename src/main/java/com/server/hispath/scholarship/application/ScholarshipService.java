@@ -14,8 +14,10 @@ import com.server.hispath.exception.student.StudentNotFoundException;
 import com.server.hispath.scholarship.application.dto.ScholarshipApprovalDto;
 import com.server.hispath.scholarship.application.dto.ScholarshipContentDto;
 import com.server.hispath.scholarship.application.dto.ScholarshipDto;
+import com.server.hispath.scholarship.application.dto.SearchRequestDto;
 import com.server.hispath.scholarship.domain.Scholarship;
 import com.server.hispath.scholarship.domain.repository.ScholarshipRepository;
+import com.server.hispath.scholarship.domain.repository.ScholarshipRepositoryCustom;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
@@ -29,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ScholarshipService {
     private final ScholarshipRepository scholarshipRepository;
+    private final ScholarshipRepositoryCustom scholarshipRepositoryCustom;
     private final StudentService studentService;
     private final ActivityRepository activityRepository;
     private final StudentRepository studentRepository;
@@ -138,5 +141,13 @@ public class ScholarshipService {
                                     .collect(Collectors.joining("\n"));
             throw new ScholarshipNotMatchException(errorMsg);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<ScholarshipDto> searchScholarshipStudent(SearchRequestDto dto) {
+        return scholarshipRepositoryCustom.searchScholarshipStudent(dto)
+                                          .stream()
+                                          .map(ScholarshipDto::of)
+                                          .collect(Collectors.toList());
     }
 }
