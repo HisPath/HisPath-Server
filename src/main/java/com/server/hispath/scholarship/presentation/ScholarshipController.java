@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.scholarship.application.ScholarshipService;
 import com.server.hispath.scholarship.application.dto.ScholarshipDto;
+import com.server.hispath.scholarship.application.dto.SearchRequestDto;
 import com.server.hispath.scholarship.presentation.request.ScholarshipCURequest;
 import com.server.hispath.scholarship.presentation.response.ScholarshipActivityResponse;
 import com.server.hispath.scholarship.presentation.response.ScholarshipDetailResponse;
@@ -71,5 +73,22 @@ public class ScholarshipController {
                                            @RequestPart(value = "semester") String semester) throws Exception {
         scholarshipService.approveAll(ExcelManager.getScholarshipApproveDatas(ExcelManager.extract(file)), semester);
         return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/scholarship/students")
+    @ApiOperation(value = ApiDoc.SCHOLARSHIP_SEARCH_STUDENT)
+    public ResponseEntity<List<ScholarshipResponse>> searchScholarshipStudents(
+            @RequestParam(required = false) String semester ,
+            @RequestParam(required = false) String studentSemester,
+            @RequestParam(required = false) String department,
+            @RequestParam(required = false) String major1,
+            @RequestParam(required = false) String major2
+    ) {
+        SearchRequestDto searchRequestDto = new SearchRequestDto(semester, studentSemester, department, major1, major2);
+        List<ScholarshipResponse> responses = scholarshipService.searchScholarshipStudent(searchRequestDto)
+                                                                .stream()
+                                                                .map(ScholarshipResponse::of)
+                                                                .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 }

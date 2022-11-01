@@ -87,4 +87,5 @@ public class ApiDoc {
     public static final String SCHOLARSHIP_READ_ALL = "장학금 수혜자들 명단 조회";
     public static final String SCHOLARSHIP_ACTIVITIES = "장학금 수혜자 정보와 그 활동들 조회";
     public static final String APPROVE_SCHOLARSHIPS = "현학기 장학금 승인 명단 엑셀 업로드";
+    public static final String SCHOLARSHIP_SEARCH_STUDENT = "장학금 수혜 학생 필터 검색";
 }
