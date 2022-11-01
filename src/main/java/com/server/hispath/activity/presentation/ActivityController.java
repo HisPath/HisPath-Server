@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.ApiOperation;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.EvaluationName;
 
 @RestController
 @RequiredArgsConstructor
@@ -125,5 +126,12 @@ public class ActivityController {
     @ApiOperation(value = ApiDoc.STUDENT_MILEAGE_READ)
     public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
         return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
+    }
+
+    @PutMapping("/activity/apply/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_APPLY)
+    public ResponseEntity<Void> applyActivity(@PathVariable Long activityId){
+        activityService.applyActivity(activityId);
+        return ResponseEntity.ok(null);
     }
 }

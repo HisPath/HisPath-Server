@@ -129,4 +129,9 @@ public class ActivityService {
                       .map(participant -> ActivityDto.from(participant.getActivity()))
                       .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void applyActivity(Long activityId){
+        this.findById(activityId).apply();
+    }
 }

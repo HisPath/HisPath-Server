@@ -156,4 +156,7 @@ public class Activity extends BaseEntity {
         return Objects.equals(this.semester, semester);
     }
 
+    public void apply(){
+        this.requestStatus = 0;
+    }
 }
