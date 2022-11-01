@@ -159,4 +159,9 @@ public class Activity extends BaseEntity {
     public void apply(){
         this.requestStatus = 0;
     }
+
+    public void approve(){
+        this.requestStatus = 1;
+    }
+
 }

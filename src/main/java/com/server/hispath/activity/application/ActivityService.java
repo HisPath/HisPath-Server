@@ -131,7 +131,12 @@ public class ActivityService {
     }
 
     @Transactional
-    public void applyActivity(Long activityId){
+    public void apply(Long activityId){
         this.findById(activityId).apply();
+    }
+
+    @Transactional
+    public void approve(Long activityId){
+        this.findById(activityId).approve();
     }
 }
