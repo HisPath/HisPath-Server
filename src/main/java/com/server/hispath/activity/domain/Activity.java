@@ -164,4 +164,7 @@ public class Activity extends BaseEntity {
         this.requestStatus = 1;
     }
 
+    public void reject(){
+        this.requestStatus = 2;
+    }
 }

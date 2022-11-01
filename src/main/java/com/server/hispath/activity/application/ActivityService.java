@@ -139,4 +139,9 @@ public class ActivityService {
     public void approve(Long activityId){
         this.findById(activityId).approve();
     }
+
+    @Transactional
+    public void reject(Long activityId){
+        this.findById(activityId).reject();
+    }
 }

@@ -130,15 +130,22 @@ public class ActivityController {
 
     @PutMapping("/activity/apply/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_APPLY)
-    public ResponseEntity<Void> applyActivity(@PathVariable Long activityId){
-        activityService.apply(activityId);
+    public ResponseEntity<Void> applyActivity(@PathVariable Long id){
+        activityService.apply(id);
         return ResponseEntity.ok(null);
     }
 
     @PutMapping("/activity/approve/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_APPROVE)
-    public ResponseEntity<Void> approveActivity(@PathVariable Long activityId){
-        activityService.approve(activityId);
+    public ResponseEntity<Void> approveActivity(@PathVariable Long id){
+        activityService.approve(id);
+        return ResponseEntity.ok(null);
+    }
+
+    @PutMapping("/activity/reject/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_REJECT)
+    public ResponseEntity<Void> rejectActivity(@PathVariable Long id){
+        activityService.reject(id);
         return ResponseEntity.ok(null);
     }
 }
