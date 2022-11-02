@@ -71,4 +71,7 @@ public class Notice extends BaseEntity {
         this.expDate = dto.getExpDate();
     }
 
+
+
+
 }
