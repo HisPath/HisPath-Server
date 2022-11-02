@@ -3,6 +3,7 @@ package com.server.hispath.student.presentation;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.notice.application.NoticeService;
 import com.server.hispath.notice.application.dto.DashboardNoticeDto;
@@ -83,5 +84,17 @@ public class StudentController {
         StudentDto studentDto = studentService.find(id);
         List<DashboardNoticeDto> dashboardNoticeDtos = noticeService.findRecentNotice();
         return ResponseEntity.ok(DashboardResponse.from(studentDto, dashboardNoticeDtos));
+    }
+
+    @GetMapping("/student/semesters")
+    @ApiOperation(value = ApiDoc.STUDENT_SEMESTER)
+    public ResponseEntity<List<SemesterResponse>> getStudentSemeters() {
+        // Todo @Login 을 통해 API 를 호출 할 수 있도록 하기
+        // Todo 현재는 그냥 단순 테스트를 위해 1번에 넣기
+        List<SemesterResponse> responses = studentService.getStudentSemesters(1L)
+                                                         .stream()
+                                                         .map(SemesterResponse::from)
+                                                         .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 }

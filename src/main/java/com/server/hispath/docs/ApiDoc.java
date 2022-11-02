@@ -3,8 +3,6 @@ package com.server.hispath.docs;
 public class ApiDoc {
 
 
-    /* Student 관련 API 명세 */
-
 
     /* Activity 관련 API 명세 */
     public static final String ACTIVITY_CREATE = "단일 활동 생성";
@@ -62,6 +60,7 @@ public class ApiDoc {
     public static final String STUDENT_UPDATE = "학생 수정";
     public static final String STUDENT_DELETE = "학생 삭제";
     public static final String DASHBOARD = "메인페이지 대시보드 정보 조회";
+    public static final String STUDENT_SEMESTER = "학생의 활동 학기들 조회";
 
     /* Manager 관련 API 명세 */
     public static final String MANAGER_READ = "단일 관리자 조회";
