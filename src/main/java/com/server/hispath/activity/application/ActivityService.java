@@ -15,6 +15,7 @@ import com.server.hispath.exception.student.StudentNotFoundException;
 import com.server.hispath.student.domain.Participant;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
+import com.server.hispath.student.domain.repository.StudentRepositoryCustom;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,7 @@ public class ActivityService {
     private final CategoryService categoryService;
     private final CategoryRepository categoryRepository;
     private final StudentRepository studentRepository;
+    private final StudentRepositoryCustom studentRepositoryCustom;
 
     @Transactional
     public Long create(Long categoryId, ActivityContentDto dto) {
@@ -122,8 +124,8 @@ public class ActivityService {
 
     @Transactional(readOnly = true)
     public List<ActivityDto> findAllByStudentAndSemster(Long id, String semester) {
-        Student student = studentRepository.findStudentWithIdAndSemester(id, semester)
-                                           .orElseThrow(StudentNotFoundException::new);
+        Student student = studentRepositoryCustom.findStudentWithIdAndSemester(id, semester)
+                                                 .orElseThrow(StudentNotFoundException::new);
         return student.getParticipants()
                       .stream()
                       .map(participant -> ActivityDto.from(participant.getActivity()))
@@ -131,17 +133,17 @@ public class ActivityService {
     }
 
     @Transactional
-    public void apply(Long activityId){
+    public void apply(Long activityId) {
         this.findById(activityId).apply();
     }
 
     @Transactional
-    public void approve(Long activityId, int weight){
+    public void approve(Long activityId, int weight) {
         this.findById(activityId).approve(weight);
     }
 
     @Transactional
-    public void reject(Long activityId){
+    public void reject(Long activityId) {
         this.findById(activityId).reject();
     }
 }
