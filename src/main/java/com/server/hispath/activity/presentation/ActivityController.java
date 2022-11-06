@@ -151,7 +151,7 @@ public class ActivityController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping("/activity-detail/{id}")
+    @GetMapping("/activity-detail/{activityId}")
     @ApiOperation(value = ApiDoc.ACTIVITY_STUDENT_DETAIL)
     public ResponseEntity<ActivityParticipantResponse> findParticipantActivityById(@PathVariable Long activityId) {
         // ToDo StudentId 는 나중에 로그인으로 바꿈
