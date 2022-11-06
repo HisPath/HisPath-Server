@@ -3,10 +3,7 @@ package com.server.hispath.activity.application;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.server.hispath.activity.application.dto.ActivityDto;
-import com.server.hispath.activity.application.dto.MActivityContentDto;
-import com.server.hispath.activity.application.dto.MActivityDetailDto;
-import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
+import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.category.application.CategoryService;
@@ -116,5 +113,13 @@ public class MActivityService {
                 .findFirst()
                 .orElseThrow(ParticipantNotFoundException::new)
                 .deleteContent();
+    }
+
+    @Transactional
+    public List<SemesterDto> findSemestersById(Long studentId) {
+        Student student = studentRepository.findActivitiesByStudent(studentId).orElseThrow(StudentNotFoundException::new);
+        List<SemesterDto> semesters = student.getParticipants()
+                .stream().map(participant -> {return SemesterDto.from(participant.getActivity().getSemester());}).distinct().collect(Collectors.toList());
+        return semesters;
     }
 }

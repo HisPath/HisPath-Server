@@ -151,10 +151,17 @@ public class ActivityController {
         return ResponseEntity.ok(null);
     }
 
+
+    @GetMapping("/studentactivity/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_MILEAGE_READ)
+    public ResponseEntity<MStudentActivityDetailDto> findActivityByStudentId(@PathVariable Long id) {
+        return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
+    }
     @GetMapping("/activity-detail/{activityId}")
     @ApiOperation(value = ApiDoc.ACTIVITY_STUDENT_DETAIL)
     public ResponseEntity<ActivityParticipantResponse> findParticipantActivityById(@PathVariable Long activityId) {
         // ToDo StudentId 는 나중에 로그인으로 바꿈
         return ResponseEntity.ok(ActivityParticipantResponse.of(activityService.findParticipantActivityById(1L, activityId)));
+
     }
 }
