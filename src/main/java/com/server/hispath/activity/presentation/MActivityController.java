@@ -5,14 +5,12 @@ import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.MActivityService;
-import com.server.hispath.activity.application.dto.ActivityDto;
-import com.server.hispath.activity.application.dto.MActivityContentDto;
-import com.server.hispath.activity.application.dto.MActivityDetailDto;
-import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
+import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
 import com.server.hispath.activity.presentation.request.MParticipantRequest;
 import com.server.hispath.activity.presentation.request.MStudentRegisterRequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
+import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.application.dto.StudentSimpleRefDto;
@@ -121,4 +119,16 @@ public class MActivityController {
     public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
         return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
     }
+
+    @GetMapping("/semester/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_READ_SEMESTER)
+    public ResponseEntity<List<SemesterResponse>> findSemestersById(@PathVariable Long id) {
+        List<SemesterDto> semesters = mActivityService.findSemestersById(id);
+        List<SemesterResponse> responses = semesters.stream()
+                .map(SemesterResponse::from)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
+
+
 }

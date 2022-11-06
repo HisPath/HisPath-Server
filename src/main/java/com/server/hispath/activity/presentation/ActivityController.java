@@ -149,4 +149,10 @@ public class ActivityController {
         activityService.reject(id);
         return ResponseEntity.ok(null);
     }
+
+    @GetMapping("/studentactivity/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_MILEAGE_READ)
+    public ResponseEntity<MStudentActivityDetailDto> findActivityByStudentId(@PathVariable Long id) {
+        return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
+    }
 }

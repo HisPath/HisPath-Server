@@ -23,6 +23,7 @@ public class ApiDoc {
     public static final String ACTIVITY_STUDENT_DELETE = "마일리지 활동 학생 참가 정보 삭제";
     public static final String MILEAGE_READ = "단일 마일리지 활동 조회";
     public static final String STUDENT_MILEAGE_READ = "학생별 마일리지 활동 조회";
+    public static final String STUDENT_READ_SEMESTER = "학생별 활동 학기 조회";
     public static final String STUDENT_ACTIVITY_CREATE = "학생의 개인 활동 생성";
     public static final String STUDENT_ACTIVITY_UPDATE = "학생의 참여 활동 수정";
     public static final String STUDENT_ACTIVITY_READ_SEMESTER = "학생의 참여 활동 학기별 조회";
@@ -93,5 +94,5 @@ public class ApiDoc {
     public static final String SCHOLARSHIP_ACTIVITIES = "장학금 수혜자 정보와 그 활동들 조회";
     public static final String APPROVE_SCHOLARSHIPS = "현학기 장학금 승인 명단 엑셀 업로드";
     public static final String SCHOLARSHIP_SEARCH_STUDENT = "장학금 수혜 학생 필터 검색";
-   public static final String InHyeok = "제발 하라는 대로 하자 dev branch에서 dev 풀 받고, 다시 너의 브렌치로 이동해서 git merge dev 후 git push origin 너브랜체 그리고 pull request 만들기 "
+//    public static final String INHYEOK = "제발 하라는 대로 하자 dev branch에서 dev 풀 받고, 다시 너의 브렌치로 이동해서 git merge dev 후 git push origin 너브랜체 그리고 pull request 만들기 "
 }
