@@ -22,26 +22,28 @@ public class StudentRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
 
-    public Optional<Student> findStudentWithIdAndSemester(Long id, String semester) {
+    public Optional<Student> findStudentWithIdAndSemester(Long id, String semester, boolean isMileage) {
         Student student = queryFactory.select(QStudent.student)
                                       .from(QStudent.student)
                                       .leftJoin(QStudent.student.participants, participant).fetchJoin()
                                       .leftJoin(participant.activity, activity).fetchJoin()
                                       .leftJoin(activity.category).fetchJoin()
-                                      .where(studentSearchCondition(id, semester))
+                                      .where(studentSearchCondition(id, semester, isMileage))
                                       .fetchOne();
         return Optional.ofNullable(student);
     }
 
 
-    public BooleanBuilder studentSearchCondition(Long studentId, String semester) {
+    public BooleanBuilder studentSearchCondition(Long studentId, String semester, boolean isMileage) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         booleanBuilder.and(student.id.eq(studentId));
         if (!Objects.isNull(semester)) {
             booleanBuilder.and(activity.semester.eq(semester));
         }
-
+        if (isMileage) {
+            booleanBuilder.and(activity.requestStatus.eq(1));
+        }
         return booleanBuilder;
     }
 }

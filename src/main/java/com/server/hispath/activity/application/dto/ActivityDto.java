@@ -2,6 +2,7 @@ package com.server.hispath.activity.application.dto;
 
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.category.application.dto.CategoryDto;
+import com.server.hispath.student.domain.Participant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,5 +25,9 @@ public class ActivityDto {
         return new ActivityDto(activity.getId(), CategoryDto.from(activity.getCategory()), activity.getSemester(),
                 activity.isPersonal(), activity.getName(), activity.getRemark(), activity.getWeight(),
                 activity.isStudentRegistered());
+    }
+
+    public static ActivityDto from(Participant participant){
+        return ActivityDto.from(participant.getActivity());
     }
 }

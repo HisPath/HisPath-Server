@@ -68,4 +68,8 @@ public class Participant extends BaseEntity {
         this.section = participantContentDto.getSection();
         this.data = participantContentDto.getData();
     }
+
+    public String getActivityCategoryName(){
+        return activity.getCategory().getName();
+    }
 }

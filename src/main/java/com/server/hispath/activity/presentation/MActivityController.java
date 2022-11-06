@@ -13,6 +13,7 @@ import com.server.hispath.activity.presentation.request.MActivityCURequest;
 import com.server.hispath.activity.presentation.request.MParticipantRequest;
 import com.server.hispath.activity.presentation.request.MStudentRegisterRequest;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
+import com.server.hispath.activity.presentation.response.ChartDataResponse;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.application.dto.StudentSimpleRefDto;
@@ -121,4 +122,10 @@ public class MActivityController {
     public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
         return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
     }
+
+//    @GetMapping("/mileage/category/chart")
+//    @ApiOperation(value = ApiDoc.MILEAGE_CATEGORY_CHART_DATAS)
+//    public ResponseEntity<List<ChartDataResponse>> getMileagesByCategoryAndSemester(@RequestParam String semster){
+//
+//    }
 }

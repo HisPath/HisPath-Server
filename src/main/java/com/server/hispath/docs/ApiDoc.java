@@ -29,7 +29,7 @@ public class ApiDoc {
     public static final String ACTIVITY_APPLY = "학생 활동 마일리지 신청";
     public static final String ACTIVITY_APPROVE = "학생 활동 마일리지 승인";
     public static final String ACTIVITY_REJECT = "학생 활동 마일리지 반려";
-
+    public static final String MILEAGE_CATEGORY_CHART_DATAS = "카테고리 당 마일리지 참여, 평균 수 조회";
 
     /* Category 관련 API 명세 */
     public static final String CATEGORY_READ = "단일 카테고리 조회";

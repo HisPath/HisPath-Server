@@ -1,6 +1,9 @@
 package com.server.hispath.activity.application;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.*;
@@ -69,10 +72,6 @@ public class ActivityService {
         activityRepository.deleteById(id);
     }
 
-    public Activity findById(Long id) {
-        return activityRepository.findById(id).orElseThrow(ActivityNotFoundException::new);
-    }
-
     @Transactional(readOnly = true)
     public List<SemesterDto> bringSemester() {
         List<String> semesters = activityRepository.bringSemester();
@@ -124,8 +123,8 @@ public class ActivityService {
 
     @Transactional(readOnly = true)
     public List<ActivityDto> findAllByStudentAndSemster(Long id, String semester) {
-        Student student = studentRepositoryCustom.findStudentWithIdAndSemester(id, semester)
-                                                 .orElseThrow(StudentNotFoundException::new);
+        Student student = findStudentWholeByIdAndSemester(id, semester, false);
+
         return student.getParticipants()
                       .stream()
                       .map(participant -> ActivityDto.from(participant.getActivity()))
@@ -145,5 +144,32 @@ public class ActivityService {
     @Transactional
     public void reject(Long activityId) {
         this.findById(activityId).reject();
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<ChartDataDto> getChartDatasByCategory(Long studentId, String semester) {
+        Student student = findStudentWholeByIdAndSemester(studentId, semester, true);
+        List<Category> categories = categoryRepository.findAll();
+        Map<String, Integer> map = categories.stream()
+                                             .collect(Collectors.toMap(Category::getName, cnt -> 0));
+        student.getParticipants()
+               .forEach(participant -> {
+                   String categoryName = participant.getActivityCategoryName();
+                   map.put(categoryName, map.get(categoryName) + 1);
+               });
+
+        // 전체 데이터 Category 로 분류
+
+        List<ChartDataDto> chartDataDtos = new ArrayList<>();
+    }
+
+    private Student findStudentWholeByIdAndSemester(Long studentId, String semester, boolean isMileage) {
+        return studentRepositoryCustom.findStudentWithIdAndSemester(studentId, semester, isMileage)
+                                      .orElseThrow(StudentNotFoundException::new);
+    }
+
+    public Activity findById(Long id) {
+        return activityRepository.findById(id).orElseThrow(ActivityNotFoundException::new);
     }
 }
