@@ -31,10 +31,6 @@ public class NoticeService {
         Notice ret = noticeRepository.findById(id).orElseThrow(NoticeNotFoundException::new);
         return ret;
     }
-    @Transactional
-    public void increaseViewCnt(Long id){
-        noticeRepository.increaseViewCntByOne(id);
-    }
 
     @Transactional
     public Long create(Long managerId, NoticeContentDto dto) {
