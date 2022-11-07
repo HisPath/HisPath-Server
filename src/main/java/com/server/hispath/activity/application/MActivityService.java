@@ -122,4 +122,17 @@ public class MActivityService {
                 .stream().map(participant -> {return SemesterDto.from(participant.getActivity().getSemester());}).distinct().collect(Collectors.toList());
         return semesters;
     }
+
+
+
+    @Transactional(readOnly = true)
+    public List<MActivityParticipantDto>findAllParticipantActivities(Long id, String semester, String category) {
+        Student student = studentRepository.findStudentWithMActivities(id).orElseThrow(StudentNotFoundException::new);
+        return student.getParticipants()
+                .stream()
+                .filter(participant -> participant.isSameSemester(semester))
+                .filter(participant -> participant.isSameCategory(category))
+                .map(MActivityParticipantDto::of)
+                .collect(Collectors.toList());
+    }
 }

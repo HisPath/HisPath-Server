@@ -152,7 +152,7 @@ public class ActivityController {
     }
 
 
-    
+
     @GetMapping("/activity-detail/{activityId}")
     @ApiOperation(value = ApiDoc.ACTIVITY_STUDENT_DETAIL)
     public ResponseEntity<ActivityParticipantResponse> findParticipantActivityById(@PathVariable Long activityId) {
