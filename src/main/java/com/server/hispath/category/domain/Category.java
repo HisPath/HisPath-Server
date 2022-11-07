@@ -42,4 +42,10 @@ public class Category extends BaseEntity {
                        .name(dto.getName())
                        .build();
     }
+
+    public static Category fromString(String category) {
+        return Category.builder().name(category).build();
+    }
+
+
 }

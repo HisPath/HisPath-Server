@@ -87,7 +87,6 @@ public class ApiDoc {
     public static final String RESUME_UPDATE = "이력서 수정";
     public static final String RESUME_DELETE = "이력서 삭제";
     public static final String RESUME_INFO = "학생의 모든 정보 및 활동정보 조회";
-
     /* Scholarship 관련 API 명세 */
     public static final String SCHOLARSHIP_CREATE = "장학금 신청 등록";
     public static final String SCHOLARSHIP_READ_ALL = "장학금 수혜자들 명단 조회";
