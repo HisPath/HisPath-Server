@@ -162,6 +162,8 @@ public class ActivityService {
         // 전체 데이터 Category 로 분류
 
         List<ChartDataDto> chartDataDtos = new ArrayList<>();
+
+        return chartDataDtos;
     }
 
     private Student findStudentWholeByIdAndSemester(Long studentId, String semester, boolean isMileage) {
