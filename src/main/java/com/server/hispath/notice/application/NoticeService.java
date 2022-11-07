@@ -50,9 +50,10 @@ public class NoticeService {
         return notices.stream().map(NoticeDto::from).collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public NoticeDto find(Long id) {
         Notice notice = this.findById(id);
+        notice.viewCount();
         return NoticeDto.from(notice);
     }
 

@@ -46,7 +46,7 @@ public class NoticeController {
     @GetMapping("/notice/{id}")
     @ApiOperation(value = ApiDoc.NOTICE_READ)
     public ResponseEntity<NoticeResponse> find(@PathVariable Long id){
-        noticeService.increaseViewCnt(id);
+//        noticeService.increaseViewCnt(id);
         NoticeResponse response = NoticeResponse.from(noticeService.find(id));
         return ResponseEntity.ok(response);
     }
