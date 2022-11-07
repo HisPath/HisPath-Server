@@ -16,7 +16,7 @@ public class ActivityParticipantResponse {
     private String remark;
     private String section;
     private String data;
-    private boolean isMileage;
+    private boolean mileage;
 
     public static ActivityParticipantResponse of(ActivityParticipantDto dto) {
         return new ActivityParticipantResponse(dto.getId(), dto.getSemester(), dto.getName(), dto.getRemark(),
