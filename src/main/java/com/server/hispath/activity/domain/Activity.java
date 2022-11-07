@@ -156,6 +156,10 @@ public class Activity extends BaseEntity {
         return Objects.equals(this.semester, semester);
     }
 
+    public boolean isSameCategory(String category) {
+        return Objects.equals(this.category.getName(), category);
+    }
+
     public void apply(){
         this.requestStatus = 0;
     }

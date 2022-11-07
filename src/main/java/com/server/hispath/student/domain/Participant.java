@@ -54,10 +54,17 @@ public class Participant extends BaseEntity {
         return activity.isSameSemester(semester);
     }
 
+
     public boolean isSameSection(String section) {
         if (Objects.equals(section, "ALL"))
             return true;
         return Objects.equals(this.section.getName(), section);
+    }
+
+    public boolean isSameCategory(String category) {
+        if(Objects.equals(category, "ALL"))
+            return true;
+        return activity.isSameCategory(category);
     }
 
     public boolean isSameStudent(Student student) {
