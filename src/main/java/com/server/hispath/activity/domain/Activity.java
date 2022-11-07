@@ -48,6 +48,7 @@ public class Activity extends BaseEntity {
 
     private String remark;
 
+    // 1 일떄 마일리지 처리, 0이면 마일리지 아님
     private int requestStatus;
 
     private String name;
@@ -90,7 +91,7 @@ public class Activity extends BaseEntity {
                        .semester(dto.getSemester())
                        .remark(dto.getRemark())
                        .personal(true)
-                       .requestStatus(0)
+                       .requestStatus(3)
                        .name(dto.getName())
                        .weight(0)
                        .build();
@@ -153,5 +154,18 @@ public class Activity extends BaseEntity {
 
     public boolean isSameSemester(String semester) {
         return Objects.equals(this.semester, semester);
+    }
+
+    public void apply(){
+        this.requestStatus = 0;
+    }
+
+    public void approve(int weight){
+        this.requestStatus = 1;
+        this.weight = weight;
+    }
+
+    public void reject(){
+        this.requestStatus = 2;
     }
 }

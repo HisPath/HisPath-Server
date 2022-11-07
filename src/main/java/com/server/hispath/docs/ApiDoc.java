@@ -23,11 +23,18 @@ public class ApiDoc {
     public static final String ACTIVITY_STUDENT_DELETE = "마일리지 활동 학생 참가 정보 삭제";
     public static final String MILEAGE_READ = "단일 마일리지 활동 조회";
     public static final String STUDENT_MILEAGE_READ = "학생별 마일리지 활동 조회";
+    public static final String STUDENT_READ_SEMESTER = "학생별 활동 학기 조회";
     public static final String STUDENT_ACTIVITY_CREATE = "학생의 개인 활동 생성";
     public static final String STUDENT_ACTIVITY_UPDATE = "학생의 참여 활동 수정";
     public static final String STUDENT_ACTIVITY_READ_SEMESTER = "학생의 참여 활동 학기별 조회";
     public static final String SECTION_READ_ALL = "모든 섹션 조회";
     public static final String PARTICIPANT_DELETE = "학생 참여 데이터 삭제";
+    public static final String ACTIVITY_APPLY = "학생 활동 마일리지 신청";
+    public static final String ACTIVITY_APPROVE = "학생 활동 마일리지 승인";
+    public static final String ACTIVITY_REJECT = "학생 활동 마일리지 반려";
+    public static final String ACTIVITY_STUDENT_DETAIL = "학생 개인 활동 상세 조회";
+
+
     /* Category 관련 API 명세 */
     public static final String CATEGORY_READ = "단일 카테고리 조회";
     public static final String CATEGORY_READ_ALL = "모든 카테고리 조회";
@@ -35,7 +42,6 @@ public class ApiDoc {
     public static final String CATEGORY_UPDATE = "카테고리 수정";
     public static final String CATEGORY_DELETE = "카테고리 삭제";
 
-    public static final String SCHOLARSHIP_CREATE = "장학금 신청 등록";
     public static final String ACTIVITY_READ_SEMESTER = "활동 학기 조회";
     public static final String MAJOR_CREATE = "전공 생성";
     public static final String MAJOR_READ = "단일 전공 조회";
@@ -74,5 +80,21 @@ public class ApiDoc {
     public static final String DEPARTMENT_UPDATE = "학부 수정";
     public static final String DEPARTMENT_DELETE = "학부 삭제";
 
+
+    /* Resume 관련 API 명세 */
+    public static final String RESUME_READ = "학생의 단일 이력서 조회";
+    public static final String RESUME_READ_ALL = "학생의 모든 이력서 조회";
+    public static final String RESUME_CREATE = "단일 이력서 생성";
+    public static final String RESUME_UPDATE = "이력서 수정";
+    public static final String RESUME_DELETE = "이력서 삭제";
+    public static final String RESUME_INFO = "학생의 모든 정보 및 활동정보 조회";
+
+    /* Scholarship 관련 API 명세 */
+    public static final String SCHOLARSHIP_CREATE = "장학금 신청 등록";
+    public static final String SCHOLARSHIP_READ_ALL = "장학금 수혜자들 명단 조회";
+    public static final String SCHOLARSHIP_ACTIVITIES = "장학금 수혜자 정보와 그 활동들 조회";
+    public static final String APPROVE_SCHOLARSHIPS = "현학기 장학금 승인 명단 엑셀 업로드";
+    public static final String SCHOLARSHIP_SEARCH_STUDENT = "장학금 수혜 학생 필터 검색";
+    public static final String InHyeok = "제발 하라는 대로 하자 dev branch에서 dev 풀 받고, 다시 너의 브렌치로 이동해서 git merge dev 후 git push origin 너브랜체 그리고 pull request 만들기 ";
 
 }

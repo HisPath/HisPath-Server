@@ -111,13 +111,53 @@ public class ActivityService {
     }
 
     @Transactional(readOnly = true)
-    public List<ActivityParticipantDto> findAllParticipantActivites(Long id, String semester) {
+    public List<ActivityParticipantDto> findAllParticipantActivites(Long id, String semester, String section) {
         Student student = studentRepository.findStudentWithActivities(id).orElseThrow(StudentNotFoundException::new);
         return student.getParticipants()
                       .stream()
                       .filter(participant -> participant.isSameSemester(semester))
+                      .filter(participant -> participant.isSameSection(section))
                       .map(ActivityParticipantDto::of)
                       .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public ActivityParticipantDto findParticipantActivityById(Long studentId, Long activityId) {
+        Activity activity = activityRepository.findActivityWithStudents(activityId)
+                                              .orElseThrow(ActivityNotFoundException::new);
+        Student student = studentRepository.findById(studentId)
+                                           .orElseThrow(StudentNotFoundException::new);
+        Participant participant = activity.getParticipants()
+                                          .stream()
+                                          .filter(p -> p.isSameStudent(student))
+                                          .findFirst()
+                                          .orElseThrow(ParticipantNotFoundException::new);
+        return ActivityParticipantDto.of(participant);
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<ActivityDto> findAllByStudentAndSemster(Long id, String semester) {
+        Student student = studentRepository.findStudentWithIdAndSemester(id, semester)
+                                           .orElseThrow(StudentNotFoundException::new);
+        return student.getParticipants()
+                      .stream()
+                      .map(participant -> ActivityDto.from(participant.getActivity()))
+                      .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void apply(Long activityId) {
+        this.findById(activityId).apply();
+    }
+
+    @Transactional
+    public void approve(Long activityId, int weight) {
+        this.findById(activityId).approve(weight);
+    }
+
+    @Transactional
+    public void reject(Long activityId) {
+        this.findById(activityId).reject();
+    }
 }

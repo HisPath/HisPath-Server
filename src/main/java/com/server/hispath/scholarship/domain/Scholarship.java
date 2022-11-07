@@ -3,10 +3,11 @@ package com.server.hispath.scholarship.domain;
 import javax.persistence.*;
 
 import com.server.hispath.common.BaseEntity;
-import com.server.hispath.scholarship.application.dto.ScholarshipCUDto;
+import com.server.hispath.department.domain.Department;
+import com.server.hispath.major.domain.Major;
 import com.server.hispath.student.domain.Student;
-
 import com.sun.istack.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,34 +15,47 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Where(clause = "deleted = false")
-@SQLDelete(sql = "UPDATE scholarShip SET deleted = true Where id = ?")
+@SQLDelete(sql = "UPDATE scholarship SET deleted = true Where id = ?")
 public class Scholarship extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @OneToMany(mappedBy = "student")
-//    private List<Student> students = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Student student;
 
     @NotNull
     private String semester;
 
+    int studentSemester;
+
     private int totalMileage;
 
-    private boolean approved;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Major sMajor1;
 
-    public static Scholarship from(ScholarshipCUDto dto){
-        return Scholarship.builder().semester(dto.getSemester()).build();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Major sMajor2;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Department sDepartment;
+
+    private String result;
+
+    private boolean approved = false;
+
+    public void approve() {
+        approved = true;
     }
-    //ToDO : 나중 구현 예정
+
+    public boolean isStudentSemesterMatch(int studentSemester) {
+        return this.studentSemester == studentSemester;
+    }
 }

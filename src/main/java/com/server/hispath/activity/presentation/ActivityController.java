@@ -11,6 +11,7 @@ import com.server.hispath.activity.application.dto.ActivityContentDto;
 import com.server.hispath.activity.application.dto.ActivityDto;
 import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
 import com.server.hispath.activity.application.dto.SemesterDto;
+import com.server.hispath.activity.presentation.request.ActivityApproveRequest;
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.request.StudentActivityCURequest;
 import com.server.hispath.activity.presentation.response.ActivityParticipantResponse;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.ApiOperation;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.formula.EvaluationName;
 
 @RestController
 @RequiredArgsConstructor
@@ -83,8 +85,8 @@ public class ActivityController {
     public ResponseEntity<List<SemesterResponse>> findAllBySemester() {
         List<SemesterDto> semesterDtos = activityService.bringSemester();
         List<SemesterResponse> responses = semesterDtos.stream()
-                .map(SemesterResponse::from)
-                .collect(Collectors.toList());
+                                                       .map(SemesterResponse::from)
+                                                       .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 
@@ -113,8 +115,9 @@ public class ActivityController {
 
     @GetMapping("/student-activities/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_SEMESTER)
-    public ResponseEntity<List<ActivityParticipantResponse>> findParticipatedActivities(@PathVariable Long id, @RequestParam String semester) {
-        List<ActivityParticipantResponse> responses = activityService.findAllParticipantActivites(id, semester)
+    public ResponseEntity<List<ActivityParticipantResponse>> findParticipatedActivities(@PathVariable Long id, @RequestParam String semester, @RequestParam String section) {
+        // ToDo       Student ID 관련해서는 나중에 Login 처리하기
+        List<ActivityParticipantResponse> responses = activityService.findAllParticipantActivites(id, semester, section)
                                                                      .stream()
                                                                      .map(ActivityParticipantResponse::of)
                                                                      .collect(Collectors.toList());
@@ -125,5 +128,36 @@ public class ActivityController {
     @ApiOperation(value = ApiDoc.STUDENT_MILEAGE_READ)
     public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
         return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
+    }
+
+    @PutMapping("/activity/apply/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_APPLY)
+    public ResponseEntity<Void> applyActivity(@PathVariable Long id) {
+        activityService.apply(id);
+        return ResponseEntity.ok(null);
+    }
+
+    @PutMapping("/activity/approve/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_APPROVE)
+    public ResponseEntity<Void> approveActivity(@PathVariable Long id, @RequestBody ActivityApproveRequest request) {
+        activityService.approve(id, request.getWeight());
+        return ResponseEntity.ok(null);
+    }
+
+    @PutMapping("/activity/reject/{id}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_REJECT)
+    public ResponseEntity<Void> rejectActivity(@PathVariable Long id) {
+        activityService.reject(id);
+        return ResponseEntity.ok(null);
+    }
+
+
+    
+    @GetMapping("/activity-detail/{activityId}")
+    @ApiOperation(value = ApiDoc.ACTIVITY_STUDENT_DETAIL)
+    public ResponseEntity<ActivityParticipantResponse> findParticipantActivityById(@PathVariable Long activityId) {
+        // ToDo StudentId 는 나중에 로그인으로 바꿈
+        return ResponseEntity.ok(ActivityParticipantResponse.of(activityService.findParticipantActivityById(1L, activityId)));
+
     }
 }

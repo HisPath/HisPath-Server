@@ -15,6 +15,7 @@ import java.util.Optional;
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
+<<<<<<< HEAD
     List<Notice> findTop5ByPubDateLessThanEqualAndExpDateGreaterThanEqualOrderByPubDateDesc(LocalDate pubDate, LocalDate expDate);
 
     @Modifying
@@ -22,4 +23,7 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
     void increaseViewCntByOne(Long id);
 
 
+=======
+    List<Notice> findTop6ByPubDateLessThanEqualAndExpDateGreaterThanEqualOrderByPubDateDesc(LocalDate pubDate, LocalDate expDate);
+>>>>>>> dev
 }

@@ -72,7 +72,7 @@ public class NoticeService {
 
     @Transactional(readOnly = true)
     public List<DashboardNoticeDto> findRecentNotice() {
-        List<Notice> notices = noticeRepository.findTop5ByPubDateLessThanEqualAndExpDateGreaterThanEqualOrderByPubDateDesc(LocalDate.now(), LocalDate.now());
+        List<Notice> notices = noticeRepository.findTop6ByPubDateLessThanEqualAndExpDateGreaterThanEqualOrderByPubDateDesc(LocalDate.now(), LocalDate.now());
 
         return notices.stream()
                       .map(DashboardNoticeDto::of)

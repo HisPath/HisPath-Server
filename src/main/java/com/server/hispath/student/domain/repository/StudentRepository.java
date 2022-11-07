@@ -14,13 +14,22 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("select a from Student a " +
             "left join fetch a.participants as p " +
             "left join fetch p.activity " +
-            "where a.id = :id" )
+            "where a.id = :id")
     Optional<Student> findActivitiesByStudent(Long id);
+
     Optional<Student> findByEmail(String email);
 
     @Query("select s from Student s " +
             "left join fetch s.participants as p " +
-            "left join fetch p.activity as a "  +
+            "left join fetch p.activity as a " +
             "where s.id = :id ")
     Optional<Student> findStudentWithActivities(Long id);
+
+    @Query("select s from Student s " +
+            "left join fetch  s.participants as p " +
+            "left join fetch p.activity as a " +
+            "left join fetch a.category " +
+            "where s.id = :id " +
+            "and a.semester = :semester")
+    Optional<Student> findStudentWithIdAndSemester(Long id, String semester);
 }
