@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findAllBySemester(String semester);
-
+    // commit 테스트용
     @Query("select a from Activity a " +
             "left join fetch a.participants as p " +
             "left join fetch p.student " +
