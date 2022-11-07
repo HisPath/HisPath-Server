@@ -17,10 +17,10 @@ public class ActivityParticipantDto {
     private String name;
     private String remark;
     private ParticipantContentDto participant;
-
+    private int requestStatus;
     public static ActivityParticipantDto of(Participant participant) {
         Activity activity = participant.getActivity();
         return new ActivityParticipantDto(activity.getId(), activity.getSemester(), activity.getName(),
-                activity.getRemark(), ParticipantContentDto.of(participant));
+                activity.getRemark(), ParticipantContentDto.of(participant), activity.getRequestStatus());
     }
 }
