@@ -16,10 +16,11 @@ public class ActivityParticipantResponse {
     private String remark;
     private String section;
     private String data;
+    private boolean mileage;
 
     public static ActivityParticipantResponse of(ActivityParticipantDto dto) {
         return new ActivityParticipantResponse(dto.getId(), dto.getSemester(), dto.getName(), dto.getRemark(),
-
-                dto.getParticipant().getSection().getName(), dto.getParticipant().getData());
+                dto.getParticipant().getSection().getName(), dto.getParticipant()
+                                                                .getData(), dto.getRequestStatus() == 1);
     }
 }
