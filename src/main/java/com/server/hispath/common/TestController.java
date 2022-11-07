@@ -1374,7 +1374,7 @@ public class TestController {
                 .name("비교과-행사참여")
                 .build());
         categoryRepository.save(Category.builder()
-                .name("비교과-학회할동")
+                .name("비교과-학회활동")
                 .build());
         categoryRepository.save(Category.builder()
                 .name("기타")
