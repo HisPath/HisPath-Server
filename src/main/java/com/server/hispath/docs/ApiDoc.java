@@ -95,6 +95,6 @@ public class ApiDoc {
     public static final String SCHOLARSHIP_ACTIVITIES = "장학금 수혜자 정보와 그 활동들 조회";
     public static final String APPROVE_SCHOLARSHIPS = "현학기 장학금 승인 명단 엑셀 업로드";
     public static final String SCHOLARSHIP_SEARCH_STUDENT = "장학금 수혜 학생 필터 검색";
-    public static final String InHyeok = "제발 하라는 대로 하자 dev branch에서 dev 풀 받고, 다시 너의 브렌치로 이동해서 git merge dev 후 git push origin 너브랜체 그리고 pull request 만들기 ";
+    public static final String InHyeok = "제발 하라는 대로 하자 dev branch에서 dev 풀 받고, 다시 너의 브렌치로 이동해서 git merge dev 후 git push origin 너브랜체 그리고 pull request 만들기 pull request로 dev 에 스쿼시 머지 이후 로컬에서는 다시 dev로 이동 git pull origin dev 이런다음에 새로운 기능을 개발하려면 git checkout -b 인혁브렌치";
 
 }
