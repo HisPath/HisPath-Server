@@ -9,6 +9,7 @@ import com.server.hispath.notice.application.dto.NoticeDto;
 import com.server.hispath.notice.domain.Notice;
 import com.server.hispath.notice.domain.repository.NoticeRepository;
 
+import com.server.hispath.notice.presentation.request.NoticeRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +28,12 @@ public class NoticeService {
     private final ManagerService managerService;
 
     private Notice findById(Long id) {
-        return noticeRepository.findById(id).orElseThrow(NoticeNotFoundException::new);
+        Notice ret = noticeRepository.findById(id).orElseThrow(NoticeNotFoundException::new);
+        return ret;
+    }
+    @Transactional
+    public void increaseViewCnt(Long id){
+        noticeRepository.increaseViewCntByOne(id);
     }
 
     @Transactional
@@ -44,9 +50,10 @@ public class NoticeService {
         return notices.stream().map(NoticeDto::from).collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public NoticeDto find(Long id) {
         Notice notice = this.findById(id);
+        notice.viewCount();
         return NoticeDto.from(notice);
     }
 
@@ -55,7 +62,6 @@ public class NoticeService {
         Notice notice = this.findById(id);
         Manager manager = managerService.findById(managerId);
         notice.update(manager, dto);
-
         return NoticeDto.from(notice);
     }
 

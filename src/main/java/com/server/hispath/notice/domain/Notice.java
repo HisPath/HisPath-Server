@@ -35,7 +35,7 @@ public class Notice extends BaseEntity {
 
     private String title;
 
-    @Column(length = 5555)
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     private int viewCnt;
@@ -70,5 +70,9 @@ public class Notice extends BaseEntity {
         this.pubDate = dto.getPubDate();
         this.expDate = dto.getExpDate();
     }
+    public void viewCount(){
+        this.viewCnt++;
+    }
+
 
 }
