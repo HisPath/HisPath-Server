@@ -38,7 +38,7 @@ public class NoticeController {
     @GetMapping("/notice")
     @ApiOperation(value = ApiDoc.NOTICE_READ_ALL)
     public ResponseEntity<List<NoticeResponse>> findAll() {
-        List<NoticeResponse> responses = noticeService.findAll().stream().sorted(Comparator.comparing(NoticeDto::getId).reversed()).map(NoticeResponse::from).collect(Collectors.toList());
+        List<NoticeResponse> responses = noticeService.findAll().stream().sorted(Comparator.comparing(NoticeDto::getRegDate).reversed()).map(NoticeResponse::from).collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 
