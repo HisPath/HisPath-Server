@@ -9,10 +9,7 @@ import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
 import com.server.hispath.activity.presentation.request.MParticipantRequest;
 import com.server.hispath.activity.presentation.request.MStudentRegisterRequest;
-import com.server.hispath.activity.presentation.response.ActivityParticipantResponse;
-import com.server.hispath.activity.presentation.response.ActivityResponse;
-import com.server.hispath.activity.presentation.response.MActivityParticipantResponse;
-import com.server.hispath.activity.presentation.response.SemesterResponse;
+import com.server.hispath.activity.presentation.response.*;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.application.dto.StudentSimpleRefDto;
@@ -144,5 +141,15 @@ public class MActivityController {
         return ResponseEntity.ok(responses);
 
 
+    }
+
+    @GetMapping("/student-allmactivities/{id}")
+    @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_PARTICIPATE)
+    public ResponseEntity<List<AllMActivityParticipantResponse>> findAllParticipatedActivities(@PathVariable Long id, @RequestParam String semester, @RequestParam String category) {
+        List<AllMActivityParticipantResponse> responses = mActivityService.findParticipatedActivities(id, semester, category)
+                .stream()
+                .map(AllMActivityParticipantResponse::of)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 }

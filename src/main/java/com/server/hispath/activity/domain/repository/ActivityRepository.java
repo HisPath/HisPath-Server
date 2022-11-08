@@ -30,5 +30,10 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findAllBySemesterAndRequestStatus(String semester, int requestStatus);
 
     List<Activity> findAllByRequestStatus(int requestStatus);
-    
+
+    @Query("select distinct a from Activity a " +
+            "left join fetch a.participants as p " +
+            "left join fetch p.student " +
+            "where a.requestStatus = 1")
+    List<Activity> findParticipatedActivity();
 }
