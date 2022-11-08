@@ -27,6 +27,8 @@ public class ApiDoc {
     public static final String STUDENT_ACTIVITY_CREATE = "학생의 개인 활동 생성";
     public static final String STUDENT_ACTIVITY_UPDATE = "학생의 참여 활동 수정";
     public static final String STUDENT_ACTIVITY_READ_SEMESTER = "학생의 참여 활동 학기별 조회";
+
+    public static final String STUDENT_ACTIVITY_READ_PARTICIPATE = "전체 활동 중 학생 참여 활동 조회";
     public static final String SECTION_READ_ALL = "모든 섹션 조회";
     public static final String PARTICIPANT_DELETE = "학생 참여 데이터 삭제";
     public static final String ACTIVITY_APPLY = "학생 활동 마일리지 신청";
@@ -95,6 +97,6 @@ public class ApiDoc {
     public static final String SCHOLARSHIP_ACTIVITIES = "장학금 수혜자 정보와 그 활동들 조회";
     public static final String APPROVE_SCHOLARSHIPS = "현학기 장학금 승인 명단 엑셀 업로드";
     public static final String SCHOLARSHIP_SEARCH_STUDENT = "장학금 수혜 학생 필터 검색";
-    public static final String InHyeok = "제발 하라는 대로 하자 dev branch에서 dev 풀 받고, 다시 너의 브렌치로 이동해서 git merge dev 후 git push origin 너브랜체 그리고 pull request 만들기 ";
+    public static final String InHyeok = "제발 하라는 대로 하자 dev branch에서 dev 풀 받고, 다시 너의 브렌치로 이동해서 git merge dev 후 git push origin 너브랜체 그리고 pull request 만들기 pull request로 dev 에 스쿼시 머지 이후 로컬에서는 다시 dev로 이동 git pull origin dev 이런다음에 새로운 기능을 개발하려면 git checkout -b 인혁브렌치";
 
 }
