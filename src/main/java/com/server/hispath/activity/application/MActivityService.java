@@ -13,6 +13,7 @@ import com.server.hispath.exception.activity.ActivityNotFoundException;
 import com.server.hispath.exception.activity.ParticipantNotFoundException;
 import com.server.hispath.exception.student.StudentNotFoundException;
 import com.server.hispath.student.application.dto.StudentRefDetailDto;
+//import com.server.hispath.student.domain.Inhyok;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
 
@@ -134,5 +135,28 @@ public class MActivityService {
                 .filter(participant -> participant.isSameCategory(category))
                 .map(MActivityParticipantDto::of)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<AllMActivityParticipantDto>findParticipatedActivities(Long id, String semester, String category) {
+        List<Activity> activities = activityRepository.findParticipatedActivity();
+        Student student = studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
+
+        List<AllMActivityParticipantDto> collect =
+                activities.stream()
+                .filter(activity -> activity.isSameSemester(semester) && activity.isSameCategory(category))
+                .map(activity -> {return AllMActivityParticipantDto.of(activity, activity.isParticipate(student)); })
+                .collect(Collectors.toList());
+
+        return collect;
+
+
+//        return activities
+//                .stream()
+//                .map(activity -> activity.getParticipants().stream()
+//                                .filter(participant -> participant.isSameSemester(semester))
+//                                .filter(participant -> participant.isSameCategory(category))
+//                                .map(participant -> { return AllMActivityParticipantDto.of(participant, participant.isSameStudent(student));}).collect(Collectors.toList()));
+
     }
 }

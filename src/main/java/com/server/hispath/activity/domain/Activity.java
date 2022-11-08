@@ -153,10 +153,14 @@ public class Activity extends BaseEntity {
     }
 
     public boolean isSameSemester(String semester) {
+        if(Objects.equals(semester, "ALL"))
+            return true;
         return Objects.equals(this.semester, semester);
     }
 
     public boolean isSameCategory(String category) {
+        if(Objects.equals(category, "ALL"))
+            return true;
         return Objects.equals(this.category.getName(), category);
     }
 
@@ -172,4 +176,11 @@ public class Activity extends BaseEntity {
     public void reject(){
         this.requestStatus = 2;
     }
+
+    public boolean isParticipate(Student student) {
+        return this.participants.stream()
+                .anyMatch(participant -> participant.isSameStudent(student));
+    }
+
+
 }
