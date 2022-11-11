@@ -26,8 +26,8 @@ public class ScholarshipDto {
     private int totalWeight;
 
     public static ScholarshipDto of(Scholarship scholarship) {
-        return new ScholarshipDto(scholarship.getId(), scholarship.getStudent().getName(), scholarship.getStudent()
-                                                                                                      .getStudentNum(),
+        return new ScholarshipDto(scholarship.getStudent().getId(), scholarship.getStudent().getName(), scholarship.getStudent()
+                                                                                                                   .getStudentNum(),
                 scholarship.getSemester(), scholarship.getStudentSemester(), scholarship.getSDepartment().getName(),
                 scholarship.getSMajor1().getName(), scholarship.getSMajor2().getName(), scholarship.getStudent()
                                                                                                    .getEmail(),
