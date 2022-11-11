@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ScholarshipResponse {
+    private Long studentId;
     private String name;
     private String studentNum;
     private String semester;
@@ -23,8 +24,8 @@ public class ScholarshipResponse {
     private String phone;
     private int totalWeight;
 
-    public static ScholarshipResponse of(ScholarshipDto dto){
-        return new ScholarshipResponse(dto.getName(), dto.getStudentNum(),
+    public static ScholarshipResponse of(ScholarshipDto dto) {
+        return new ScholarshipResponse(dto.getStudentId(), dto.getName(), dto.getStudentNum(),
                 dto.getSemester(), dto.getStudentSemester(), dto.getDepartmentName(), dto.getMajor1Name(),
                 dto.getMajor2Name(), dto.getEmail(), dto.getPhone(), dto.getTotalWeight());
     }
