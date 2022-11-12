@@ -1,6 +1,7 @@
 package com.server.hispath.activity.presentation;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
@@ -75,6 +76,7 @@ public class MActivityController {
     @GetMapping("/mileages")
     @ApiOperation(value = ApiDoc.MILEAGE_READ_ALL)
     public ResponseEntity<List<ActivityResponse>> findAll() {
+
         List<ActivityResponse> responses = mActivityService.findAll()
                                                            .stream()
                                                            .map(ActivityResponse::from)
@@ -146,10 +148,22 @@ public class MActivityController {
     @GetMapping("/student-allmactivities/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_PARTICIPATE)
     public ResponseEntity<List<AllMActivityParticipantResponse>> findAllParticipatedActivities(@PathVariable Long id, @RequestParam String semester, @RequestParam String category) {
-        List<AllMActivityParticipantResponse> responses = mActivityService.findParticipatedActivities(id, semester, category)
-                .stream()
-                .map(AllMActivityParticipantResponse::of)
-                .collect(Collectors.toList());
+
+        List<AllMActivityParticipantResponse> responses;
+        if(Objects.equals(category, "참여여부")){
+            responses = mActivityService.findParticipatedActivities(id, semester, "ALL")
+                    .stream()
+                    .filter(example -> example.isParticipated())
+                    .map(AllMActivityParticipantResponse::of)
+                    .collect(Collectors.toList());
+        }
+        else {
+            responses = mActivityService.findParticipatedActivities(id, semester, category)
+                    .stream()
+                    .map(AllMActivityParticipantResponse::of)
+                    .collect(Collectors.toList());
+        }
         return ResponseEntity.ok(responses);
     }
+
 }
