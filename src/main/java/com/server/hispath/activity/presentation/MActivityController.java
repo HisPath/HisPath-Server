@@ -148,6 +148,7 @@ public class MActivityController {
     @GetMapping("/student-allmactivities/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_PARTICIPATE)
     public ResponseEntity<List<AllMActivityParticipantResponse>> findAllParticipatedActivities(@PathVariable Long id, @RequestParam String semester, @RequestParam String category) {
+
         List<AllMActivityParticipantResponse> responses;
         if(Objects.equals(category, "참여여부")){
             responses = mActivityService.findParticipatedActivities(id, semester, "ALL")

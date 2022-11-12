@@ -140,10 +140,6 @@ public class MActivityService {
 
     @Transactional(readOnly = true)
     public List<AllMActivityParticipantDto>findParticipatedActivities(Long id, String semester, String category) {
-
-
-
-
         List<Activity> activities = activityRepository.findParticipatedActivity();
         Student student = studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
         List<AllMActivityParticipantDto> collect =
@@ -155,13 +151,6 @@ public class MActivityService {
                         .collect(Collectors.toList());
 
         return collect;
-
-//        return activities
-//                .stream()
-//                .map(activity -> activity.getParticipants().stream()
-//                                .filter(participant -> participant.isSameSemester(semester))
-//                                .filter(participant -> participant.isSameCategory(category))
-//                                .map(participant -> { return AllMActivityParticipantDto.of(participant, participant.isSameStudent(student));}).collect(Collectors.toList()));
 
     }
 }

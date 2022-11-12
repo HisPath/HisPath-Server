@@ -27,6 +27,7 @@ public class ApiDoc {
     public static final String STUDENT_ACTIVITY_CREATE = "학생의 개인 활동 생성";
     public static final String STUDENT_ACTIVITY_UPDATE = "학생의 참여 활동 수정";
     public static final String STUDENT_ACTIVITY_READ_SEMESTER = "학생의 참여 활동 학기별 조회";
+    public static final String STUDENT_ACTIVITY_READ_SEMESTER_SECTION_STATUS = "학생의 참여 활동 상태와 함께 학기별, 섹션별 조회";
 
     public static final String STUDENT_ACTIVITY_READ_PARTICIPATE = "전체 활동 중 학생 참여 활동 조회";
     public static final String SECTION_READ_ALL = "모든 섹션 조회";
