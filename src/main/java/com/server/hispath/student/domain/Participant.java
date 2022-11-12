@@ -76,5 +76,8 @@ public class Participant extends BaseEntity {
         this.data = participantContentDto.getData();
     }
 
+    public boolean isPersonal(){
+        return this.activity.isPersonal();
+    }
 
 }
