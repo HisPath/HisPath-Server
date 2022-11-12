@@ -33,7 +33,6 @@ import org.apache.poi.ss.formula.EvaluationName;
 @RequestMapping("/api")
 public class ActivityController {
     private final ActivityService activityService;
-
     private final MActivityService mActivityService;
 
     @PostMapping("/activity")
@@ -149,4 +148,5 @@ public class ActivityController {
         activityService.reject(id);
         return ResponseEntity.ok(null);
     }
+
 }

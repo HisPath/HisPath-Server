@@ -31,6 +31,9 @@ public class ApiDoc {
     public static final String ACTIVITY_REJECT = "학생 활동 마일리지 반려";
     public static final String MILEAGE_CATEGORY_CHART_DATAS = "카테고리 당 마일리지 참여, 평균 수 조회";
 
+    /* Chart 관련 API 명세 */
+    public static final String CHART_STUDENT_CATEGORY = "카테고리에 따른 학생 활동 차트 데이터 조회";
+
     /* Category 관련 API 명세 */
     public static final String CATEGORY_READ = "단일 카테고리 조회";
     public static final String CATEGORY_READ_ALL = "모든 카테고리 조회";

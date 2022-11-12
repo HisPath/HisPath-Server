@@ -9,7 +9,10 @@ import java.util.stream.Collectors;
 import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
+import com.server.hispath.activity.domain.repository.ActivityRepositoryCustom;
 import com.server.hispath.category.application.CategoryService;
+import com.server.hispath.category.application.dto.ChartCategoryAvgDto;
+import com.server.hispath.category.application.dto.ChartCategoryCntDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.category.domain.repository.CategoryRepository;
 import com.server.hispath.exception.activity.ActivityNotFoundException;
@@ -34,6 +37,7 @@ public class ActivityService {
     private final CategoryRepository categoryRepository;
     private final StudentRepository studentRepository;
     private final StudentRepositoryCustom studentRepositoryCustom;
+    private final ActivityRepositoryCustom activityRepositoryCustom;
 
     @Transactional
     public Long create(Long categoryId, ActivityContentDto dto) {
@@ -148,22 +152,23 @@ public class ActivityService {
 
 
     @Transactional(readOnly = true)
-    public List<ChartDataDto> getChartDatasByCategory(Long studentId, String semester) {
-        Student student = findStudentWholeByIdAndSemester(studentId, semester, true);
-        List<Category> categories = categoryRepository.findAll();
-        Map<String, Integer> map = categories.stream()
-                                             .collect(Collectors.toMap(Category::getName, cnt -> 0));
-        student.getParticipants()
-               .forEach(participant -> {
-                   String categoryName = participant.getActivityCategoryName();
-                   map.put(categoryName, map.get(categoryName) + 1);
-               });
+    public void getChartDatasByCategory(Long studentId, ChartSearchRequestDto dto) {
+        Student student = studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
+        List<ChartCategoryCntDto> studentCategoryChartCnts = activityRepositoryCustom.getStudentCategoryChartCnt(student, dto);
+        List<ChartCategoryAvgDto> chartCategoryAvgs = activityRepositoryCustom.getCategoryChartAvg(dto);
 
-        // 전체 데이터 Category 로 분류
+        System.out.println("studentCategoryChartCnts = ");
+        studentCategoryChartCnts.forEach(data->{
+            System.out.println(data.getCategory().getName());
+            System.out.println(data.getCnt());
+        });
 
-        List<ChartDataDto> chartDataDtos = new ArrayList<>();
+        System.out.println("ChartCategoryAvg = ");
+        chartCategoryAvgs.forEach(data->{
+            System.out.println(data.getCategory().getName());
+            System.out.println(data.getAvg());
+        });
 
-        return chartDataDtos;
     }
 
     private Student findStudentWholeByIdAndSemester(Long studentId, String semester, boolean isMileage) {
