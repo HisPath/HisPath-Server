@@ -1,9 +1,6 @@
 package com.server.hispath.activity.application;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.*;
@@ -11,8 +8,6 @@ import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.activity.domain.repository.ActivityRepositoryCustom;
 import com.server.hispath.category.application.CategoryService;
-import com.server.hispath.category.application.dto.ChartCategoryAvgDto;
-import com.server.hispath.category.application.dto.ChartCategoryCntDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.category.domain.repository.CategoryRepository;
 import com.server.hispath.exception.activity.ActivityNotFoundException;
@@ -152,22 +147,21 @@ public class ActivityService {
 
 
     @Transactional(readOnly = true)
-    public void getChartDatasByCategory(Long studentId, ChartSearchRequestDto dto) {
+    public List<ChartDataDto> getChartDatasByCategory(Long studentId, ChartSearchRequestDto dto) {
         Student student = studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
-        List<ChartCategoryCntDto> studentCategoryChartCnts = activityRepositoryCustom.getStudentCategoryChartCnt(student, dto);
-        List<ChartCategoryAvgDto> chartCategoryAvgs = activityRepositoryCustom.getCategoryChartAvg(dto);
+        List<ChartCategoryCntDto> studentCnts = activityRepositoryCustom.getStudentCategoryChartCnt(student, dto);
+        List<ChartCategoryCntDto> totalCnts = activityRepositoryCustom.getTotalCategoryChartCnt(dto);
+        int totalStudentCnt = activityRepositoryCustom.getTotalStudentCntByChartSearchRequest(dto);
 
-        System.out.println("studentCategoryChartCnts = ");
-        studentCategoryChartCnts.forEach(data->{
-            System.out.println(data.getCategory().getName());
-            System.out.println(data.getCnt());
-        });
-
-        System.out.println("ChartCategoryAvg = ");
-        chartCategoryAvgs.forEach(data->{
-            System.out.println(data.getCategory().getName());
-            System.out.println(data.getAvg());
-        });
+        return totalCnts.stream()
+                        .map(totalCnt ->
+                                studentCnts.stream()
+                                           .filter(studentCnt -> studentCnt.isSameCategory(totalCnt.getCategory()))
+                                           .findFirst()
+                                           .map(studentCnt -> new ChartDataDto(studentCnt, totalCnt.getCnt(), totalStudentCnt))
+                                           .orElseGet(() -> new ChartDataDto(totalCnt.getCategory(), totalCnt.getCnt(), totalStudentCnt))
+                        )
+                        .collect(Collectors.toList());
 
     }
 

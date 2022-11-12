@@ -1,10 +1,8 @@
 package com.server.hispath.activity.application.dto;
 
-import com.querydsl.core.annotations.QueryProjection;
 import com.server.hispath.category.application.dto.CategoryDto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,12 +13,17 @@ public class ChartDataDto {
 
     private CategoryDto category;
     private Long myCnt;
-    private Long averageCnt;
+    private Double averageCnt;
 
-    @QueryProjection
-    public ChartDataDto(Long categoryId, String categoryName, Long myCnt) {
-        this.category = new CategoryDto(categoryId, categoryName);
-        this.myCnt = myCnt;
-        this.averageCnt = 0L;
+    public ChartDataDto(ChartCategoryCntDto dto, Long totalCnt, int totalStudent) {
+        this.category = dto.getCategory();
+        this.myCnt = dto.getCnt();
+        this.averageCnt = totalCnt / (double) totalStudent;
+    }
+
+    public ChartDataDto(CategoryDto dto, Long totalCnt, int totalStudent) {
+        this.category = dto;
+        this.myCnt = 0L;
+        this.averageCnt = totalCnt / (double) totalStudent;
     }
 }

@@ -1,4 +1,4 @@
-package com.server.hispath.activity.presentation.response;
+package com.server.hispath.activity.presentation.response.chart;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
