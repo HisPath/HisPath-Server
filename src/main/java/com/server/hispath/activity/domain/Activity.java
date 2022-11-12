@@ -159,6 +159,9 @@ public class Activity extends BaseEntity {
     }
 
     public boolean isSameCategory(String category) {
+        if(Objects.equals(category, "참여여부")) {
+
+        }
         if(Objects.equals(category, "ALL"))
             return true;
         return Objects.equals(this.category.getName(), category);

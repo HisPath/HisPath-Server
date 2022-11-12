@@ -1,6 +1,7 @@
 package com.server.hispath.activity.application;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.*;
@@ -139,17 +140,21 @@ public class MActivityService {
 
     @Transactional(readOnly = true)
     public List<AllMActivityParticipantDto>findParticipatedActivities(Long id, String semester, String category) {
+
+
+
+
         List<Activity> activities = activityRepository.findParticipatedActivity();
         Student student = studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
-
         List<AllMActivityParticipantDto> collect =
                 activities.stream()
-                .filter(activity -> activity.isSameSemester(semester) && activity.isSameCategory(category))
-                .map(activity -> {return AllMActivityParticipantDto.of(activity, activity.isParticipate(student)); })
-                .collect(Collectors.toList());
+                        .filter(activity -> activity.isSameSemester(semester) && activity.isSameCategory(category))
+                        .map(activity -> {
+                            return AllMActivityParticipantDto.of(activity, activity.isParticipate(student));
+                        })
+                        .collect(Collectors.toList());
 
         return collect;
-
 
 //        return activities
 //                .stream()

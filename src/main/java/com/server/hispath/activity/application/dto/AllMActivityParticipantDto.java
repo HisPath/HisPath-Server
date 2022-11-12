@@ -21,8 +21,8 @@ public class AllMActivityParticipantDto {
         return new AllMActivityParticipantDto(activity.getId(), activity.getSemester(), activity.getName(), activity.getRemark(), CategoryDto.from(activity.getCategory()),
                  participated);
     }
-    public boolean getParticipated(){
-        return participated;
-    }
+//    public boolean getParticipated(){
+//        return participated;
+//    }
 }
 

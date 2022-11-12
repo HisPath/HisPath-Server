@@ -15,10 +15,10 @@ public class AllMActivityParticipantResponse {
     private String name;
     private String remark;
     private String category;
-        private boolean participated;
+    private boolean participated;
 
     public static AllMActivityParticipantResponse of(AllMActivityParticipantDto dto) {
         return new AllMActivityParticipantResponse(dto.getId(), dto.getSemester(), dto.getName(), dto.getRemark(),
-                dto.getCategory().getName(), dto.getParticipated());
+                dto.getCategory().getName(), dto.isParticipated());
     }
 }
