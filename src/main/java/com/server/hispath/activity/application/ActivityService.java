@@ -122,6 +122,18 @@ public class ActivityService {
     }
 
     @Transactional(readOnly = true)
+    public List<ActivityParticipantDto> findAllPersonalParticipantActivites(Long id, String semester, String section) {
+        Student student = studentRepository.findStudentWithActivities(id).orElseThrow(StudentNotFoundException::new);
+        return student.getParticipants()
+                      .stream()
+                      .filter(participant -> participant.isSameSemester(semester))
+                      .filter(participant -> participant.isSameSection(section))
+                      .filter(Participant::isPersonal)
+                      .map(ActivityParticipantDto::of)
+                      .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public ActivityParticipantDto findParticipantActivityById(Long studentId, Long activityId) {
         Activity activity = activityRepository.findActivityWithStudents(activityId)
                                               .orElseThrow(ActivityNotFoundException::new);
