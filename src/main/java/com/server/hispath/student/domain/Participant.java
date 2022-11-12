@@ -80,4 +80,5 @@ public class Participant extends BaseEntity {
         return this.activity.isPersonal();
     }
 
+
 }
