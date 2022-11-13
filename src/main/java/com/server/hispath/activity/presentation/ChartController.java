@@ -9,6 +9,7 @@ import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
 import com.server.hispath.activity.presentation.response.chart.ChartCategoryResponse;
 import com.server.hispath.activity.presentation.response.chart.ChartDataResponse;
 import com.server.hispath.activity.presentation.response.chart.ChartRankResponse;
+import com.server.hispath.activity.presentation.response.chart.ChartTimelineResponse;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.scholarship.application.ScholarshipService;
 
@@ -72,5 +73,16 @@ public class ChartController {
         ChartSearchRequestDto chartSearchRequestDto = new ChartSearchRequestDto(semester, grade, department);
         // ToDo 지금은 1L로 하지만 나중에 바꿀 예정
         return ResponseEntity.ok(ChartRankResponse.of(scholarshipService.getRankChartData(1L, chartSearchRequestDto)));
+    }
+
+    @GetMapping("/chart/timeline")
+    @ApiOperation(value = ApiDoc.CHART_MILEAGE_TIMELINE)
+    public ResponseEntity<List<ChartTimelineResponse>> getChartMileageTimeline() {
+        // ToDo 지금은 1L로 하지만 나중에 바꿀 예정
+        List<ChartTimelineResponse> responses = scholarshipService.getChartTimelines(1L)
+                                                                  .stream()
+                                                                  .map(ChartTimelineResponse::of)
+                                                                  .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 }
