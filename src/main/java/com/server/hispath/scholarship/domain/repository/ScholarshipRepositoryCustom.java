@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
+import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.scholarship.application.dto.SearchRequestDto;
 import com.server.hispath.scholarship.domain.Scholarship;
 
@@ -42,6 +42,22 @@ public class ScholarshipRepositoryCustom {
                            .from(scholarship)
                            .where(totalMileageAvgCondition(dto))
                            .fetchOne();
+    }
+
+    public List<ChartGradeDataDto> getCountByGradeAndSemester(String semester) {
+        return queryFactory.select(new QChartGradeDataDto(scholarship.studentSemester, scholarship.count()))
+                           .from(scholarship)
+                           .where(scholarship.semester.eq(semester).and(scholarship.approved.eq(true)))
+                           .groupBy(scholarship.studentSemester)
+                           .fetch();
+    }
+
+    public List<ChartDepartmentDataDto> getCountByDepartmentAndSemester(String semester) {
+        return queryFactory.select(new QChartDepartmentDataDto(scholarship.sDepartment.name, scholarship.count()))
+                           .from(scholarship)
+                           .where(scholarship.semester.eq(semester).and(scholarship.approved.eq(true)))
+                           .groupBy(scholarship.sDepartment)
+                           .fetch();
     }
 
     public BooleanBuilder totalMileageAvgCondition(ChartSearchRequestDto dto) {

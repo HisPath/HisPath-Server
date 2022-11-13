@@ -4,12 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
-import com.server.hispath.activity.application.dto.ChartRankDto;
 import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
-import com.server.hispath.activity.presentation.response.chart.ChartCategoryResponse;
-import com.server.hispath.activity.presentation.response.chart.ChartDataResponse;
-import com.server.hispath.activity.presentation.response.chart.ChartRankResponse;
-import com.server.hispath.activity.presentation.response.chart.ChartTimelineResponse;
+import com.server.hispath.activity.presentation.response.chart.*;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.scholarship.application.ScholarshipService;
 
@@ -83,6 +79,32 @@ public class ChartController {
                                                                   .stream()
                                                                   .map(ChartTimelineResponse::of)
                                                                   .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/chart/weight")
+    @ApiOperation(value = ApiDoc.CHART_SCHOLARSHIP_WEIGHT)
+    public ResponseEntity<List<Long>> getChartWeightDistribution(@RequestParam String semester) {
+        return ResponseEntity.ok(scholarshipService.getChartWeightDistribution(semester));
+    }
+
+    @GetMapping("/chart/grade")
+    @ApiOperation(value = ApiDoc.CHART_SCHOLARSHIP_GRADE)
+    public ResponseEntity<List<ChartGradeResponse>> getChartGradeDistribution(@RequestParam String semester) {
+        List<ChartGradeResponse> responses = scholarshipService.getChartGradeDistribution(semester)
+                                                               .stream()
+                                                               .map(ChartGradeResponse::of)
+                                                               .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/chart/department")
+    @ApiOperation(value = ApiDoc.CHART_SCHOLARSHIP_DEPARTMENT)
+    public ResponseEntity<List<ChartDepartmentResponse>> getChartDepartmentDistribution(@RequestParam String semester) {
+        List<ChartDepartmentResponse> responses = scholarshipService.getChartDepartmentDistribution(semester)
+                                                                    .stream()
+                                                                    .map(ChartDepartmentResponse::of)
+                                                                    .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 }

@@ -1,14 +1,9 @@
 package com.server.hispath.scholarship.application;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import com.server.hispath.activity.application.dto.ChartRankDto;
-import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
-import com.server.hispath.activity.application.dto.ChartTimelineDto;
+import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.exception.scholarship.ScholarshipDuplicateException;
@@ -159,7 +154,7 @@ public class ScholarshipService {
     public ChartRankDto getRankChartData(Long studentId, ChartSearchRequestDto dto) {
         Student student = studentService.findById(studentId);
         int myWeight = scholarshipRepository.findFirstByStudentAndSemester(student, dto.getSemester())
-                                            .orElseThrow(ScholarshipNotFoundException::new)
+                                            .orElseGet(() -> Scholarship.builder().totalMileage(0).build())
                                             .getTotalMileage();
         Double avgWeight = scholarshipRepositoryCustom.getTotalMileageAvg(dto);
         int maxWeight = activityRepository.sumActivityWeight(dto.getSemester());
@@ -172,8 +167,43 @@ public class ScholarshipService {
                                 .orElseThrow(StudentNotFoundException::new)
                                 .getScholarships()
                                 .stream()
+                                .filter(Scholarship::isApproved)
                                 .map(ChartTimelineDto::of)
                                 .sorted(Comparator.comparing(ChartTimelineDto::getSemester))
                                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<Long> getChartWeightDistribution(String semester) {
+        List<Scholarship> scholarships = scholarshipRepository.findAllBySemesterAndApprovedTrue(semester);
+        Long[] chartWeightDistribute = new Long[6];
+        scholarships.forEach(scholarship -> {
+            if (scholarship.getTotalMileage() < 20)
+                chartWeightDistribute[0]++;
+            else if (scholarship.getTotalMileage() < 40)
+                chartWeightDistribute[1]++;
+            else if (scholarship.getTotalMileage() < 60)
+                chartWeightDistribute[2]++;
+            else if (scholarship.getTotalMileage() < 80)
+                chartWeightDistribute[3]++;
+            else if (scholarship.getTotalMileage() < 100)
+                chartWeightDistribute[4]++;
+            else
+                chartWeightDistribute[5]++;
+        });
+
+        return Arrays.asList(chartWeightDistribute);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ChartGradeDataDto> getChartGradeDistribution(String semester) {
+        List<ChartGradeDataDto> chartGradeDataDtos = scholarshipRepositoryCustom.getCountByGradeAndSemester(semester);
+        chartGradeDataDtos.sort(Comparator.comparing(ChartGradeDataDto::getGrade));
+        return chartGradeDataDtos;
+    }
+
+    @Transactional(readOnly = true)
+    public List<ChartDepartmentDataDto> getChartDepartmentDistribution(String semester) {
+        return scholarshipRepositoryCustom.getCountByDepartmentAndSemester(semester);
     }
 }
