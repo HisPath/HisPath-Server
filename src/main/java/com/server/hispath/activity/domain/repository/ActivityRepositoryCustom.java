@@ -61,13 +61,14 @@ public class ActivityRepositoryCustom {
 
         booleanBuilder.and(participant.student.eq(student));
         booleanBuilder = semesterDepartmentMajorCondition(booleanBuilder, dto);
-
+        booleanBuilder = mileageActivityCondition(booleanBuilder);
         return booleanBuilder;
     }
 
     public BooleanBuilder totalChartCategoryCondition(ChartSearchRequestDto dto) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder = semesterDepartmentMajorCondition(booleanBuilder, dto);
+        booleanBuilder = mileageActivityCondition(booleanBuilder);
         if (!Objects.isNull(dto.getGrade())) {
             int grade = (dto.getGrade() + 1) / 2 * 2;
             booleanBuilder.and(participant.student.semester.eq(grade - 1).or(participant.student.semester.eq(grade)));
@@ -89,4 +90,8 @@ public class ActivityRepositoryCustom {
         return booleanBuilder;
     }
 
+    public BooleanBuilder mileageActivityCondition(BooleanBuilder booleanBuilder){
+        booleanBuilder.and(activity.requestStatus.eq(1));
+        return booleanBuilder;
+    }
 }
