@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
+import com.server.hispath.activity.application.dto.ChartRankDto;
 import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
 import com.server.hispath.activity.presentation.response.chart.ChartCategoryResponse;
 import com.server.hispath.activity.presentation.response.chart.ChartDataResponse;
+import com.server.hispath.activity.presentation.response.chart.ChartRankResponse;
 import com.server.hispath.docs.ApiDoc;
+import com.server.hispath.scholarship.application.ScholarshipService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,15 +26,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class ChartController {
+
     private final ActivityService activityService;
+    private final ScholarshipService scholarshipService;
 
     @GetMapping("/chart/mileage")
     @ApiOperation(value = ApiDoc.CHART_MILEAGE_CATEGORY)
     public ResponseEntity<List<ChartDataResponse>> getChartMileageData(
             String semester,
             @RequestParam(required = false) Integer grade,
-            @RequestParam(required = false) String department,
-            @RequestParam(required = false) String major
+            @RequestParam(required = false) String department
     ) {
         ChartSearchRequestDto chartSearchRequestDto = new ChartSearchRequestDto(semester, grade, department);
         // ToDo 지금은 1L로 하지만 나중에 바꿀 예정
@@ -43,12 +47,11 @@ public class ChartController {
     }
 
     @GetMapping("/chart/popularity")
-    @ApiOperation(value = ApiDoc.CHART_MILEAGE_CATEGORY)
+    @ApiOperation(value = ApiDoc.CHART_MILEAGE_POPULARITY_CATEGORY)
     public ResponseEntity<List<ChartCategoryResponse>> getChartMileagePopularity(
             String semester,
             @RequestParam(required = false) Integer grade,
-            @RequestParam(required = false) String department,
-            @RequestParam(required = false) String major
+            @RequestParam(required = false) String department
     ) {
         ChartSearchRequestDto chartSearchRequestDto = new ChartSearchRequestDto(semester, grade, department);
         // ToDo 지금은 1L로 하지만 나중에 바꿀 예정
@@ -57,5 +60,17 @@ public class ChartController {
                                                                .map(ChartCategoryResponse::of)
                                                                .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping("/chart/rank")
+    @ApiOperation(value = ApiDoc.CHART_MILEAGE_RANK)
+    public ResponseEntity<ChartRankResponse> getChartMileageRank(
+            String semester,
+            @RequestParam(required = false) Integer grade,
+            @RequestParam(required = false) String department
+    ) {
+        ChartSearchRequestDto chartSearchRequestDto = new ChartSearchRequestDto(semester, grade, department);
+        // ToDo 지금은 1L로 하지만 나중에 바꿀 예정
+        return ResponseEntity.ok(ChartRankResponse.of(scholarshipService.getRankChartData(1L, chartSearchRequestDto)));
     }
 }

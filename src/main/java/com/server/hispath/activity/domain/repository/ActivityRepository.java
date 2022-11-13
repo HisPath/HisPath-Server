@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findAllBySemester(String semester);
+
     // commit 테스트용
     @Query("select a from Activity a " +
             "left join fetch a.participants as p " +
@@ -43,4 +44,8 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
             "left join fetch p.student " +
             "where a.requestStatus = 1")
     List<Activity> findParticipatedActivity();
+
+    @Query("select  sum(a.weight) from Activity a " +
+            "where a.semester = :semester")
+    int sumActivityWeight(String semester);
 }

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
 import com.server.hispath.scholarship.application.dto.SearchRequestDto;
 import com.server.hispath.scholarship.domain.Scholarship;
 
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 
+import static com.server.hispath.activity.domain.QActivity.activity;
 import static com.server.hispath.scholarship.domain.QScholarship.scholarship;
+import static com.server.hispath.student.domain.QParticipant.participant;
 
 @Repository
 @RequiredArgsConstructor
@@ -32,6 +35,31 @@ public class ScholarshipRepositoryCustom {
                            .where(scholarshipStudentCondition(dto))
                            .fetch();
 
+    }
+
+    public Double getTotalMileageAvg(ChartSearchRequestDto dto) {
+        return queryFactory.select(scholarship.totalMileage.avg())
+                           .from(scholarship)
+                           .where(totalMileageAvgCondition(dto))
+                           .fetchOne();
+    }
+
+    public BooleanBuilder totalMileageAvgCondition(ChartSearchRequestDto dto) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+
+        if (!Objects.isNull(dto.getSemester())) {
+            booleanBuilder.and(scholarship.semester.eq(dto.getSemester()));
+        }
+        if (!Objects.isNull(dto.getDepartment())) {
+            booleanBuilder.and(scholarship.sDepartment.name.eq(dto.getDepartment()));
+        }
+
+        if (!Objects.isNull(dto.getGrade())) {
+            int grade = (dto.getGrade() + 1) / 2 * 2;
+            booleanBuilder.and(scholarship.studentSemester.eq(grade - 1).or(scholarship.studentSemester.eq(grade)));
+        }
+
+        return booleanBuilder;
     }
 
     public BooleanBuilder scholarshipStudentCondition(SearchRequestDto dto) {
