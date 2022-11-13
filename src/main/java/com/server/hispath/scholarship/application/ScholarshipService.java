@@ -159,7 +159,7 @@ public class ScholarshipService {
     public ChartRankDto getRankChartData(Long studentId, ChartSearchRequestDto dto) {
         Student student = studentService.findById(studentId);
         int myWeight = scholarshipRepository.findFirstByStudentAndSemester(student, dto.getSemester())
-                                            .orElseThrow(ScholarshipNotFoundException::new)
+                                            .orElseGet(() -> Scholarship.builder().totalMileage(0).build())
                                             .getTotalMileage();
         Double avgWeight = scholarshipRepositoryCustom.getTotalMileageAvg(dto);
         int maxWeight = activityRepository.sumActivityWeight(dto.getSemester());
@@ -172,8 +172,14 @@ public class ScholarshipService {
                                 .orElseThrow(StudentNotFoundException::new)
                                 .getScholarships()
                                 .stream()
+                                .filter(Scholarship::isApproved)
                                 .map(ChartTimelineDto::of)
                                 .sorted(Comparator.comparing(ChartTimelineDto::getSemester))
                                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<Long> getChartWeightDatas(String semester) {
+        scholarshipRepository.findAllBySemesterAndApprovedTrue(semester);
     }
 }
