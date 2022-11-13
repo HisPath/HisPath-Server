@@ -15,8 +15,10 @@ public class NoticeDashboardResponse {
     private Long noticeId;
     private String title;
     private LocalDate pubDate;
+    private LocalDate expDate;
+    private LocalDate regDate;
 
     static public NoticeDashboardResponse of(DashboardNoticeDto dto) {
-        return new NoticeDashboardResponse(dto.getId(), dto.getTitle(), dto.getPubDate());
+        return new NoticeDashboardResponse(dto.getId(), dto.getTitle(), dto.getPubDate(), dto.getExpDate(), dto.getRegDate());
     }
 }
