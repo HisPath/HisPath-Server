@@ -3,10 +3,7 @@ package com.server.hispath.scholarship.application;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.server.hispath.activity.application.dto.ChartGradeDataDto;
-import com.server.hispath.activity.application.dto.ChartRankDto;
-import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
-import com.server.hispath.activity.application.dto.ChartTimelineDto;
+import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.exception.scholarship.ScholarshipDuplicateException;
@@ -203,5 +200,10 @@ public class ScholarshipService {
         List<ChartGradeDataDto> chartGradeDataDtos = scholarshipRepositoryCustom.getCountByGradeAndSemester(semester);
         chartGradeDataDtos.sort(Comparator.comparing(ChartGradeDataDto::getGrade));
         return chartGradeDataDtos;
+    }
+
+    @Transactional(readOnly = true)
+    public List<ChartDepartmentDataDto> getChartDepartmentDistribution(String semester) {
+        return scholarshipRepositoryCustom.getCountByDepartmentAndSemester(semester);
     }
 }

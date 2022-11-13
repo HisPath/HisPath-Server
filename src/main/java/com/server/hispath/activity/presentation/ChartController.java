@@ -97,4 +97,14 @@ public class ChartController {
                                                                .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
+
+    @GetMapping("/chart/department")
+    @ApiOperation(value = ApiDoc.CHART_SCHOLARSHIP_DEPARTMENT)
+    public ResponseEntity<List<ChartDepartmentResponse>> getChartDepartmentDistribution(@RequestParam String semester) {
+        List<ChartDepartmentResponse> responses = scholarshipService.getChartDepartmentDistribution(semester)
+                                                                    .stream()
+                                                                    .map(ChartDepartmentResponse::of)
+                                                                    .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
 }
