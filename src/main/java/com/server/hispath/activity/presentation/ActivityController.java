@@ -67,10 +67,11 @@ public class ActivityController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/activity/{id}")
+    @DeleteMapping("/activity/student/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_DELETE)
     public ResponseEntity<Long> delete(@PathVariable Long id) {
-        activityService.delete(id);
+        //Todo 나중에 login 처리하면 그때 ID바꿈
+        activityService.deleteStudentActivity(1L, id);
         return ResponseEntity.ok(id);
     }
 

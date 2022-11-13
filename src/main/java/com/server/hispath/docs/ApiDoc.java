@@ -7,7 +7,7 @@ public class ApiDoc {
     public static final String ACTIVITY_READ = "단일 활동 조회";
     public static final String ACTIVITY_READ_ALL = "모든 활동 조회";
     public static final String ACTIVITY_UPDATE = "활동 수정";
-    public static final String ACTIVITY_DELETE = "활동 삭제";
+    public static final String ACTIVITY_DELETE = "학생 활동 삭제";
     public static final String MILEAGE_CREATE = "단일 마일리지 활동 등록";
     public static final String MILEAGES_CREATE = "단일 마일리지 다중 등록";
     public static final String MILEAGE_UPDATE = "마일리지 활동 수정";
