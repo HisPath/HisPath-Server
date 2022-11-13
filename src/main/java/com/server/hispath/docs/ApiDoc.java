@@ -35,7 +35,7 @@ public class ApiDoc {
     public static final String ACTIVITY_STUDENT_DETAIL = "학생 개인 활동 상세 조회";
 
     /* Chart 관련 API 명세 */
-    public static final String CHART_STUDENT_CATEGORY = "카테고리에 따른 학생 활동 차트 데이터 조회";
+    public static final String CHART_MILEAGE_CATEGORY = "카테고리에 따른 학생 마일리지 활동 차트 데이터 조회";
 
     /* Category 관련 API 명세 */
     public static final String CATEGORY_READ = "단일 카테고리 조회";

@@ -24,8 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class ChartController {
     private final ActivityService activityService;
 
-    @GetMapping("/chart/category")
-    @ApiOperation(value = ApiDoc.CHART_STUDENT_CATEGORY)
+    @GetMapping("/chart/mileage")
+    @ApiOperation(value = ApiDoc.CHART_MILEAGE_CATEGORY)
     public ResponseEntity<List<ChartDataResponse>> getChartDatasByCategory(
             String semester,
             @RequestParam(required = false) Integer grade,
