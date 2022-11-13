@@ -3,6 +3,7 @@ package com.server.hispath.scholarship.application;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.server.hispath.activity.application.dto.ChartGradeDataDto;
 import com.server.hispath.activity.application.dto.ChartRankDto;
 import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
 import com.server.hispath.activity.application.dto.ChartTimelineDto;
@@ -176,7 +177,7 @@ public class ScholarshipService {
     }
 
     @Transactional(readOnly = true)
-    public List<Long> getChartWeightDistribute(String semester) {
+    public List<Long> getChartWeightDistribution(String semester) {
         List<Scholarship> scholarships = scholarshipRepository.findAllBySemesterAndApprovedTrue(semester);
         Long[] chartWeightDistribute = new Long[6];
         scholarships.forEach(scholarship -> {
@@ -195,5 +196,12 @@ public class ScholarshipService {
         });
 
         return Arrays.asList(chartWeightDistribute);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ChartGradeDataDto> getChartGradeDistribution(String semester) {
+        List<ChartGradeDataDto> chartGradeDataDtos = scholarshipRepositoryCustom.getCountByGradeAndSemester(semester);
+        chartGradeDataDtos.sort(Comparator.comparing(ChartGradeDataDto::getGrade));
+        return chartGradeDataDtos;
     }
 }
