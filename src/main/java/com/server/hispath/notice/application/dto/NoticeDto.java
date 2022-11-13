@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -22,6 +23,9 @@ public class NoticeDto{
     private boolean importance;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private LocalDateTime regDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate pubDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
@@ -29,6 +33,6 @@ public class NoticeDto{
 
     public static NoticeDto from(Notice notice) {
         return new NoticeDto(notice.getId(), ManagerDto.of(notice.getManager()), notice.getTitle(),
-                notice.getContent(), notice.getViewCnt(), notice.isImportance(), notice.getPubDate(), notice.getExpDate());
+                notice.getContent(), notice.getViewCnt(), notice.isImportance(),notice.getCreatedAt() ,notice.getPubDate(), notice.getExpDate());
     }
 }

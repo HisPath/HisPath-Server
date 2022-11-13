@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 import com.server.hispath.exception.student.SectionNotExistException;
 
 public enum Section {
-    REWARD("수상"), SKILL("기술"), COURSE("과정"), LINK("링크"),
-    INTERNSHIP("인턴"), CERTIFICATE("자격증"), LANGUAGE("언어"), ETC("기타");
+     EXPERIENCE("경력"), DEGREE("학력"),SKILL("기술"),  CERTIFICATE("자격증"),REWARD("수상"), LANGUAGE("외국어"),
+    LINK("링크"), ETC("기타");
 
     private String name;
 

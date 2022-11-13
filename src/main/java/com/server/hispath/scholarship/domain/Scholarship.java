@@ -51,8 +51,9 @@ public class Scholarship extends BaseEntity {
 
     private boolean approved = false;
 
-    public void approve() {
+    public void approve(String result) {
         approved = true;
+        this.result = result;
     }
 
     public boolean isStudentSemesterMatch(int studentSemester) {

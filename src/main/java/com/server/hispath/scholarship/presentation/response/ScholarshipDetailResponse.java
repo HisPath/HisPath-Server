@@ -27,10 +27,11 @@ public class ScholarshipDetailResponse {
     private int totalWeight;
     private String result;
     private List<ScholarshipActivityResponse> activities = new ArrayList<>();
+    private int activityCnt;
 
     public static ScholarshipDetailResponse from(ScholarshipDto dto, List<ScholarshipActivityResponse> activities) {
         return new ScholarshipDetailResponse(dto.getName(), dto.getStudentNum(), dto.getSemester(), dto.getStudentSemester(),
                 dto.getDepartmentName(), dto.getMajor1Name(), dto.getMajor2Name(), dto.getEmail(),
-                dto.getPhone(), dto.getTotalWeight(), dto.getResult(), activities);
+                dto.getPhone(), dto.getTotalWeight(), dto.getResult(), activities, activities.size());
     }
 }

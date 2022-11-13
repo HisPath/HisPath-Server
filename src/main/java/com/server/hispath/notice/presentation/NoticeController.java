@@ -5,6 +5,7 @@ import com.server.hispath.notice.application.dto.NoticeContentDto;
 import com.server.hispath.notice.application.dto.NoticeDto;
 import com.server.hispath.notice.application.NoticeService;
 
+import com.server.hispath.notice.domain.Notice;
 import com.server.hispath.notice.presentation.request.NoticeRequest;
 import com.server.hispath.notice.presentation.response.NoticeResponse;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +38,7 @@ public class NoticeController {
     @GetMapping("/notice")
     @ApiOperation(value = ApiDoc.NOTICE_READ_ALL)
     public ResponseEntity<List<NoticeResponse>> findAll() {
-        List<NoticeResponse> responses = noticeService.findAll().stream().sorted(Comparator.comparing(NoticeDto::getId).reversed()).map(NoticeResponse::from).collect(Collectors.toList());
+        List<NoticeResponse> responses = noticeService.findAll().stream().sorted(Comparator.comparing(NoticeDto::getRegDate).reversed()).map(NoticeResponse::from).collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 
@@ -45,6 +46,7 @@ public class NoticeController {
     @GetMapping("/notice/{id}")
     @ApiOperation(value = ApiDoc.NOTICE_READ)
     public ResponseEntity<NoticeResponse> find(@PathVariable Long id){
+//        noticeService.increaseViewCnt(id);
         NoticeResponse response = NoticeResponse.from(noticeService.find(id));
         return ResponseEntity.ok(response);
     }

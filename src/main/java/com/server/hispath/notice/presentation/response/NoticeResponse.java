@@ -26,6 +26,9 @@ public class NoticeResponse {
     private boolean importance;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    private LocalDate regDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate pubDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
@@ -33,6 +36,6 @@ public class NoticeResponse {
 
     public static NoticeResponse from(NoticeDto dto) {
         return new NoticeResponse(dto.getId(), dto.getManager().getId(), dto.getManager().getName(),
-                dto.getTitle(), dto.getContent(), dto.getViewCnt(), dto.isImportance(), dto.getPubDate(), dto.getExpDate());
+                dto.getTitle(), dto.getContent(), dto.getViewCnt(), dto.isImportance(),dto.getRegDate().toLocalDate() ,dto.getPubDate(), dto.getExpDate());
     }
 }

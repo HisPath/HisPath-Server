@@ -99,7 +99,7 @@ public class ScholarshipService {
                                                .orElseThrow(StudentNotFoundException::new);
             Scholarship scholarship = scholarshipRepository.findFirstByStudentAndSemester(student, semester)
                                                            .orElseThrow(ScholarshipNotFoundException::new);
-            scholarship.approve();
+            scholarship.approve(dto.getResult());
         });
 
 

@@ -3,6 +3,8 @@ package com.server.hispath.student.presentation;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.server.hispath.activity.application.ActivityService;
+import com.server.hispath.activity.presentation.response.ActivityParticipantStatusResponse;
 import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.notice.application.NoticeService;
@@ -30,6 +32,7 @@ public class StudentController {
 
     private final StudentService studentService;
     private final NoticeService noticeService;
+    private final ActivityService activityService;
 
     @PostMapping("/student")
     @ApiOperation(value = ApiDoc.STUDENT_CREATE)
@@ -84,6 +87,17 @@ public class StudentController {
         StudentDto studentDto = studentService.find(id);
         List<DashboardNoticeDto> dashboardNoticeDtos = noticeService.findRecentNotice();
         return ResponseEntity.ok(DashboardResponse.from(studentDto, dashboardNoticeDtos));
+    }
+
+    @GetMapping("/student-activities/status")
+    @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_SEMESTER_SECTION_STATUS)
+    public ResponseEntity<List<ActivityParticipantStatusResponse>> findStudentActivitiesWithStatus(@RequestParam String semester, @RequestParam String section) {
+        // ToDo       Student ID 관련해서는 나중에 Login 처리하기 현재는 1L로 되어있음
+        List<ActivityParticipantStatusResponse> responses = activityService.findAllPersonalParticipantActivites(1L, semester, section)
+                                                                           .stream()
+                                                                           .map(ActivityParticipantStatusResponse::of)
+                                                                           .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/student/semesters")

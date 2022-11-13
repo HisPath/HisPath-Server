@@ -60,6 +60,12 @@ public class Participant extends BaseEntity {
         return Objects.equals(this.section.getName(), section);
     }
 
+    public boolean isSameCategory(String category) {
+        if(Objects.equals(category, "ALL"))
+            return true;
+        return activity.isSameCategory(category);
+    }
+
     public boolean isSameStudent(Student student) {
         return Objects.equals(this.student, student);
     }
@@ -72,4 +78,10 @@ public class Participant extends BaseEntity {
     public String getActivityCategoryName(){
         return activity.getCategory().getName();
     }
+
+    public boolean isPersonal(){
+        return this.activity.isPersonal();
+    }
+
+
 }
