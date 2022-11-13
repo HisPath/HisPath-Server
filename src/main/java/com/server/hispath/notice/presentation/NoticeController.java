@@ -1,12 +1,14 @@
 package com.server.hispath.notice.presentation;
 
 import com.server.hispath.docs.ApiDoc;
+import com.server.hispath.notice.application.dto.DashboardNoticeDto;
 import com.server.hispath.notice.application.dto.NoticeContentDto;
 import com.server.hispath.notice.application.dto.NoticeDto;
 import com.server.hispath.notice.application.NoticeService;
 
 import com.server.hispath.notice.domain.Notice;
 import com.server.hispath.notice.presentation.request.NoticeRequest;
+import com.server.hispath.notice.presentation.response.NoticeDashboardResponse;
 import com.server.hispath.notice.presentation.response.NoticeResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +41,14 @@ public class NoticeController {
     @ApiOperation(value = ApiDoc.NOTICE_READ_ALL)
     public ResponseEntity<List<NoticeResponse>> findAll() {
         List<NoticeResponse> responses = noticeService.findAll().stream().sorted(Comparator.comparing(NoticeDto::getRegDate).reversed()).map(NoticeResponse::from).collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/notice/imp")
+    @ApiOperation(value = ApiDoc.NOTICE_READ_IMP)
+    public ResponseEntity<List<NoticeDashboardResponse>> findImp() {
+        List<NoticeDashboardResponse> responses = noticeService.findImp().stream().sorted(Comparator.comparing(DashboardNoticeDto::getPubDate).reversed()).map(NoticeDashboardResponse::of).collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 

@@ -45,6 +45,12 @@ public class NoticeService {
         List<Notice> notices = noticeRepository.findAll();
         return notices.stream().map(NoticeDto::from).collect(Collectors.toList());
     }
+    @Transactional(readOnly = true)
+    public List<DashboardNoticeDto> findImp() {
+        LocalDate today = LocalDate.now();
+        List<Notice> notices = noticeRepository.findAllImpInPub(today);
+        return notices.stream().map(DashboardNoticeDto::of).collect(Collectors.toList());
+    }
 
     @Transactional
     public NoticeDto find(Long id) {
