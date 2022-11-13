@@ -10,7 +10,10 @@ import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.presentation.request.MActivityCURequest;
 import com.server.hispath.activity.presentation.request.MParticipantRequest;
 import com.server.hispath.activity.presentation.request.MStudentRegisterRequest;
-import com.server.hispath.activity.presentation.response.*;
+import com.server.hispath.activity.presentation.response.ActivityResponse;
+import com.server.hispath.activity.presentation.response.AllMActivityParticipantResponse;
+import com.server.hispath.activity.presentation.response.MActivityParticipantResponse;
+import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.application.dto.StudentSimpleRefDto;
@@ -126,20 +129,19 @@ public class MActivityController {
     public ResponseEntity<List<SemesterResponse>> findSemestersById(@PathVariable Long id) {
         List<SemesterDto> semesters = mActivityService.findSemestersById(id);
         List<SemesterResponse> responses = semesters.stream()
-                .map(SemesterResponse::from)
-                .collect(Collectors.toList());
+                                                    .map(SemesterResponse::from)
+                                                    .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
-
 
 
     @GetMapping("/student-mactivities/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_SEMESTER)
     public ResponseEntity<List<MActivityParticipantResponse>> findParticipatedActivities(@PathVariable Long id, @RequestParam String semester, @RequestParam String category) {
         List<MActivityParticipantResponse> responses = mActivityService.findAllParticipantActivities(id, semester, category)
-                .stream()
-                .map(MActivityParticipantResponse::of)
-                .collect(Collectors.toList());
+                                                                       .stream()
+                                                                       .map(MActivityParticipantResponse::of)
+                                                                       .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
 
 
@@ -150,18 +152,17 @@ public class MActivityController {
     public ResponseEntity<List<AllMActivityParticipantResponse>> findAllParticipatedActivities(@PathVariable Long id, @RequestParam String semester, @RequestParam String category) {
 
         List<AllMActivityParticipantResponse> responses;
-        if(Objects.equals(category, "참여여부")){
+        if (Objects.equals(category, "참여여부")) {
             responses = mActivityService.findParticipatedActivities(id, semester, "ALL")
-                    .stream()
-                    .filter(example -> example.isParticipated())
-                    .map(AllMActivityParticipantResponse::of)
-                    .collect(Collectors.toList());
-        }
-        else {
+                                        .stream()
+                                        .filter(example -> example.isParticipated())
+                                        .map(AllMActivityParticipantResponse::of)
+                                        .collect(Collectors.toList());
+        } else {
             responses = mActivityService.findParticipatedActivities(id, semester, category)
-                    .stream()
-                    .map(AllMActivityParticipantResponse::of)
-                    .collect(Collectors.toList());
+                                        .stream()
+                                        .map(AllMActivityParticipantResponse::of)
+                                        .collect(Collectors.toList());
         }
         return ResponseEntity.ok(responses);
     }

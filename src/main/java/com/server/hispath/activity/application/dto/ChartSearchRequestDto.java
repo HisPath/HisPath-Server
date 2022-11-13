@@ -1,4 +1,5 @@
-package com.server.hispath.scholarship.application.dto;
+package com.server.hispath.activity.application.dto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,12 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchRequestDto {
+public class ChartSearchRequestDto {
     private String semester;
-    private String studentSemester;
+    private Integer grade;
     private String department;
-    private String major1;
-    private String major2;
+    private String major;
 }

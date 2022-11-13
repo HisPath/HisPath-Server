@@ -5,12 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
-import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.application.MActivityService;
-import com.server.hispath.activity.application.dto.ActivityContentDto;
-import com.server.hispath.activity.application.dto.ActivityDto;
-import com.server.hispath.activity.application.dto.MStudentActivityDetailDto;
-import com.server.hispath.activity.application.dto.SemesterDto;
+import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.presentation.request.ActivityApproveRequest;
 import com.server.hispath.activity.presentation.request.ActivityCURequest;
 import com.server.hispath.activity.presentation.request.StudentActivityCURequest;
@@ -26,14 +22,12 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.ApiOperation;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.formula.EvaluationName;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class ActivityController {
     private final ActivityService activityService;
-
     private final MActivityService mActivityService;
 
     @PostMapping("/activity")
@@ -150,7 +144,6 @@ public class ActivityController {
         activityService.reject(id);
         return ResponseEntity.ok(null);
     }
-
 
 
     @GetMapping("/activity-detail/{activityId}")

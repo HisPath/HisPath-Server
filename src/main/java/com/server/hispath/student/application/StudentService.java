@@ -1,5 +1,6 @@
 package com.server.hispath.student.application;
 
+import com.server.hispath.activity.application.dto.SemesterDto;
 import com.server.hispath.department.application.DepartmentService;
 import com.server.hispath.department.domain.Department;
 import com.server.hispath.exception.activity.ParticipantNotFoundException;
@@ -8,7 +9,9 @@ import com.server.hispath.major.application.MajorService;
 import com.server.hispath.major.domain.Major;
 import com.server.hispath.student.application.dto.StudentCUDto;
 import com.server.hispath.student.application.dto.StudentDto;
+
 import java.util.List;
+
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.MActivityService;
 import com.server.hispath.activity.domain.Activity;
@@ -49,13 +52,13 @@ public class StudentService {
     @Transactional
     public void createAll(List<StudentRefDto> dtos) {
         List<Student> students = dtos.stream()
-                .map(dto -> {
-                    Student student = findById(Long.valueOf(dto.getId()));
-                    Department department = departmentService.findById(dto.getDepartmentId());
-                    Major major1 = majorService.findById(dto.getMajor1Id());
-                    Major major2 = majorService.findById(dto.getMajor2Id());
-                    return student.from(dto, department, major1, major2);
-                }).collect(Collectors.toList());
+                                     .map(dto -> {
+                                         Student student = findById(Long.valueOf(dto.getId()));
+                                         Department department = departmentService.findById(dto.getDepartmentId());
+                                         Major major1 = majorService.findById(dto.getMajor1Id());
+                                         Major major2 = majorService.findById(dto.getMajor2Id());
+                                         return student.from(dto, department, major1, major2);
+                                     }).collect(Collectors.toList());
         studentRepository.saveAll(students);
     }
 
@@ -73,8 +76,8 @@ public class StudentService {
                     System.out.println("student.getName() = " + student.getName());
                 });
         return students.stream()
-                .map(StudentDto::from)
-                .collect(Collectors.toList());
+                       .map(StudentDto::from)
+                       .collect(Collectors.toList());
     }
 
     @Transactional
@@ -102,7 +105,7 @@ public class StudentService {
         mActivityService.deleteAllParticipant(activity);
         studentRefDtos.forEach(dto -> {
             Student student = studentRepository.findByStudentNum(dto.getStudentNum())
-                    .orElseThrow(StudentNotFoundException::new);
+                                               .orElseThrow(StudentNotFoundException::new);
             validateStudent(student, dto);
             activity.addParticipant(student, Section.ETC);
         });
@@ -110,7 +113,7 @@ public class StudentService {
     }
 
     @Transactional
-    public void registerParticipant(Long activityId, StudentSimpleRefDto dto){
+    public void registerParticipant(Long activityId, StudentSimpleRefDto dto) {
         Activity activity = activityService.findById(activityId);
         Student student = studentRepository.findByStudentNum(dto.getStudentNum())
                                            .orElseThrow(StudentNotFoundException::new);
@@ -118,9 +121,21 @@ public class StudentService {
         activity.addParticipant(student, Section.ETC);
     }
 
-    private void validateStudent(Student student, StudentSimpleRefDto dto){
+    private void validateStudent(Student student, StudentSimpleRefDto dto) {
         if (!student.isNameMatch(dto.getName())) {
             throw new StudentDataNotMatchException(dto.getStudentNum(), dto.getName());
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<SemesterDto> getStudentSemesters(Long studentId) {
+        Student student = studentRepository.findActivitiesByStudent(studentId)
+                                           .orElseThrow(StudentNotFoundException::new);
+        return student.getParticipants()
+                      .stream()
+                      .map(participant -> participant.getActivity().getSemester())
+                      .distinct()
+                      .map(SemesterDto::new)
+                      .collect(Collectors.toList());
     }
 }
