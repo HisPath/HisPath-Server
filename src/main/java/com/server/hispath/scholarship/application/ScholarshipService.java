@@ -1,10 +1,14 @@
 package com.server.hispath.scholarship.application;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.server.hispath.activity.application.dto.ChartRankDto;
+import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
+import com.server.hispath.activity.application.dto.ChartTimelineDto;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.exception.scholarship.ScholarshipDuplicateException;
@@ -149,5 +153,27 @@ public class ScholarshipService {
                                           .stream()
                                           .map(ScholarshipDto::of)
                                           .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public ChartRankDto getRankChartData(Long studentId, ChartSearchRequestDto dto) {
+        Student student = studentService.findById(studentId);
+        int myWeight = scholarshipRepository.findFirstByStudentAndSemester(student, dto.getSemester())
+                                            .orElseThrow(ScholarshipNotFoundException::new)
+                                            .getTotalMileage();
+        Double avgWeight = scholarshipRepositoryCustom.getTotalMileageAvg(dto);
+        int maxWeight = activityRepository.sumActivityWeight(dto.getSemester());
+        return new ChartRankDto(myWeight, avgWeight, maxWeight);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ChartTimelineDto> getChartTimelines(Long studentId) {
+        return studentRepository.findStudentWithScholarships(studentId)
+                                .orElseThrow(StudentNotFoundException::new)
+                                .getScholarships()
+                                .stream()
+                                .map(ChartTimelineDto::of)
+                                .sorted(Comparator.comparing(ChartTimelineDto::getSemester))
+                                .collect(Collectors.toList());
     }
 }

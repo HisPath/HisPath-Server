@@ -177,8 +177,8 @@ public class ActivityService {
     @Transactional(readOnly = true)
     public List<ChartDataDto> getChartDatasByCategory(Long studentId, ChartSearchRequestDto dto) {
         Student student = studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
-        List<ChartCategoryCntDto> studentCnts = activityRepositoryCustom.getStudentCategoryChartCnt(student, dto);
-        List<ChartCategoryCntDto> totalCnts = activityRepositoryCustom.getTotalCategoryChartCnt(dto);
+        List<ChartCategoryCntDto> studentCnts = activityRepositoryCustom.getStudentCategoryParticipateCnt(student, dto);
+        List<ChartCategoryCntDto> totalCnts = activityRepositoryCustom.getTotalCategoryParticipateCnt(dto);
         int totalStudentCnt = activityRepositoryCustom.getTotalStudentCntByChartSearchRequest(dto);
 
         return totalCnts.stream()
@@ -192,6 +192,25 @@ public class ActivityService {
                         .collect(Collectors.toList());
 
     }
+
+    @Transactional(readOnly = true)
+    public List<ChartCategoryDto> getChartTotalDatasByCategory(Long studentId, ChartSearchRequestDto dto) {
+        List<ChartDataDto> chartDataDtos = this.getChartDatasByCategory(studentId, dto);
+
+        List<ChartCategoryCntDto> activityCntDtos = activityRepositoryCustom.getActivityCntByCategoryAndSemester(dto);
+
+        return chartDataDtos.stream()
+                            .map(chartDataDto ->
+                                    activityCntDtos.stream()
+                                                   .filter(activityCntDto -> activityCntDto.isSameCategory(chartDataDto.getCategory()))
+                                                   .findFirst()
+                                                   .map(activityCntDto -> new ChartCategoryDto(chartDataDto, activityCntDto.getCnt()))
+                                                   .orElseThrow(ActivityNotFoundException::new))
+                            .filter(ChartCategoryDto::isNotETC)
+                            .collect(Collectors.toList());
+
+    }
+
 
     private Student findStudentWholeByIdAndSemester(Long studentId, String semester, boolean isMileage) {
         return studentRepositoryCustom.findStudentWithIdAndSemester(studentId, semester, isMileage)

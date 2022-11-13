@@ -39,4 +39,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             "where s.id = :id and a.requestStatus = 1")
     Optional<Student> findStudentWithMActivities(Long id);
 
+    @Query("select s from Student s " +
+            "left join fetch s.scholarships " +
+            "where s.id = :id")
+    Optional<Student> findStudentWithScholarships(Long id);
 }
