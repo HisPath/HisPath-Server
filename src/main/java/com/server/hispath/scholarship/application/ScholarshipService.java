@@ -1,9 +1,6 @@
 package com.server.hispath.scholarship.application;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.ChartRankDto;
@@ -179,7 +176,24 @@ public class ScholarshipService {
     }
 
     @Transactional(readOnly = true)
-    public List<Long> getChartWeightDatas(String semester) {
-        scholarshipRepository.findAllBySemesterAndApprovedTrue(semester);
+    public List<Long> getChartWeightDistribute(String semester) {
+        List<Scholarship> scholarships = scholarshipRepository.findAllBySemesterAndApprovedTrue(semester);
+        Long[] chartWeightDistribute = new Long[6];
+        scholarships.forEach(scholarship -> {
+            if (scholarship.getTotalMileage() < 20)
+                chartWeightDistribute[0]++;
+            else if (scholarship.getTotalMileage() < 40)
+                chartWeightDistribute[1]++;
+            else if (scholarship.getTotalMileage() < 60)
+                chartWeightDistribute[2]++;
+            else if (scholarship.getTotalMileage() < 80)
+                chartWeightDistribute[3]++;
+            else if (scholarship.getTotalMileage() < 100)
+                chartWeightDistribute[4]++;
+            else
+                chartWeightDistribute[5]++;
+        });
+
+        return Arrays.asList(chartWeightDistribute);
     }
 }

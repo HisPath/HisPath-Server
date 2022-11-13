@@ -85,4 +85,10 @@ public class ChartController {
                                                                   .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
+
+    @GetMapping("/chart/weight")
+    @ApiOperation(value = ApiDoc.CHART_SCHOLARSHIP_WEIGHT)
+    public ResponseEntity<List<Long>> getChartWeightDatas(@RequestParam String semester) {
+        return ResponseEntity.ok(scholarshipService.getChartWeightDistribute(semester));
+    }
 }

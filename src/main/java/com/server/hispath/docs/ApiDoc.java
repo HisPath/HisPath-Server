@@ -36,9 +36,13 @@ public class ApiDoc {
 
     /* Chart 관련 API 명세 */
     public static final String CHART_MILEAGE_CATEGORY = "카테고리에 따른 학생 마일리지 활동 차트 데이터 조회";
-    public static final String CHART_MILEAGE_POPULARITY_CATEGORY = "카테고리에 따른 전체 활동 갯수와 나의 참여수, 평균 참여수 조회";
-    public static final String CHART_MILEAGE_RANK = "내 마일리지 총점이 어느정도 위치하는지 조회";
-    public static final String CHART_MILEAGE_TIMELINE = "마일리지 활동 Timeline 조회";
+    public static final String CHART_MILEAGE_POPULARITY_CATEGORY = "카테고리에 따른 전체 활동 갯수와 나의 참여수, 평균 참여수 차트 데이터 조회";
+    public static final String CHART_MILEAGE_RANK = "내 마일리지 총점이 어느정도 위치하는지 차트 데이터 조회";
+    public static final String CHART_MILEAGE_TIMELINE = "마일리지 활동 Timeline 차트 데이터 조회";
+    public static final String CHART_SCHOLARSHIP_WEIGHT = "학생의 전체 가중치 분포 차트 데이터 조회";
+    public static final String CHART_ACTIVITY_CATEGORY = "카테고리 별 활동 갯수 분포 차트 데이터 조회";
+    public static final String CHART_SCHOLARSHIP_GRADE = "학년 별 마일리지 수혜 학생 분포 차트 데이터 조회";
+    public static final String CHART_SCHOLARSHIP_DEPARTMENT = "학부 별 마일리지 수혜 학생 분포 차트 데이터 조회";
 
     /* Category 관련 API 명세 */
     public static final String CATEGORY_READ = "단일 카테고리 조회";
