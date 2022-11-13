@@ -25,7 +25,7 @@ import static com.server.hispath.student.domain.QStudent.student;
 public class ActivityRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    public List<ChartCategoryCntDto> getStudentCategoryChartCnt(Student student, ChartSearchRequestDto dto) {
+    public List<ChartCategoryCntDto> getStudentCategoryParticipateCnt(Student student, ChartSearchRequestDto dto) {
         return queryFactory.select(new QChartCategoryCntDto(category.id, category.name, activity.count()))
                            .from(activity)
                            .leftJoin(activity.participants, participant)
@@ -36,7 +36,7 @@ public class ActivityRepositoryCustom {
 
     }
 
-    public List<ChartCategoryCntDto> getTotalCategoryChartCnt(ChartSearchRequestDto dto) {
+    public List<ChartCategoryCntDto> getTotalCategoryParticipateCnt(ChartSearchRequestDto dto) {
         return queryFactory.select(new QChartCategoryCntDto(category.id, category.name, activity.participants.size()
                                                                                                              .count()))
                            .from(activity)
@@ -44,6 +44,15 @@ public class ActivityRepositoryCustom {
                            .leftJoin(participant.activity, activity)
                            .leftJoin(activity.category, category)
                            .where(totalChartCategoryCondition(dto))
+                           .groupBy(category)
+                           .fetch();
+    }
+
+    public List<ChartCategoryCntDto> getActivityCntByCategoryAndSemester(ChartSearchRequestDto dto) {
+        return queryFactory.select(new QChartCategoryCntDto(category.id, category.name ,activity.count()) )
+                           .from(activity)
+                           .leftJoin(activity.category, category)
+                           .where(semesterCondition(new BooleanBuilder(), dto))
                            .groupBy(category)
                            .fetch();
     }
@@ -60,37 +69,40 @@ public class ActivityRepositoryCustom {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
         booleanBuilder.and(participant.student.eq(student));
-        booleanBuilder = semesterDepartmentMajorCondition(booleanBuilder, dto);
+        booleanBuilder = semesterCondition(booleanBuilder, dto);
         booleanBuilder = mileageActivityCondition(booleanBuilder);
         return booleanBuilder;
     }
 
     public BooleanBuilder totalChartCategoryCondition(ChartSearchRequestDto dto) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        booleanBuilder = semesterDepartmentMajorCondition(booleanBuilder, dto);
+        booleanBuilder = semesterCondition(booleanBuilder, dto);
+        booleanBuilder = departmentCondition(booleanBuilder, dto);
         booleanBuilder = mileageActivityCondition(booleanBuilder);
         if (!Objects.isNull(dto.getGrade())) {
             int grade = (dto.getGrade() + 1) / 2 * 2;
             booleanBuilder.and(participant.student.semester.eq(grade - 1).or(participant.student.semester.eq(grade)));
         }
-        if (!Objects.isNull(dto.getMajor())) {
-            booleanBuilder.and(participant.student.major1.name.eq(dto.getMajor()));
-        }
         return booleanBuilder;
     }
 
-
-    public BooleanBuilder semesterDepartmentMajorCondition(BooleanBuilder booleanBuilder, ChartSearchRequestDto dto) {
+    public BooleanBuilder semesterCondition(BooleanBuilder booleanBuilder, ChartSearchRequestDto dto) {
         if (!Objects.isNull(dto.getSemester())) {
             booleanBuilder.and(activity.semester.eq(dto.getSemester()));
         }
-        if (!Objects.isNull(dto.getDepartment())) {
-            booleanBuilder.and(participant.student.department.name.eq(dto.getDepartment()));
-        }
         return booleanBuilder;
     }
 
-    public BooleanBuilder mileageActivityCondition(BooleanBuilder booleanBuilder){
+    public BooleanBuilder departmentCondition(BooleanBuilder booleanBuilder, ChartSearchRequestDto dto) {
+
+        if (!Objects.isNull(dto.getDepartment())) {
+            booleanBuilder.and(participant.student.department.name.eq(dto.getDepartment()));
+        }
+
+        return booleanBuilder;
+    }
+
+    public BooleanBuilder mileageActivityCondition(BooleanBuilder booleanBuilder) {
         booleanBuilder.and(activity.requestStatus.eq(1));
         return booleanBuilder;
     }

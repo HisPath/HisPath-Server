@@ -14,5 +14,4 @@ public class ChartSearchRequestDto {
     private String semester;
     private Integer grade;
     private String department;
-    private String major;
 }
