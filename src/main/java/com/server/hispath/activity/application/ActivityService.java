@@ -68,8 +68,26 @@ public class ActivityService {
     }
 
     @Transactional
-    public void delete(Long id) {
-        activityRepository.deleteById(id);
+    public void delete(Long activityId) {
+        activityRepository.deleteById(activityId);
+    }
+
+    @Transactional
+    public void deleteStudentActivity(Long studentId, Long activityId) {
+        Activity activity = activityRepository.findActivityWithStudents(activityId)
+                                              .orElseThrow(ActivityNotFoundException::new);
+        Student student = studentRepository.findById(studentId)
+                                           .orElseThrow(StudentNotFoundException::new);
+        if (activity.isPersonal()) {
+            activityRepository.deleteById(activityId);
+            return;
+        }
+        activity.getParticipants()
+                .stream()
+                .filter(participant -> participant.isSameStudent(student))
+                .findFirst()
+                .orElseThrow(ParticipantNotFoundException::new)
+                .deleteContent();
     }
 
     @Transactional(readOnly = true)
