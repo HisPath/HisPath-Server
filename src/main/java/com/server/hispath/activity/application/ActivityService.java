@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.server.hispath.activity.application.dto.*;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
+import com.server.hispath.activity.domain.repository.ActivityRepositoryCustom;
 import com.server.hispath.category.application.CategoryService;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.category.domain.repository.CategoryRepository;
@@ -16,6 +17,7 @@ import com.server.hispath.exception.student.StudentNotFoundException;
 import com.server.hispath.student.domain.Participant;
 import com.server.hispath.student.domain.Student;
 import com.server.hispath.student.domain.repository.StudentRepository;
+import com.server.hispath.student.domain.repository.StudentRepositoryCustom;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,8 @@ public class ActivityService {
     private final CategoryService categoryService;
     private final CategoryRepository categoryRepository;
     private final StudentRepository studentRepository;
+    private final StudentRepositoryCustom studentRepositoryCustom;
+    private final ActivityRepositoryCustom activityRepositoryCustom;
 
     @Transactional
     public Long create(Long categoryId, ActivityContentDto dto) {
@@ -66,10 +70,6 @@ public class ActivityService {
     @Transactional
     public void delete(Long id) {
         activityRepository.deleteById(id);
-    }
-
-    public Activity findById(Long id) {
-        return activityRepository.findById(id).orElseThrow(ActivityNotFoundException::new);
     }
 
     @Transactional(readOnly = true)
@@ -122,6 +122,18 @@ public class ActivityService {
     }
 
     @Transactional(readOnly = true)
+    public List<ActivityParticipantDto> findAllPersonalParticipantActivites(Long id, String semester, String section) {
+        Student student = studentRepository.findStudentWithActivities(id).orElseThrow(StudentNotFoundException::new);
+        return student.getParticipants()
+                      .stream()
+                      .filter(participant -> participant.isSameSemester(semester))
+                      .filter(participant -> participant.isSameSection(section))
+                      .filter(Participant::isPersonal)
+                      .map(ActivityParticipantDto::of)
+                      .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public ActivityParticipantDto findParticipantActivityById(Long studentId, Long activityId) {
         Activity activity = activityRepository.findActivityWithStudents(activityId)
                                               .orElseThrow(ActivityNotFoundException::new);
@@ -138,8 +150,8 @@ public class ActivityService {
 
     @Transactional(readOnly = true)
     public List<ActivityDto> findAllByStudentAndSemster(Long id, String semester) {
-        Student student = studentRepository.findStudentWithIdAndSemester(id, semester)
-                                           .orElseThrow(StudentNotFoundException::new);
+        Student student = findStudentWholeByIdAndSemester(id, semester, false);
+
         return student.getParticipants()
                       .stream()
                       .map(participant -> ActivityDto.from(participant.getActivity()))
@@ -159,5 +171,34 @@ public class ActivityService {
     @Transactional
     public void reject(Long activityId) {
         this.findById(activityId).reject();
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<ChartDataDto> getChartDatasByCategory(Long studentId, ChartSearchRequestDto dto) {
+        Student student = studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
+        List<ChartCategoryCntDto> studentCnts = activityRepositoryCustom.getStudentCategoryChartCnt(student, dto);
+        List<ChartCategoryCntDto> totalCnts = activityRepositoryCustom.getTotalCategoryChartCnt(dto);
+        int totalStudentCnt = activityRepositoryCustom.getTotalStudentCntByChartSearchRequest(dto);
+
+        return totalCnts.stream()
+                        .map(totalCnt ->
+                                studentCnts.stream()
+                                           .filter(studentCnt -> studentCnt.isSameCategory(totalCnt.getCategory()))
+                                           .findFirst()
+                                           .map(studentCnt -> new ChartDataDto(studentCnt, totalCnt.getCnt(), totalStudentCnt))
+                                           .orElseGet(() -> new ChartDataDto(totalCnt.getCategory(), totalCnt.getCnt(), totalStudentCnt))
+                        )
+                        .collect(Collectors.toList());
+
+    }
+
+    private Student findStudentWholeByIdAndSemester(Long studentId, String semester, boolean isMileage) {
+        return studentRepositoryCustom.findStudentWithIdAndSemester(studentId, semester, isMileage)
+                                      .orElseThrow(StudentNotFoundException::new);
+    }
+
+    public Activity findById(Long id) {
+        return activityRepository.findById(id).orElseThrow(ActivityNotFoundException::new);
     }
 }

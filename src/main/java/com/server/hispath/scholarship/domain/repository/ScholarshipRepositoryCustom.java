@@ -25,10 +25,10 @@ public class ScholarshipRepositoryCustom {
         return queryFactory.select(scholarship)
                            .distinct()
                            .from(scholarship)
-                           .leftJoin(scholarship.student)
-                           .leftJoin(scholarship.sDepartment)
-                           .leftJoin(scholarship.sMajor1)
-                           .leftJoin(scholarship.sMajor2)
+                           .leftJoin(scholarship.student).fetchJoin()
+                           .leftJoin(scholarship.sDepartment).fetchJoin()
+                           .leftJoin(scholarship.sMajor1).fetchJoin()
+                           .leftJoin(scholarship.sMajor2).fetchJoin()
                            .where(scholarshipStudentCondition(dto))
                            .fetch();
 

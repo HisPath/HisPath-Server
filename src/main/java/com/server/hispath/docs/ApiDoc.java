@@ -2,10 +2,6 @@ package com.server.hispath.docs;
 
 public class ApiDoc {
 
-
-    /* Student 관련 API 명세 */
-
-
     /* Activity 관련 API 명세 */
     public static final String ACTIVITY_CREATE = "단일 활동 생성";
     public static final String ACTIVITY_READ = "단일 활동 조회";
@@ -27,6 +23,7 @@ public class ApiDoc {
     public static final String STUDENT_ACTIVITY_CREATE = "학생의 개인 활동 생성";
     public static final String STUDENT_ACTIVITY_UPDATE = "학생의 참여 활동 수정";
     public static final String STUDENT_ACTIVITY_READ_SEMESTER = "학생의 참여 활동 학기별 조회";
+    public static final String STUDENT_ACTIVITY_READ_SEMESTER_SECTION_STATUS = "학생의 참여 활동 상태와 함께 학기별, 섹션별 조회";
 
     public static final String STUDENT_ACTIVITY_READ_PARTICIPATE = "전체 활동 중 학생 참여 활동 조회";
     public static final String SECTION_READ_ALL = "모든 섹션 조회";
@@ -34,8 +31,11 @@ public class ApiDoc {
     public static final String ACTIVITY_APPLY = "학생 활동 마일리지 신청";
     public static final String ACTIVITY_APPROVE = "학생 활동 마일리지 승인";
     public static final String ACTIVITY_REJECT = "학생 활동 마일리지 반려";
+    public static final String MILEAGE_CATEGORY_CHART_DATAS = "카테고리 당 마일리지 참여, 평균 수 조회";
     public static final String ACTIVITY_STUDENT_DETAIL = "학생 개인 활동 상세 조회";
 
+    /* Chart 관련 API 명세 */
+    public static final String CHART_STUDENT_CATEGORY = "카테고리에 따른 학생 활동 차트 데이터 조회";
 
     /* Category 관련 API 명세 */
     public static final String CATEGORY_READ = "단일 카테고리 조회";
@@ -67,6 +67,7 @@ public class ApiDoc {
     public static final String STUDENT_UPDATE = "학생 수정";
     public static final String STUDENT_DELETE = "학생 삭제";
     public static final String DASHBOARD = "메인페이지 대시보드 정보 조회";
+    public static final String STUDENT_SEMESTER = "학생의 활동 학기들 조회";
 
     /* Manager 관련 API 명세 */
     public static final String MANAGER_READ = "단일 관리자 조회";

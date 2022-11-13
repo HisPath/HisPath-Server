@@ -41,6 +41,7 @@ public class NoticeController {
     @ApiOperation(value = ApiDoc.NOTICE_READ_ALL)
     public ResponseEntity<List<NoticeResponse>> findAll() {
         List<NoticeResponse> responses = noticeService.findAll().stream().sorted(Comparator.comparing(NoticeDto::getRegDate).reversed()).map(NoticeResponse::from).collect(Collectors.toList());
+
         return ResponseEntity.ok(responses);
     }
 
@@ -49,6 +50,8 @@ public class NoticeController {
     @ApiOperation(value = ApiDoc.NOTICE_READ_IMP)
     public ResponseEntity<List<NoticeDashboardResponse>> findImp() {
         List<NoticeDashboardResponse> responses = noticeService.findImp().stream().sorted(Comparator.comparing(DashboardNoticeDto::getPubDate).reversed()).map(NoticeDashboardResponse::of).collect(Collectors.toList());
+
+
         return ResponseEntity.ok(responses);
     }
 

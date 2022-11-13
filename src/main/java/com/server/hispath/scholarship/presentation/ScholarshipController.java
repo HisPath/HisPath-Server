@@ -78,7 +78,7 @@ public class ScholarshipController {
     @GetMapping("/scholarship/students")
     @ApiOperation(value = ApiDoc.SCHOLARSHIP_SEARCH_STUDENT)
     public ResponseEntity<List<ScholarshipResponse>> searchScholarshipStudents(
-            @RequestParam(required = false) String semester ,
+            @RequestParam(required = false) String semester,
             @RequestParam(required = false) String studentSemester,
             @RequestParam(required = false) String department,
             @RequestParam(required = false) String major1,
