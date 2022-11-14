@@ -39,9 +39,10 @@ public class AuthService {
 
     public void validateEamil(String email) {
         String domain = email.split("@")[1];
-        if(!Objects.equals(domain, "handong.ac.kr")){
+        if (!Objects.equals(domain, "handong.ac.kr")) {
             throw new NotHandongEmailException();
-        };
+        }
+        ;
     }
 
     public OauthUserInfo getUserInfo(LoginRequestDto loginRequestDto) {
@@ -65,7 +66,7 @@ public class AuthService {
         OauthUserInfo userInfo = getUserInfo(loginRequestDto);
         String email = userInfo.getEmail();
         Optional<Manager> manager = managerRepository.findByEmail(email);
-        return manager.map(value -> new LoginResponseDto(value.isApproved(),
+        return manager.map(value -> new LoginResponseDto(!value.isApproved(),
                               jwtProvider.createToken(String.valueOf(value.getId()), Member.MANAGER)))
                       .orElseGet(() -> new LoginResponseDto(true, null));
 
@@ -96,28 +97,29 @@ public class AuthService {
     }
 
 
-
     @Transactional(readOnly = true)
     public void checkSuperManagerByToken(String token) {
         Manager manager = findSuperManagerByToken(token);
-        if(!manager.isSuperManager()) throw new ManagerNoAuthorizationException();
+        if (!manager.isSuperManager())
+            throw new ManagerNoAuthorizationException();
     }
 
     @Transactional(readOnly = true)
-    public LoginManager getSuperManagerId(String token){
+    public LoginManager getSuperManagerId(String token) {
         Manager manager = findSuperManagerByToken(token);
         return new LoginManager(manager.getId());
     }
 
     @Transactional(readOnly = true)
-    public Manager findSuperManagerByToken(String token){
+    public Manager findSuperManagerByToken(String token) {
         if (!jwtProvider.isValidToken(token, Member.SUPER_MANAGER)) {
             throw new InvalidTokenException();
         }
         String payLoad = jwtProvider.getPayLoad(token, Member.SUPER_MANAGER);
         Long id = Long.parseLong(payLoad);
         Manager manager = managerService.findById(id);
-        if(!manager.isSuperManager()) throw new ManagerNoAuthorizationException();
+        if (!manager.isSuperManager())
+            throw new ManagerNoAuthorizationException();
         return manager;
     }
 }
