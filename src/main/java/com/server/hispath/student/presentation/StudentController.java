@@ -63,6 +63,15 @@ public class StudentController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/student")
+    @ApiOperation(value = ApiDoc.STUDENT_READ)
+    @RequiredLogin
+    public ResponseEntity<StudentResponse> find(@StudentLogin LoginStudent loginStudent) {
+        StudentDto dto = studentService.find(loginStudent.getId());
+        StudentResponse response = StudentResponse.from(dto);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/students")
     @ApiOperation(value = ApiDoc.STUDENT_READ_ALL)
     @RequiredManagerLogin
@@ -76,9 +85,21 @@ public class StudentController {
 
     @PutMapping("/student/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_UPDATE)
-    @RequiredLogin
+    @RequiredManagerLogin
     public ResponseEntity<StudentResponse> update(@PathVariable Long id, @RequestBody StudentCURequest request) {
         StudentDto dto = studentService.update(id, request.getDepartmentId(), request.getMajor1Id(), request.getMajor2Id(), StudentCUDto.of(request));
+        StudentResponse response = StudentResponse.from(dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/student")
+    @ApiOperation(value = ApiDoc.STUDENT_UPDATE)
+    @RequiredLogin
+    public ResponseEntity<StudentResponse> update(
+            @StudentLogin LoginStudent loginStudent,
+            @RequestBody StudentCURequest request) {
+        StudentDto dto = studentService.update(loginStudent.getId(), request.getDepartmentId(),
+                request.getMajor1Id(), request.getMajor2Id(), StudentCUDto.of(request));
         StudentResponse response = StudentResponse.from(dto);
         return ResponseEntity.ok(response);
     }
