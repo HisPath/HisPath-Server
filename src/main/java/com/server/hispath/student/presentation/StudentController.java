@@ -8,6 +8,7 @@ import com.server.hispath.activity.presentation.response.ActivityParticipantStat
 import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.auth.domain.LoginStudent;
 import com.server.hispath.auth.domain.RequiredLogin;
+import com.server.hispath.auth.domain.RequiredManagerLogin;
 import com.server.hispath.auth.domain.StudentLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.notice.application.NoticeService;
@@ -39,6 +40,7 @@ public class StudentController {
 
     @PostMapping("/student")
     @ApiOperation(value = ApiDoc.STUDENT_CREATE)
+    @RequiredManagerLogin
     public ResponseEntity<Long> create(@RequestBody StudentCURequest request) {
         Long savedId = studentService.create(StudentCUDto.of(request));
         return ResponseEntity.ok(savedId);
@@ -46,6 +48,7 @@ public class StudentController {
 
     @PostMapping("/students")
     @ApiOperation(value = ApiDoc.STUDENTS_CREATE)
+    @RequiredManagerLogin
     public ResponseEntity<Void> createStudents(MultipartFile file) throws Exception {
         studentService.createAll(ExcelManager.getStudentDatas(ExcelManager.extract(file)));
         return ResponseEntity.ok(null);
@@ -53,6 +56,7 @@ public class StudentController {
 
     @GetMapping("/student/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_READ)
+    @RequiredManagerLogin
     public ResponseEntity<StudentResponse> find(@PathVariable Long id) {
         StudentDto dto = studentService.find(id);
         StudentResponse response = StudentResponse.from(dto);
@@ -61,6 +65,7 @@ public class StudentController {
 
     @GetMapping("/students")
     @ApiOperation(value = ApiDoc.STUDENT_READ_ALL)
+    @RequiredManagerLogin
     public ResponseEntity<List<StudentResponse>> findAll() {
         List<StudentDto> dtos = studentService.findAll();
         List<StudentResponse> responses = dtos.stream()
@@ -71,6 +76,7 @@ public class StudentController {
 
     @PutMapping("/student/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_UPDATE)
+    @RequiredLogin
     public ResponseEntity<StudentResponse> update(@PathVariable Long id, @RequestBody StudentCURequest request) {
         StudentDto dto = studentService.update(id, request.getDepartmentId(), request.getMajor1Id(), request.getMajor2Id(), StudentCUDto.of(request));
         StudentResponse response = StudentResponse.from(dto);
@@ -79,16 +85,18 @@ public class StudentController {
 
     @DeleteMapping("/student/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_DELETE)
+    @RequiredManagerLogin
     public ResponseEntity<Long> delete(@PathVariable Long id) {
+
         studentService.delete(id);
         return ResponseEntity.ok(id);
     }
 
-//    @GetMapping("/student/dashboard/{id}")
     @GetMapping("/student/dashboard")
     @ApiOperation(value = ApiDoc.DASHBOARD)
     @RequiredLogin
     public ResponseEntity<DashboardResponse> getDashboardInfo(@StudentLogin LoginStudent loginStudent) {
+
         StudentDto studentDto = studentService.find(loginStudent.getId());
         List<DashboardNoticeDto> dashboardNoticeDtos = noticeService.findRecentNotice();
         return ResponseEntity.ok(DashboardResponse.from(studentDto, dashboardNoticeDtos));
@@ -96,8 +104,12 @@ public class StudentController {
 
     @GetMapping("/student-activities/status")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_SEMESTER_SECTION_STATUS)
-    public ResponseEntity<List<ActivityParticipantStatusResponse>> findStudentActivitiesWithStatus(@RequestParam String semester, @RequestParam String section) {
-        // ToDo       Student ID 관련해서는 나중에 Login 처리하기 현재는 1L로 되어있음
+    @RequiredLogin
+    public ResponseEntity<List<ActivityParticipantStatusResponse>> findStudentActivitiesWithStatus(
+            @StudentLogin LoginStudent loginStudent,
+            @RequestParam String semester,
+            @RequestParam String section) {
+
         List<ActivityParticipantStatusResponse> responses = activityService.findAllPersonalParticipantActivites(1L, semester, section)
                                                                            .stream()
                                                                            .map(ActivityParticipantStatusResponse::of)
@@ -107,10 +119,12 @@ public class StudentController {
 
     @GetMapping("/student/semesters")
     @ApiOperation(value = ApiDoc.STUDENT_SEMESTER)
-    public ResponseEntity<List<SemesterResponse>> getStudentSemeters() {
-        // Todo @Login 을 통해 API 를 호출 할 수 있도록 하기
-        // Todo 현재는 그냥 단순 테스트를 위해 1번에 넣기
-        List<SemesterResponse> responses = studentService.getStudentSemesters(1L)
+    @RequiredLogin
+    public ResponseEntity<List<SemesterResponse>> getStudentSemeters(
+            @StudentLogin LoginStudent loginStudent
+    ) {
+
+        List<SemesterResponse> responses = studentService.getStudentSemesters(loginStudent.getId())
                                                          .stream()
                                                          .map(SemesterResponse::from)
                                                          .collect(Collectors.toList());
