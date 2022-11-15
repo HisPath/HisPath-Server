@@ -135,7 +135,7 @@ public class MActivityController {
         return ResponseEntity.ok(mActivityService.findActivitiesByStudent(loginStudent.getId()));
     }
 
-    @GetMapping("/semester")
+    @GetMapping("/student/semester")
     @ApiOperation(value = ApiDoc.STUDENT_READ_SEMESTER)
     @RequiredLogin
     public ResponseEntity<List<SemesterResponse>> findSemestersById(@StudentLogin LoginStudent loginStudent) {
