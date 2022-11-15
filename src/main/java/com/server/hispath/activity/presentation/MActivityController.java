@@ -14,6 +14,7 @@ import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.activity.presentation.response.AllMActivityParticipantResponse;
 import com.server.hispath.activity.presentation.response.MActivityParticipantResponse;
 import com.server.hispath.activity.presentation.response.SemesterResponse;
+import com.server.hispath.auth.domain.*;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.application.dto.StudentSimpleRefDto;
@@ -38,6 +39,7 @@ public class MActivityController {
 
     @PostMapping("/mileage")
     @ApiOperation(value = ApiDoc.MILEAGE_CREATE)
+    @RequiredSuperManagerLogin
     public ResponseEntity<Long> create(@RequestBody MActivityCURequest request) {
         Long id = mActivityService.create(MActivityContentDto.of(request));
         return ResponseEntity.ok(id);
@@ -45,6 +47,7 @@ public class MActivityController {
 
     @PostMapping("/mileages")
     @ApiOperation(value = ApiDoc.MILEAGES_CREATE)
+    @RequiredSuperManagerLogin
     public ResponseEntity<Void> createMActivites(MultipartFile file) throws Exception {
         mActivityService.createAll(ExcelManager.getMActivities(ExcelManager.extract(file)));
         return ResponseEntity.ok(null);
@@ -52,6 +55,7 @@ public class MActivityController {
 
     @PutMapping("/mileage/{id}")
     @ApiOperation(value = ApiDoc.MILEAGE_UPDATE)
+    @RequiredSuperManagerLogin
     public ResponseEntity<ActivityResponse> update(@PathVariable Long id, @RequestBody MActivityCURequest request) {
         ActivityDto dto = mActivityService.update(id, MActivityContentDto.of(request));
         ActivityResponse response = ActivityResponse.from(dto);
@@ -61,6 +65,7 @@ public class MActivityController {
 
     @DeleteMapping("/mileage/{id}")
     @ApiOperation(value = ApiDoc.MILEAGE_DELETE)
+    @RequiredSuperManagerLogin
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         activityService.delete(id);
         return ResponseEntity.ok(id);
@@ -68,6 +73,7 @@ public class MActivityController {
 
     @GetMapping("/mileage/semester")
     @ApiOperation(value = ApiDoc.MILEAGE_READ_SEMESTER)
+    @RequiredManagerLogin
     public ResponseEntity<List<ActivityResponse>> findAllBySemester(@RequestParam String semester) {
         List<ActivityDto> activityDtos = mActivityService.findAllBySemester(semester);
         List<ActivityResponse> responses = activityDtos.stream()
@@ -78,6 +84,7 @@ public class MActivityController {
 
     @GetMapping("/mileages")
     @ApiOperation(value = ApiDoc.MILEAGE_READ_ALL)
+    @RequiredManagerLogin
     public ResponseEntity<List<ActivityResponse>> findAll() {
 
         List<ActivityResponse> responses = mActivityService.findAll()
@@ -89,6 +96,7 @@ public class MActivityController {
 
     @PostMapping("/mileage/students")
     @ApiOperation(value = ApiDoc.MILEAGE_REGISTER_STUDENTS)
+    @RequiredManagerLogin
     public ResponseEntity<Void> registerStudents(@RequestPart(value = "file", required = false) MultipartFile file,
                                                  @RequestPart(value = "activityId") Long activityId) throws Exception {
 
@@ -99,6 +107,7 @@ public class MActivityController {
 
     @PostMapping("/mileage/student")
     @ApiOperation(value = ApiDoc.MILEAGE_REGISTER_STUDENT)
+    @RequiredManagerLogin
     public ResponseEntity<Void> registerStudent(@RequestBody MStudentRegisterRequest request) {
 
         studentService.registerParticipant(request.getActivityId(), StudentSimpleRefDto.of(request));
@@ -107,6 +116,7 @@ public class MActivityController {
 
     @DeleteMapping("/mileage/student")
     @ApiOperation(value = ApiDoc.ACTIVITY_STUDENT_DELETE)
+    @RequiredManagerLogin
     public ResponseEntity<Void> deleteParticipant(@RequestBody MParticipantRequest request) {
         mActivityService.deleteParticipant(request.getStudentId(), request.getActivityId());
         return ResponseEntity.ok(null);
@@ -118,16 +128,18 @@ public class MActivityController {
         return ResponseEntity.ok(mActivityService.findDetailActivityInfo(id));
     }
 
-    @GetMapping("/studentmileage/{id}")
+    @GetMapping("/studentmileage")
     @ApiOperation(value = ApiDoc.STUDENT_MILEAGE_READ)
-    public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
-        return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
+    @RequiredLogin
+    public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@StudentLogin LoginStudent loginStudent) {
+        return ResponseEntity.ok(mActivityService.findActivitiesByStudent(loginStudent.getId()));
     }
 
-    @GetMapping("/semester/{id}")
+    @GetMapping("/semester")
     @ApiOperation(value = ApiDoc.STUDENT_READ_SEMESTER)
-    public ResponseEntity<List<SemesterResponse>> findSemestersById(@PathVariable Long id) {
-        List<SemesterDto> semesters = mActivityService.findSemestersById(id);
+    @RequiredLogin
+    public ResponseEntity<List<SemesterResponse>> findSemestersById(@StudentLogin LoginStudent loginStudent) {
+        List<SemesterDto> semesters = mActivityService.findSemestersById(loginStudent.getId());
         List<SemesterResponse> responses = semesters.stream()
                                                     .map(SemesterResponse::from)
                                                     .collect(Collectors.toList());
@@ -135,10 +147,14 @@ public class MActivityController {
     }
 
 
-    @GetMapping("/student-mactivities/{id}")
+    @GetMapping("/student-mactivities")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_SEMESTER)
-    public ResponseEntity<List<MActivityParticipantResponse>> findParticipatedActivities(@PathVariable Long id, @RequestParam String semester, @RequestParam String category) {
-        List<MActivityParticipantResponse> responses = mActivityService.findAllParticipantActivities(id, semester, category)
+    @RequiredLogin
+    public ResponseEntity<List<MActivityParticipantResponse>> findParticipatedActivities(
+            @StudentLogin LoginStudent loginStudent,
+            @RequestParam String semester,
+            @RequestParam String category) {
+        List<MActivityParticipantResponse> responses = mActivityService.findAllParticipantActivities(loginStudent.getId(), semester, category)
                                                                        .stream()
                                                                        .map(MActivityParticipantResponse::of)
                                                                        .collect(Collectors.toList());
@@ -147,19 +163,23 @@ public class MActivityController {
 
     }
 
-    @GetMapping("/student-allmactivities/{id}")
+    @GetMapping("/student-allmactivities")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_PARTICIPATE)
-    public ResponseEntity<List<AllMActivityParticipantResponse>> findAllParticipatedActivities(@PathVariable Long id, @RequestParam String semester, @RequestParam String category) {
+    @RequiredLogin
+    public ResponseEntity<List<AllMActivityParticipantResponse>> findAllParticipatedActivities(
+            @StudentLogin LoginStudent loginStudent,
+            @RequestParam String semester,
+            @RequestParam String category) {
 
         List<AllMActivityParticipantResponse> responses;
         if (Objects.equals(category, "참여여부")) {
-            responses = mActivityService.findParticipatedActivities(id, semester, "ALL")
+            responses = mActivityService.findParticipatedActivities(loginStudent.getId(), semester, "ALL")
                                         .stream()
-                                        .filter(example -> example.isParticipated())
+                                        .filter(AllMActivityParticipantDto::isParticipated)
                                         .map(AllMActivityParticipantResponse::of)
                                         .collect(Collectors.toList());
         } else {
-            responses = mActivityService.findParticipatedActivities(id, semester, category)
+            responses = mActivityService.findParticipatedActivities(loginStudent.getId(), semester, category)
                                         .stream()
                                         .map(AllMActivityParticipantResponse::of)
                                         .collect(Collectors.toList());
