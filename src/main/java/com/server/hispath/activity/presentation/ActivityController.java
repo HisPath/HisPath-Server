@@ -13,6 +13,9 @@ import com.server.hispath.activity.presentation.request.StudentActivityCURequest
 import com.server.hispath.activity.presentation.response.ActivityParticipantResponse;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.activity.presentation.response.SemesterResponse;
+import com.server.hispath.auth.domain.LoginStudent;
+import com.server.hispath.auth.domain.RequiredLogin;
+import com.server.hispath.auth.domain.StudentLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.student.domain.Section;
 
@@ -127,6 +130,7 @@ public class ActivityController {
 
     @PutMapping("/activity/apply/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_APPLY)
+    @RequiredLogin
     public ResponseEntity<Void> applyActivity(@PathVariable Long id) {
         activityService.apply(id);
         return ResponseEntity.ok(null);
@@ -149,9 +153,13 @@ public class ActivityController {
 
     @GetMapping("/activity-detail/{activityId}")
     @ApiOperation(value = ApiDoc.ACTIVITY_STUDENT_DETAIL)
-    public ResponseEntity<ActivityParticipantResponse> findParticipantActivityById(@PathVariable Long activityId) {
-        // ToDo StudentId 는 나중에 로그인으로 바꿈
-        return ResponseEntity.ok(ActivityParticipantResponse.of(activityService.findParticipantActivityById(1L, activityId)));
+    @RequiredLogin
+    public ResponseEntity<ActivityParticipantResponse> findParticipantActivityById(
+            @PathVariable Long activityId,
+            @StudentLogin LoginStudent loginStudent) {
+
+        ActivityParticipantDto dto = activityService.findParticipantActivityById(loginStudent.getId(), activityId);
+        return ResponseEntity.ok(ActivityParticipantResponse.of(dto));
 
     }
 }
