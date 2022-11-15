@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.presentation.response.ActivityParticipantStatusResponse;
 import com.server.hispath.activity.presentation.response.SemesterResponse;
+import com.server.hispath.auth.domain.LoginStudent;
+import com.server.hispath.auth.domain.RequiredLogin;
+import com.server.hispath.auth.domain.StudentLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.notice.application.NoticeService;
 import com.server.hispath.notice.application.dto.DashboardNoticeDto;
@@ -81,10 +84,12 @@ public class StudentController {
         return ResponseEntity.ok(id);
     }
 
-    @GetMapping("/student/dashboard/{id}")
+//    @GetMapping("/student/dashboard/{id}")
+    @GetMapping("/student/dashboard")
     @ApiOperation(value = ApiDoc.DASHBOARD)
-    public ResponseEntity<DashboardResponse> getDashboardInfo(@PathVariable Long id) {
-        StudentDto studentDto = studentService.find(id);
+    @RequiredLogin
+    public ResponseEntity<DashboardResponse> getDashboardInfo(@StudentLogin LoginStudent loginStudent) {
+        StudentDto studentDto = studentService.find(loginStudent.getId());
         List<DashboardNoticeDto> dashboardNoticeDtos = noticeService.findRecentNotice();
         return ResponseEntity.ok(DashboardResponse.from(studentDto, dashboardNoticeDtos));
     }
