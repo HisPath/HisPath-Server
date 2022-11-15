@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
 import com.server.hispath.activity.application.dto.ActivityParticipantDto;
+import com.server.hispath.auth.domain.LoginStudent;
+import com.server.hispath.auth.domain.RequiredLogin;
+import com.server.hispath.auth.domain.StudentLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.resume.application.ResumeService;
 import com.server.hispath.resume.application.dto.ResumeDto;
@@ -31,15 +34,17 @@ public class ResumeController {
 
     @PostMapping("/resume")
     @ApiOperation(value = ApiDoc.RESUME_CREATE)
-    public ResponseEntity<Long> create(@RequestBody ResumeCURequest request) {
-        // Todo @Login 을 통해 API 를 호출 할 수 있도록 하기
-        // Todo 현재는 그냥 단순 테스트를 위해 1번에 넣기
-        Long response = resumeService.create(1L, new ResumeDto(request));
+    @RequiredLogin
+    public ResponseEntity<Long> create(
+            @StudentLogin LoginStudent loginStudent,
+            @RequestBody ResumeCURequest request) {
+        Long response = resumeService.create(loginStudent.getId(), new ResumeDto(request));
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/resume/{id}")
     @ApiOperation(value = ApiDoc.RESUME_UPDATE)
+    @RequiredLogin
     public ResponseEntity<ResumeResponse> update(@PathVariable Long id, @RequestBody ResumeCURequest request) {
         ResumeResponse response = ResumeResponse.of(resumeService.update(new ResumeDto(id, request)));
         return ResponseEntity.ok(response);
@@ -47,6 +52,7 @@ public class ResumeController {
 
     @DeleteMapping("/resume/{id}")
     @ApiOperation(value = ApiDoc.RESUME_DELETE)
+    @RequiredLogin
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         resumeService.delete(id);
         return ResponseEntity.ok(null);
@@ -54,16 +60,17 @@ public class ResumeController {
 
     @GetMapping("/resume")
     @ApiOperation(value = ApiDoc.RESUME_READ)
+    @RequiredLogin
     public ResponseEntity<ResumeResponse> find(@RequestParam Long resumeId) {
         return ResponseEntity.ok(ResumeResponse.of(resumeService.find(resumeId)));
     }
 
     @GetMapping("/resumes")
     @ApiOperation(value = ApiDoc.RESUME_READ_ALL)
-    public ResponseEntity<List<ResumeResponse>> findALl() {
-        // Todo @Login 을 통해 API 를 호출 할 수 있도록 하기
-        // Todo 현재는 그냥 단순 테스트를 위해 1번에 넣기
-        List<ResumeResponse> responses = resumeService.findAllStudentResumes(1L)
+    @RequiredLogin
+    public ResponseEntity<List<ResumeResponse>> findALl(@StudentLogin LoginStudent loginStudent) {
+
+        List<ResumeResponse> responses = resumeService.findAllStudentResumes(loginStudent.getId())
                                                       .stream()
                                                       .map(ResumeResponse::of)
                                                       .collect(Collectors.toList());
@@ -73,10 +80,10 @@ public class ResumeController {
 
     @GetMapping("/resume/info")
     @ApiOperation(value = ApiDoc.RESUME_INFO)
-    public ResponseEntity<ResumeStudentInfo> findStudentActivityInfo() {
-        // Todo @Login 을 통해 API 를 호출 할 수 있도록 하기
-        // Todo 현재는 그냥 단순 테스트를 위해 1번에 넣기
-        StudentDto studentDto = studentService.find(1L);
+    @RequiredLogin
+    public ResponseEntity<ResumeStudentInfo> findStudentActivityInfo(@StudentLogin LoginStudent loginStudent) {
+
+        StudentDto studentDto = studentService.find(loginStudent.getId());
         List<ActivityParticipantDto> activities = activityService.findAllParticipantActivites(studentDto.getId(), "ALL", "ALL");
         return ResponseEntity.ok(new ResumeStudentInfo(studentDto, activities));
     }

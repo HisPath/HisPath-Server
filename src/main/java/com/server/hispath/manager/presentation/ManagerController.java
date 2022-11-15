@@ -3,6 +3,8 @@ package com.server.hispath.manager.presentation;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.server.hispath.auth.domain.RequiredManagerLogin;
+import com.server.hispath.auth.domain.RequiredSuperManagerLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.manager.application.ManagerService;
 import com.server.hispath.manager.application.dto.ManagerCUDto;
@@ -26,6 +28,7 @@ public class ManagerController {
 
     @PostMapping("/manager")
     @ApiOperation(value = ApiDoc.MANAGER_CREATE)
+    @RequiredSuperManagerLogin
     public ResponseEntity<Long> create(@RequestBody ManagerCURequest request) {
         Long savedId = managerService.create(ManagerCUDto.of(request));
         return ResponseEntity.ok(savedId);
@@ -33,6 +36,7 @@ public class ManagerController {
 
     @GetMapping("/manager/{id}")
     @ApiOperation(value = ApiDoc.MANAGER_READ)
+    @RequiredManagerLogin
     public ResponseEntity<ManagerResponse> find(@PathVariable Long id) {
         ManagerResponse response = ManagerResponse.of(managerService.findManager(id));
         return ResponseEntity.ok(response);
@@ -40,6 +44,7 @@ public class ManagerController {
 
     @GetMapping("/managers")
     @ApiOperation(value = ApiDoc.MANAGER_READ_ALL)
+    @RequiredManagerLogin
     public ResponseEntity<List<ManagerResponse>> findAll() {
         List<ManagerResponse> responses = managerService.findManagers()
                                                         .stream()
@@ -50,6 +55,7 @@ public class ManagerController {
 
     @PutMapping("/manager/{id}")
     @ApiOperation(value = ApiDoc.MANAGER_UPDATE)
+    @RequiredSuperManagerLogin
     public ResponseEntity<ManagerResponse> update(@PathVariable Long id, @RequestBody ManagerCURequest request) {
         ManagerResponse response = ManagerResponse.of(managerService.update(id, ManagerCUDto.of(request)));
         return ResponseEntity.ok(response);
@@ -57,6 +63,7 @@ public class ManagerController {
 
     @PutMapping("/manager/approve")
     @ApiOperation(value = ApiDoc.MANAGER_APPROVE)
+    @RequiredSuperManagerLogin
     public ResponseEntity<Long> approve(@RequestBody ManagerApproveRequest request) {
         Long response = managerService.approve(request.getManagerId(), request.getLevel());
         return ResponseEntity.ok(response);
@@ -64,6 +71,7 @@ public class ManagerController {
 
     @DeleteMapping("/manager/{id}")
     @ApiOperation(value = ApiDoc.MANAGER_DELETE)
+    @RequiredSuperManagerLogin
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         Long response = managerService.delete(id);
         return ResponseEntity.ok(response);

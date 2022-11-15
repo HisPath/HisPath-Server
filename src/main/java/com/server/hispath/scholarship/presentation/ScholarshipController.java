@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.server.hispath.auth.domain.LoginStudent;
+import com.server.hispath.auth.domain.RequiredLogin;
+import com.server.hispath.auth.domain.RequiredManagerLogin;
+import com.server.hispath.auth.domain.StudentLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.scholarship.application.ScholarshipService;
 import com.server.hispath.scholarship.application.dto.ScholarshipDto;
@@ -21,7 +21,6 @@ import com.server.hispath.util.ExcelManager;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import io.swagger.annotations.ApiOperation;
 
@@ -37,16 +36,18 @@ public class ScholarshipController {
 
     @PostMapping("/scholarship")
     @ApiOperation(value = ApiDoc.SCHOLARSHIP_CREATE)
-    public ResponseEntity<Long> create(@RequestBody ScholarshipCURequest request) {
-        // Todo @Login 을 통해 API 를 호출 할 수 있도록 하기
-        // Todo 현재는 그냥 단순 테스트를 위해 1번에 넣기
-        Long response = scholarshipService.create(1L, request.getSemester());
+    @RequiredLogin
+    public ResponseEntity<Long> create(@StudentLogin LoginStudent loginStudent,
+                                       @RequestBody ScholarshipCURequest request) {
+
+        Long response = scholarshipService.create(loginStudent.getId(), request.getSemester());
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/scholarships")
     @ApiOperation(value = ApiDoc.SCHOLARSHIP_READ_ALL)
+    @RequiredManagerLogin
     public ResponseEntity<List<ScholarshipResponse>> getScholarshipStudents(@RequestParam boolean approved, @RequestParam String semester) {
         List<ScholarshipResponse> responses = scholarshipService.findAllScholarshipStudent(approved, semester)
                                                                 .stream()
@@ -57,6 +58,7 @@ public class ScholarshipController {
 
     @GetMapping("/scholarship/activities")
     @ApiOperation(value = ApiDoc.SCHOLARSHIP_ACTIVITIES)
+    @RequiredManagerLogin
     public ResponseEntity<ScholarshipDetailResponse> getScholarshipDetailInfo(@RequestParam Long studentId, @RequestParam String semester) {
         List<ScholarshipActivityResponse> scholarshipActivityResponses = activityService.findAllByStudentAndSemster(studentId, semester)
                                                                                         .stream()
@@ -69,6 +71,7 @@ public class ScholarshipController {
 
     @PutMapping("/scholarship/approval")
     @ApiOperation(value = ApiDoc.APPROVE_SCHOLARSHIPS)
+    @RequiredManagerLogin
     public ResponseEntity<Void> approveAll(@RequestPart(value = "file", required = false) MultipartFile file,
                                            @RequestPart(value = "semester") String semester) throws Exception {
         scholarshipService.approveAll(ExcelManager.getScholarshipApproveDatas(ExcelManager.extract(file)), semester);
@@ -77,6 +80,7 @@ public class ScholarshipController {
 
     @GetMapping("/scholarship/students")
     @ApiOperation(value = ApiDoc.SCHOLARSHIP_SEARCH_STUDENT)
+    @RequiredManagerLogin
     public ResponseEntity<List<ScholarshipResponse>> searchScholarshipStudents(
             @RequestParam(required = false) String semester,
             @RequestParam(required = false) String studentSemester,

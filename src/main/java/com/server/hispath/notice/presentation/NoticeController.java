@@ -1,5 +1,7 @@
 package com.server.hispath.notice.presentation;
 
+import com.server.hispath.auth.domain.RequiredLogin;
+import com.server.hispath.auth.domain.RequiredManagerLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.notice.application.dto.DashboardNoticeDto;
 import com.server.hispath.notice.application.dto.NoticeContentDto;
@@ -31,6 +33,7 @@ public class NoticeController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/notice/add")
     @ApiOperation(value= ApiDoc.NOTICE_CREATE)
+    @RequiredManagerLogin
     public ResponseEntity<Long> create(@RequestBody NoticeRequest request){
         Long id = noticeService.create(request.getManagerId(), NoticeContentDto.from(request));
         return ResponseEntity.ok(id);
@@ -38,6 +41,7 @@ public class NoticeController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/notice")
+    @RequiredLogin
     @ApiOperation(value = ApiDoc.NOTICE_READ_ALL)
     public ResponseEntity<List<NoticeResponse>> findAll() {
         List<NoticeResponse> responses = noticeService.findAll().stream().sorted(Comparator.comparing(NoticeDto::getRegDate).reversed()).map(NoticeResponse::from).collect(Collectors.toList());
@@ -47,6 +51,7 @@ public class NoticeController {
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/notice/imp")
     @ApiOperation(value = ApiDoc.NOTICE_READ_IMP)
+    @RequiredLogin
     public ResponseEntity<List<NoticeDashboardResponse>> findImp() {
         List<NoticeDashboardResponse> responses = noticeService.findImp().stream().sorted(Comparator.comparing(DashboardNoticeDto::getPubDate).reversed()).map(NoticeDashboardResponse::of).collect(Collectors.toList());
         return ResponseEntity.ok(responses);
@@ -55,6 +60,7 @@ public class NoticeController {
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/notice/{id}")
     @ApiOperation(value = ApiDoc.NOTICE_READ)
+    @RequiredLogin
     public ResponseEntity<NoticeResponse> find(@PathVariable Long id){
 //        noticeService.increaseViewCnt(id);
         NoticeResponse response = NoticeResponse.from(noticeService.find(id));
@@ -65,6 +71,7 @@ public class NoticeController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/notice/{id}")
     @ApiOperation(value = ApiDoc.NOTICE_UPDATE)
+    @RequiredManagerLogin
     public ResponseEntity<NoticeResponse> update(@PathVariable Long id, @RequestBody NoticeRequest request){
         NoticeDto dto = noticeService.update(id, request.getManagerId(), NoticeContentDto.from(request));
         NoticeResponse response = NoticeResponse.from(dto);
@@ -74,6 +81,7 @@ public class NoticeController {
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/notice/{id}")
     @ApiOperation(value = ApiDoc.NOTICE_DELETE)
+    @RequiredManagerLogin
     public ResponseEntity<Long> delete(@PathVariable Long id){
         noticeService.delete(id);
         return ResponseEntity.ok(id);

@@ -13,6 +13,10 @@ import com.server.hispath.activity.presentation.request.StudentActivityCURequest
 import com.server.hispath.activity.presentation.response.ActivityParticipantResponse;
 import com.server.hispath.activity.presentation.response.ActivityResponse;
 import com.server.hispath.activity.presentation.response.SemesterResponse;
+import com.server.hispath.auth.domain.LoginStudent;
+import com.server.hispath.auth.domain.RequiredLogin;
+import com.server.hispath.auth.domain.RequiredManagerLogin;
+import com.server.hispath.auth.domain.StudentLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.student.domain.Section;
 
@@ -69,9 +73,9 @@ public class ActivityController {
 
     @DeleteMapping("/activity/student/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_DELETE)
-    public ResponseEntity<Long> delete(@PathVariable Long id) {
-        //Todo 나중에 login 처리하면 그때 ID바꿈
-        activityService.deleteStudentActivity(1L, id);
+    @RequiredLogin
+    public ResponseEntity<Long> delete(@PathVariable Long id, @StudentLogin LoginStudent loginStudent) {
+        activityService.deleteStudentActivity(loginStudent.getId(), id);
         return ResponseEntity.ok(id);
     }
 
@@ -87,6 +91,7 @@ public class ActivityController {
 
     @GetMapping("/sections")
     @ApiOperation(value = ApiDoc.SECTION_READ_ALL)
+    @RequiredLogin
     public ResponseEntity<List<String>> getSections() {
         List<String> sections = Arrays.stream(Section.values())
                                       .map(Section::getName)
@@ -94,39 +99,49 @@ public class ActivityController {
         return ResponseEntity.ok(sections);
     }
 
-    @PostMapping("/student-activity/{id}")
+    @PostMapping("/student-activity")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_CREATE)
-    public ResponseEntity<Long> createStudentActivity(@PathVariable Long id, @RequestBody StudentActivityCURequest request) {
-        Long response = activityService.createStudentActivity(id, StudentActivityContentDto.of(request), ParticipantContentDto.of(request));
+    @RequiredLogin
+    public ResponseEntity<Long> createStudentActivity(@StudentLogin LoginStudent loginStudent, @RequestBody StudentActivityCURequest request) {
+        Long response = activityService.createStudentActivity(loginStudent.getId(), StudentActivityContentDto.of(request), ParticipantContentDto.of(request));
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/student-activity/{id}")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_UPDATE)
-    public ResponseEntity<ActivityParticipantResponse> updateStudentActivity(@PathVariable Long id, @RequestBody StudentActivityCURequest request) {
-        ActivityParticipantDto activityParticipantDto = activityService.updateStudentActivity(id, 1L, StudentActivityContentDto.of(request), ParticipantContentDto.of(request));
+    @RequiredLogin
+    public ResponseEntity<ActivityParticipantResponse> updateStudentActivity(@PathVariable Long id
+            , @RequestBody StudentActivityCURequest request
+            , @StudentLogin LoginStudent loginStudent
+    ) {
+        ActivityParticipantDto activityParticipantDto = activityService.updateStudentActivity(id, loginStudent.getId(), StudentActivityContentDto.of(request), ParticipantContentDto.of(request));
         return ResponseEntity.ok(ActivityParticipantResponse.of(activityParticipantDto));
     }
 
-    @GetMapping("/student-activities/{id}")
+    @GetMapping("/student-activities")
     @ApiOperation(value = ApiDoc.STUDENT_ACTIVITY_READ_SEMESTER)
-    public ResponseEntity<List<ActivityParticipantResponse>> findParticipatedActivities(@PathVariable Long id, @RequestParam String semester, @RequestParam String section) {
-        // ToDo       Student ID 관련해서는 나중에 Login 처리하기
-        List<ActivityParticipantResponse> responses = activityService.findAllParticipantActivites(id, semester, section)
+    @RequiredLogin
+    public ResponseEntity<List<ActivityParticipantResponse>> findParticipatedActivities(
+            @StudentLogin LoginStudent loginStudent,
+            @RequestParam String semester,
+            @RequestParam String section) {
+        List<ActivityParticipantResponse> responses = activityService.findAllParticipantActivites(loginStudent.getId(), semester, section)
                                                                      .stream()
                                                                      .map(ActivityParticipantResponse::of)
                                                                      .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/studentactivity/{id}")
+    @GetMapping("/studentactivity")
     @ApiOperation(value = ApiDoc.STUDENT_MILEAGE_READ)
-    public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@PathVariable Long id) {
-        return ResponseEntity.ok(mActivityService.findActivitiesByStudent(id));
+    @RequiredLogin
+    public ResponseEntity<MStudentActivityDetailDto> findActivtyByStudentId(@StudentLogin LoginStudent loginStudent) {
+        return ResponseEntity.ok(mActivityService.findActivitiesByStudent(loginStudent.getId()));
     }
 
     @PutMapping("/activity/apply/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_APPLY)
+    @RequiredLogin
     public ResponseEntity<Void> applyActivity(@PathVariable Long id) {
         activityService.apply(id);
         return ResponseEntity.ok(null);
@@ -134,6 +149,7 @@ public class ActivityController {
 
     @PutMapping("/activity/approve/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_APPROVE)
+    @RequiredManagerLogin
     public ResponseEntity<Void> approveActivity(@PathVariable Long id, @RequestBody ActivityApproveRequest request) {
         activityService.approve(id, request.getWeight());
         return ResponseEntity.ok(null);
@@ -141,6 +157,7 @@ public class ActivityController {
 
     @PutMapping("/activity/reject/{id}")
     @ApiOperation(value = ApiDoc.ACTIVITY_REJECT)
+    @RequiredManagerLogin
     public ResponseEntity<Void> rejectActivity(@PathVariable Long id) {
         activityService.reject(id);
         return ResponseEntity.ok(null);
@@ -149,9 +166,13 @@ public class ActivityController {
 
     @GetMapping("/activity-detail/{activityId}")
     @ApiOperation(value = ApiDoc.ACTIVITY_STUDENT_DETAIL)
-    public ResponseEntity<ActivityParticipantResponse> findParticipantActivityById(@PathVariable Long activityId) {
-        // ToDo StudentId 는 나중에 로그인으로 바꿈
-        return ResponseEntity.ok(ActivityParticipantResponse.of(activityService.findParticipantActivityById(1L, activityId)));
+    @RequiredLogin
+    public ResponseEntity<ActivityParticipantResponse> findParticipantActivityById(
+            @PathVariable Long activityId,
+            @StudentLogin LoginStudent loginStudent) {
+
+        ActivityParticipantDto dto = activityService.findParticipantActivityById(loginStudent.getId(), activityId);
+        return ResponseEntity.ok(ActivityParticipantResponse.of(dto));
 
     }
 }
