@@ -25,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedMethods("*")
-                .allowedOrigins("http://localhost:3000", "http://localhost:8080");
+                .allowedOrigins("http://localhost:3000", "http://localhost:8080", "https://hispath.kro.kr", "https://hispath-manager.kro.kr", "https://hispath-server.kro.kr");
     }
 
     @Override
