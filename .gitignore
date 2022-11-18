@@ -115,3 +115,6 @@ $RECYCLE.BIN/
 *.lnk
 
 log/
+
+src/main/resources/appender/cloud-error-appender.xml
+src/main/resources/appender/cloud-info-appender.xml
