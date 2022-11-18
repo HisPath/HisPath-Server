@@ -37,7 +37,7 @@ public class AuthService {
     private final ManagerRepository managerRepository;
     private final ManagerService managerService;
 
-    public void validateEamil(String email) {
+    public void validateEmail(String email) {
         String domain = email.split("@")[1];
         if (!Objects.equals(domain, "handong.ac.kr")) {
             throw new NotHandongEmailException();
@@ -45,16 +45,21 @@ public class AuthService {
         ;
     }
 
-    public OauthUserInfo getUserInfo(LoginRequestDto loginRequestDto) {
+    public OauthUserInfo getStudentInfo(LoginRequestDto loginRequestDto) {
         String oauthProvider = loginRequestDto.getOauthProvider();
-        return oauthHandler.getUserInfoFromCode(oauthProvider, loginRequestDto.getCode());
+        return oauthHandler.getUserInfoFromCode(oauthProvider, loginRequestDto.getCode(), Member.STUDENT);
+    }
+
+    public OauthUserInfo getManagerInfo(LoginRequestDto loginRequestDto) {
+        String oauthProvider = loginRequestDto.getOauthProvider();
+        return oauthHandler.getUserInfoFromCode(oauthProvider, loginRequestDto.getCode(), Member.MANAGER);
     }
 
     @Transactional(readOnly = true)
     public LoginResponseDto studentLogin(LoginRequestDto loginRequestDto) {
-        OauthUserInfo userInfo = getUserInfo(loginRequestDto);
+        OauthUserInfo userInfo = getStudentInfo(loginRequestDto);
         String email = userInfo.getEmail();
-        validateEamil(email);
+        validateEmail(email);
         Optional<Student> student = studentRepository.findByEmail(email);
         return student.map(value -> new LoginResponseDto(false,
                               jwtProvider.createToken(String.valueOf(value.getId()), Member.STUDENT)))
@@ -63,7 +68,7 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public LoginResponseDto managerLogin(LoginRequestDto loginRequestDto) {
-        OauthUserInfo userInfo = getUserInfo(loginRequestDto);
+        OauthUserInfo userInfo = getManagerInfo(loginRequestDto);
         String email = userInfo.getEmail();
         Optional<Manager> manager = managerRepository.findByEmail(email);
         return manager.map(value -> new LoginResponseDto(!value.isApproved(),

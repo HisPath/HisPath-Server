@@ -30,7 +30,6 @@ public class NoticeController {
     private final NoticeService noticeService;
 
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/notice/add")
     @ApiOperation(value= ApiDoc.NOTICE_CREATE)
     @RequiredManagerLogin
@@ -39,7 +38,6 @@ public class NoticeController {
         return ResponseEntity.ok(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/notice")
     @RequiredLogin
     @ApiOperation(value = ApiDoc.NOTICE_READ_ALL)
@@ -48,7 +46,6 @@ public class NoticeController {
         return ResponseEntity.ok(responses);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/notice/imp")
     @ApiOperation(value = ApiDoc.NOTICE_READ_IMP)
     @RequiredLogin
@@ -57,7 +54,6 @@ public class NoticeController {
         return ResponseEntity.ok(responses);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/notice/{id}")
     @ApiOperation(value = ApiDoc.NOTICE_READ)
     @RequiredLogin
@@ -68,7 +64,6 @@ public class NoticeController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PatchMapping("/notice/{id}")
     @ApiOperation(value = ApiDoc.NOTICE_UPDATE)
     @RequiredManagerLogin
@@ -78,7 +73,6 @@ public class NoticeController {
         return ResponseEntity.ok(response);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/notice/{id}")
     @ApiOperation(value = ApiDoc.NOTICE_DELETE)
     @RequiredManagerLogin

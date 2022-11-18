@@ -2,6 +2,7 @@ package com.server.hispath.auth.infrastructure;
 
 import java.util.Map;
 
+import com.server.hispath.auth.domain.Member;
 import com.server.hispath.auth.domain.OauthAttributes;
 import com.server.hispath.auth.domain.OauthProvider;
 import com.server.hispath.auth.domain.OauthUserInfo;
@@ -14,9 +15,9 @@ public class OauthHandler {
     private final Map<String, OauthProvider> oauthProviders;
     private final ApiRequester apiRequester;
 
-    public OauthUserInfo getUserInfoFromCode(String oauthProvider, String code) {
+    public OauthUserInfo getUserInfoFromCode(String oauthProvider, String code, Member member) {
         OauthProvider oauth = getOauthProvider(oauthProvider);
-        Map<String, Object> attributes = apiRequester.getUserInfo(code, oauth);
+        Map<String, Object> attributes = apiRequester.getUserInfo(code, oauth, member);
         return OauthAttributes.extract(oauthProvider, attributes);
     }
 

@@ -20,7 +20,8 @@ public class OauthProperties {
     public static class User {
         private String clientId;
         private String clientSecret;
-        private String redirectUri;
+        private String studentRedirectUri;
+        private String managerRedirectUri;
     }
 
     @Getter
