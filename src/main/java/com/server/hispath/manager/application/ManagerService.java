@@ -1,12 +1,16 @@
 package com.server.hispath.manager.application;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.exception.manager.ManagerNotFoundException;
 import com.server.hispath.manager.application.dto.ManagerCUDto;
+import com.server.hispath.manager.application.dto.ManagerDashboardDto;
 import com.server.hispath.manager.application.dto.ManagerDto;
+import com.server.hispath.manager.domain.DailyInfo;
 import com.server.hispath.manager.domain.Manager;
+import com.server.hispath.manager.domain.repository.DailyInfoRepository;
 import com.server.hispath.manager.domain.repository.ManagerRepository;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class ManagerService {
 
     private final ManagerRepository managerRepository;
+    private final DailyInfoRepository dailyInfoRepository;
 
     @Transactional
     public Long create(ManagerCUDto dto) {
@@ -62,5 +67,18 @@ public class ManagerService {
 
     public Manager findById(Long id) {
         return managerRepository.findById(id).orElseThrow(ManagerNotFoundException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public ManagerDashboardDto getDashboard(Long managerId) {
+        Manager manager = this.findById(managerId);
+        List<DailyInfo> dailyInfos = dailyInfoRepository.findDailyInfoByDateBetweenOrderByDateAsc(LocalDate.now()
+                                                                                                           .minusDays(7), LocalDate.now());
+        Long[] loginCounts = dailyInfos.stream()
+                                     .map(DailyInfo::getLoginCnt)
+                                     .toArray(Long[]::new);
+        Long totalLoginCnt = dailyInfoRepository.getTotalLoginCnt();
+
+        return ManagerDashboardDto.of(manager, loginCounts, totalLoginCnt);
     }
 }
