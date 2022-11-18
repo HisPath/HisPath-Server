@@ -1,5 +1,6 @@
 package com.server.hispath.auth.application;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -15,7 +16,9 @@ import com.server.hispath.exception.manager.ManagerNoAuthorizationException;
 import com.server.hispath.exception.oauth.InvalidTokenException;
 import com.server.hispath.exception.oauth.NotHandongEmailException;
 import com.server.hispath.manager.application.ManagerService;
+import com.server.hispath.manager.domain.DailyInfo;
 import com.server.hispath.manager.domain.Manager;
+import com.server.hispath.manager.domain.repository.DailyInfoRepository;
 import com.server.hispath.manager.domain.repository.ManagerRepository;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.domain.Student;
@@ -36,6 +39,7 @@ public class AuthService {
     private final StudentService studentService;
     private final ManagerRepository managerRepository;
     private final ManagerService managerService;
+    private final DailyInfoRepository dailyInfoRepository;
 
     public void validateEmail(String email) {
         String domain = email.split("@")[1];
@@ -55,14 +59,18 @@ public class AuthService {
         return oauthHandler.getUserInfoFromCode(oauthProvider, loginRequestDto.getCode(), Member.MANAGER);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public LoginResponseDto studentLogin(LoginRequestDto loginRequestDto) {
         OauthUserInfo userInfo = getStudentInfo(loginRequestDto);
         String email = userInfo.getEmail();
         validateEmail(email);
         Optional<Student> student = studentRepository.findByEmail(email);
-        return student.map(value -> new LoginResponseDto(false,
-                              jwtProvider.createToken(String.valueOf(value.getId()), Member.STUDENT)))
+
+        return student.map(value -> {
+                          addLoginCount();
+                          return new LoginResponseDto(false,
+                                  jwtProvider.createToken(String.valueOf(value.getId()), Member.STUDENT));
+                      })
                       .orElseGet(() -> new LoginResponseDto(true, null));
     }
 
@@ -126,5 +134,16 @@ public class AuthService {
         if (!manager.isSuperManager())
             throw new ManagerNoAuthorizationException();
         return manager;
+    }
+
+    private void addLoginCount() {
+        System.out.println("aaaa");
+        Optional<DailyInfo> dailyInfo = dailyInfoRepository.findFirstByDate(LocalDate.now());
+        if (dailyInfo.isPresent()) {
+            dailyInfo.get().login();
+            return;
+        }
+        DailyInfo newDailyInfo = new DailyInfo();
+        dailyInfoRepository.save(newDailyInfo);
     }
 }
