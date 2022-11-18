@@ -17,13 +17,14 @@ public class ManagerDto {
     private Long id;
     private String name;
     private String email;
+    private String profile;
     private String department;
     private int power;
     private boolean approved;
 
     public static ManagerDto of(Manager manager) {
         return new ManagerDto(manager.getId(), manager.getName(), manager.getEmail(),
-                manager.getDepartment(), manager.getPower(), manager.isApproved());
+                manager.getProfile(), manager.getDepartment(), manager.getPower(), manager.isApproved());
     }
 
 

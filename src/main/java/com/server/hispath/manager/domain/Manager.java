@@ -30,6 +30,7 @@ public class Manager extends BaseEntity {
     private int power;
     private String name;
     private String email;
+    private String profile;
     private String department;
     private boolean approved;
 
@@ -39,6 +40,7 @@ public class Manager extends BaseEntity {
                       .power(dto.getPower())
                       .name(dto.getName())
                       .email(dto.getEmail())
+                      .profile(dto.getProfile())
                       .department(dto.getDepartment())
                       .approved(false)
                       .build();
@@ -47,6 +49,7 @@ public class Manager extends BaseEntity {
     public void update(ManagerCUDto dto) {
         this.email = dto.getEmail();
         this.name = dto.getName();
+        this.profile = dto.getProfile();
         this.department = dto.getDepartment();
         this.power = dto.getPower();
     }

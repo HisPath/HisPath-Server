@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 public class ManagerCUDto {
 
     private String name;
+    private String profile;
     private int power;
     private String email;
     private String department;
 
     public static ManagerCUDto of(ManagerCURequest request) {
-        return new ManagerCUDto(request.getName(), request.getPower(), request.getEmail(), request.getDepartment());
+        return new ManagerCUDto(request.getName(), request.getProfile(), request.getPower(), request.getEmail(), request.getDepartment());
     }
 
 }
