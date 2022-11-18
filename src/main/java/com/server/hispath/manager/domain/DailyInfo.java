@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.server.hispath.common.BaseEntity;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,18 +17,20 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Where(clause = "deleted = false")
 @SQLDelete(sql = "UPDATE dailyInfo SET deleted = true Where id = ?")
-public class DailyInfo {
+public class DailyInfo extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     LocalDate date = LocalDate.now();
 
-    Long loginCnt = 0L;
-    
+    Long loginCnt = 1L;
+
+    public void login(){
+        loginCnt++;
+    }
 }
