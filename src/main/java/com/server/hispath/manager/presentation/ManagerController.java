@@ -3,11 +3,14 @@ package com.server.hispath.manager.presentation;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.server.hispath.auth.domain.LoginManager;
+import com.server.hispath.auth.domain.ManagerLogin;
 import com.server.hispath.auth.domain.RequiredManagerLogin;
 import com.server.hispath.auth.domain.RequiredSuperManagerLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.manager.application.ManagerService;
 import com.server.hispath.manager.application.dto.ManagerCUDto;
+import com.server.hispath.manager.application.dto.ManagerDashboardDto;
 import com.server.hispath.manager.presentation.request.ManagerApproveRequest;
 import com.server.hispath.manager.presentation.request.ManagerCURequest;
 import com.server.hispath.manager.presentation.response.ManagerResponse;
@@ -75,5 +78,12 @@ public class ManagerController {
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         Long response = managerService.delete(id);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/manager/dashboard")
+    @ApiOperation(value = ApiDoc.MANAGER_READ)
+    @RequiredManagerLogin
+    public ResponseEntity<ManagerDashboardDto> getDashboard(@ManagerLogin LoginManager loginManager) {
+        return ResponseEntity.ok(managerService.getDashboard(loginManager.getId()));
     }
 }

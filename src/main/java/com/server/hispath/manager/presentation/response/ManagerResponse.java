@@ -14,13 +14,14 @@ public class ManagerResponse {
     private int power;
     private String name;
     private String email;
+    private String profile;
     private String department;
     private boolean approved;
 
 
     public static ManagerResponse of(ManagerDto dto) {
         return new ManagerResponse(dto.getId(), dto.getPower(), dto.getName(),
-                dto.getEmail(), dto.getDepartment(), dto.isApproved());
+                dto.getEmail(), dto.getProfile(), dto.getDepartment(), dto.isApproved());
     }
 
 }

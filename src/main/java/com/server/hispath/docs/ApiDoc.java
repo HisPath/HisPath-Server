@@ -83,6 +83,7 @@ public class ApiDoc {
     public static final String MANAGER_UPDATE = "관리자 수정";
     public static final String MANAGER_APPROVE = "관리자 승인";
     public static final String MANAGER_DELETE = "관리자 삭제";
+    public static final String MANAGER_DASHBOARD = "관리자 대시보드 조회";
 
     /* Department 관련 API 명세 */
     public static final String DEPARTMENT_READ = "단일 학부 조회";
