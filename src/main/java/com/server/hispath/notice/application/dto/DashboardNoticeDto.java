@@ -14,11 +14,12 @@ import lombok.NoArgsConstructor;
 public class DashboardNoticeDto {
     private Long id;
     private String title;
+    private String content;
     private LocalDate pubDate;
     private LocalDate expDate;
     private LocalDate regDate;
 
     public static DashboardNoticeDto of(Notice notice) {
-        return new DashboardNoticeDto(notice.getId(), notice.getTitle(), notice.getPubDate(), notice.getExpDate(), notice.getCreatedAt().toLocalDate());
+        return new DashboardNoticeDto(notice.getId(), notice.getTitle(), notice.getContent(), notice.getPubDate(), notice.getExpDate(), notice.getCreatedAt().toLocalDate());
     }
 }
