@@ -69,7 +69,7 @@ public class TestController {
         saveManager();
         saveNotice();
         saveActivities();
-        saveScholarship();
+//        saveScholarship(); participant 실행 한 뒤 실행
 //        saveParticipant(); init all에 포함 금지! 따로 실행
         //        saveResumes();
         return ResponseEntity.ok(null);
@@ -164,7 +164,7 @@ public class TestController {
 
         studentIds.forEach(id -> scholarshipService.create(id, "2022-2"));
         studentIds.forEach(id -> scholarshipService.create(id, "2022-1"));
-        studentIds.forEach(id -> scholarshipService.create(id, "2019-2"));
+        studentIds.forEach(id -> scholarshipService.create(id, "2021-2"));
 
 
         //        List<Long> studentIds2022_2 = students.stream()
@@ -1982,7 +1982,7 @@ public class TestController {
         majorRepository.save(Major.builder().name("도시환경공학전공").build());
         majorRepository.save(Major.builder().name("기계공학전공").build());
         majorRepository.save(Major.builder().name("전자제어공학전공").build());
-        majorRepository.save(Major.builder().name("부전공").build());
+        majorRepository.save(Major.builder().name("생명과학전공").build());
         majorRepository.save(Major.builder().name("글로벌융합전공").build());
         majorRepository.save(Major.builder().name("수학통계전공").build());
         majorRepository.save(Major.builder().name("학생설계융합전공").build());
