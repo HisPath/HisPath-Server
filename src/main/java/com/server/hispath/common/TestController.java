@@ -158,37 +158,46 @@ public class TestController {
     private void saveScholarship() {
         List<Student> students = studentRepository.findAll();
 
-        List<Long> studentIds2022_2 = students.stream()
-                .map(Student::getId)
-                .collect(Collectors.toList());
-        Collections.shuffle(studentIds2022_2);
-        int num2022_2 = getRandomNum(students.size() - 10, students.size());
-        studentIds2022_2.subList(0, num2022_2)
-                .forEach(id -> {
-                    scholarshipService.create(id, "2022-2");
-                });
+        List<Long> studentIds = students.stream()
+                                        .map(Student::getId)
+                                        .collect(Collectors.toList());
+
+        studentIds.forEach(id -> scholarshipService.create(id, "2022-2"));
+        studentIds.forEach(id -> scholarshipService.create(id, "2022-1"));
+        studentIds.forEach(id -> scholarshipService.create(id, "2019-2"));
 
 
-        List<Long> studentIds2022_1 = students.stream()
-                .map(Student::getId)
-                .collect(Collectors.toList());
-        Collections.shuffle(studentIds2022_1);
-        int num2022_1 = getRandomNum(students.size() - 10, students.size());
-        studentIds2022_1.subList(0, num2022_1)
-                .forEach(id -> {
-                    scholarshipService.create(id, "2022-1");
-                });
-
-
-        List<Long> studentIds2021_2 = students.stream()
-                .map(Student::getId)
-                .collect(Collectors.toList());
-        Collections.shuffle(studentIds2021_2);
-        int num2021_2 = getRandomNum(students.size() - 10, students.size());
-        studentIds2021_2.subList(0, num2021_2)
-                .forEach(id -> {
-                    scholarshipService.create(id, "2021-2");
-                });
+        //        List<Long> studentIds2022_2 = students.stream()
+        //                .map(Student::getId)
+        //                .collect(Collectors.toList());
+        //        Collections.shuffle(studentIds2022_2);
+        //        int num2022_2 = getRandomNum(students.size() - 10, students.size());
+        //        studentIds2022_2.subList(0, num2022_2)
+        //                .forEach(id -> {
+        //                    scholarshipService.create(id, "2022-2");
+        //                });
+        //
+        //
+        //        List<Long> studentIds2022_1 = students.stream()
+        //                .map(Student::getId)
+        //                .collect(Collectors.toList());
+        //        Collections.shuffle(studentIds2022_1);
+        //        int num2022_1 = getRandomNum(students.size() - 10, students.size());
+        //        studentIds2022_1.subList(0, num2022_1)
+        //                .forEach(id -> {
+        //                    scholarshipService.create(id, "2022-1");
+        //                });
+        //
+        //
+        //        List<Long> studentIds2021_2 = students.stream()
+        //                .map(Student::getId)
+        //                .collect(Collectors.toList());
+        //        Collections.shuffle(studentIds2021_2);
+        //        int num2021_2 = getRandomNum(students.size() - 10, students.size());
+        //        studentIds2021_2.subList(0, num2021_2)
+        //                .forEach(id -> {
+        //                    scholarshipService.create(id, "2021-2");
+        //                });
 
     }
 
@@ -239,15 +248,16 @@ public class TestController {
 
         activities.forEach(activity -> {
 
-            int num = getRandomNum(15, students.size());
+            //            int num = getRandomNum(15, students.size());
             List<StudentSimpleRefDto> refStudent = students.stream()
-                    .map(student -> {
-                        return new StudentSimpleRefDto(student.getStudentNum(), student.getName());
-                    })
-                    .collect(Collectors.toList());
+                                                           .map(student -> {
+                                                               return new StudentSimpleRefDto(student.getStudentNum(), student.getName());
+                                                           })
+                                                           .collect(Collectors.toList());
 
-            Collections.shuffle(refStudent);
-            studentService.registerParticipants(activity.getId(), refStudent.subList(0, num));
+            studentService.registerParticipants(activity.getId(), refStudent);
+            //            Collections.shuffle(refStudent);
+            //            studentService.registerParticipants(activity.getId(), refStudent.subList(0, num));
             activity.updateStudentRegister();
         });
 
