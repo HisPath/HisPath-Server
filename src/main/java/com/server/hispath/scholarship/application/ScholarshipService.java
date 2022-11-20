@@ -177,6 +177,7 @@ public class ScholarshipService {
     public List<Long> getChartWeightDistribution(String semester) {
         List<Scholarship> scholarships = scholarshipRepository.findAllBySemesterAndApprovedTrue(semester);
         Long[] chartWeightDistribute = new Long[6];
+        Arrays.fill(chartWeightDistribute, 0L);
         scholarships.forEach(scholarship -> {
             if (scholarship.getTotalMileage() < 20)
                 chartWeightDistribute[0]++;

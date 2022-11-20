@@ -316,7 +316,7 @@ public class TestController {
         managerRepository.save(Manager.builder()
                 .name("이인혁")
                 .email("Bruse@handong.ac.kr")
-                .department("ICT융합학부")
+                .department("ICT 융합학부")
                 .approved(true).build());
 
         managerRepository.save(Manager.builder()
@@ -371,7 +371,7 @@ public class TestController {
         noticeRepository.save(Notice.builder()
                 .manager(l.get(3))
                 .title("2022-2 사전 학점인정 안내(타대학 교환·학점교류)")
-                .content("<p>22-2학기 타대학 교환·학점교류를 통해 전산전자공학부의 컴퓨터공학(심화), 전자공학(심화) 전공 학점으로 인정받고자 하는 학생은, 아래의 내용을 확인하시고 사전학점인정원 제출하시기 바랍니다.</p><p><br></p><p><br></p><p><strong>1. 신청기간</strong>: ~2022.8.14.</p><p>&nbsp; &nbsp; &nbsp;* 각 대학마다 수강신청기간이 다르므로, 본인 대학 수강신청기간 전에 신청 바람</p><p><br></p><p><br></p><p><strong>2. 제출서류</strong>: 사전학점인정원, 해당 과목 강의계획서</p><p><br></p><p><br></p><p><strong>3. 제출방법</strong>: csee@handong.edu로 온라인 제출</p><p><br></p><p><br></p><p><strong>4. 사전학점인정 절차</strong></p><p>&nbsp; 가. 학생이 학부사무실로 사전학점인정원 제출</p><p>&nbsp; 나. 해당 전공의 프로그램위원회에서 제출된 자료 검토하여 학점인정 여부 판단</p><p>&nbsp; 다. 검토완료 된 사전학점인정원을 학부사무실에서 학생 메일로 송부</p><p><br></p><p><br></p><p><strong>5. 유의사항</strong></p><p>&nbsp; 가.&nbsp;각 대학마다 수강신청기간이 다르므로, 사전학점인정 승인 받은 후 수강신청 할 수 있도록 시간 여유를 두고 미리 신청 바람</p><p>&nbsp; 나. 본인서명 필수 /&nbsp; 담당교수 확인란은 비워 제출</p><p>&nbsp; 다. '해당전공'란은 컴퓨터공학 or 전자공학을 기입</p><p>&nbsp; 라.&nbsp;이전 학기에 학점교류를 통해 전공 인정받은 학생의 경우 아래 내용 함께 제출</p><p>&nbsp; &nbsp; 1) 이전 교류대학명:&nbsp;</p><p>&nbsp; &nbsp; 2) 인정 과목명:</p><p>&nbsp; &nbsp; 3) 총 인정학점:</p><p>&nbsp; 마. 사전학점인정원 승인을 받았더라도, 다른 수강 교과목과 내용이 중복되는 경우 추후 학점인정을 받지 못할 수 있음</p><p><br></p><p><br></p><p><br></p><p><br></p><p>문의 : 260-1414 / csee@handong.edu</p>")
+                .content("<p>22-2학기 타대학 교환·학점교류를 통해 전산전자공학부공학부의 컴퓨터공학(심화), 전자공학(심화) 전공 학점으로 인정받고자 하는 학생은, 아래의 내용을 확인하시고 사전학점인정원 제출하시기 바랍니다.</p><p><br></p><p><br></p><p><strong>1. 신청기간</strong>: ~2022.8.14.</p><p>&nbsp; &nbsp; &nbsp;* 각 대학마다 수강신청기간이 다르므로, 본인 대학 수강신청기간 전에 신청 바람</p><p><br></p><p><br></p><p><strong>2. 제출서류</strong>: 사전학점인정원, 해당 과목 강의계획서</p><p><br></p><p><br></p><p><strong>3. 제출방법</strong>: csee@handong.edu로 온라인 제출</p><p><br></p><p><br></p><p><strong>4. 사전학점인정 절차</strong></p><p>&nbsp; 가. 학생이 학부사무실로 사전학점인정원 제출</p><p>&nbsp; 나. 해당 전공의 프로그램위원회에서 제출된 자료 검토하여 학점인정 여부 판단</p><p>&nbsp; 다. 검토완료 된 사전학점인정원을 학부사무실에서 학생 메일로 송부</p><p><br></p><p><br></p><p><strong>5. 유의사항</strong></p><p>&nbsp; 가.&nbsp;각 대학마다 수강신청기간이 다르므로, 사전학점인정 승인 받은 후 수강신청 할 수 있도록 시간 여유를 두고 미리 신청 바람</p><p>&nbsp; 나. 본인서명 필수 /&nbsp; 담당교수 확인란은 비워 제출</p><p>&nbsp; 다. '해당전공'란은 컴퓨터공학 or 전자공학을 기입</p><p>&nbsp; 라.&nbsp;이전 학기에 학점교류를 통해 전공 인정받은 학생의 경우 아래 내용 함께 제출</p><p>&nbsp; &nbsp; 1) 이전 교류대학명:&nbsp;</p><p>&nbsp; &nbsp; 2) 인정 과목명:</p><p>&nbsp; &nbsp; 3) 총 인정학점:</p><p>&nbsp; 마. 사전학점인정원 승인을 받았더라도, 다른 수강 교과목과 내용이 중복되는 경우 추후 학점인정을 받지 못할 수 있음</p><p><br></p><p><br></p><p><br></p><p><br></p><p>문의 : 260-1414 / csee@handong.edu</p>")
                 .viewCnt(0)
                 .importance(false)
                 .pubDate(LocalDate.of(2022, Month.JUNE, 2))
@@ -381,7 +381,7 @@ public class TestController {
         noticeRepository.save(Notice.builder()
                 .manager(l.get(4))
                 .title("2022년 8월 졸업생 학위증 및 상장 교부 안내")
-                .content("<p>9/2(금) 15시까지 신청 건 우편 발송되었습니다.&nbsp;</p><p>&nbsp;</p><p>---------------------------------------------------------------------------</p><p>&nbsp;</p><p>안녕하세요?</p><p>전산전자공학부입니다.</p><p><br></p><p><br></p><p>졸업을 진심으로 축하드립니다.\uD83C\uDF89</p><p><br></p><p><br></p><p>학위증은&nbsp;<strong>8/17(수)부터 학부사무실(NTH309)</strong>에서 직접 수령 가능합니다.</p><p><br></p><p><br></p><p>우편(착불 4500원 정도)으로 받고자 하는 학생은&nbsp;</p><p><strong>9/4(일)까지 구글폼(&nbsp;<a href=\"https://forms.gle/YC33x2dgMp2o6FFP7\">https://forms.gle/YC33x2dgMp2o6FFP7</a>&nbsp;) 작성</strong>해주시기 바랍니다.</p><p><br></p><p><br></p><p>이전 졸업생 중 학위증을 수령하지 않은 학생도 신청하시기 바랍니다.</p><p><br></p><p><br></p><p>&lt;유의사항&gt;</p><p>1. 학위증은 23년 2월 학위수여식까지 보관하며, 그 후 분실에 대해 책임지지 않습니다.</p><p>2. 학위증 재발급은 불가하니, 꼭 수령하시기 바랍니다.</p><p><br></p><p><br></p><p>감사합니다:D</p><p><br></p><p><br></p><p>문의) 전산전자공학부사무실 260-1414</p>")
+                .content("<p>9/2(금) 15시까지 신청 건 우편 발송되었습니다.&nbsp;</p><p>&nbsp;</p><p>---------------------------------------------------------------------------</p><p>&nbsp;</p><p>안녕하세요?</p><p>전산전자공학부공학부입니다.</p><p><br></p><p><br></p><p>졸업을 진심으로 축하드립니다.\uD83C\uDF89</p><p><br></p><p><br></p><p>학위증은&nbsp;<strong>8/17(수)부터 학부사무실(NTH309)</strong>에서 직접 수령 가능합니다.</p><p><br></p><p><br></p><p>우편(착불 4500원 정도)으로 받고자 하는 학생은&nbsp;</p><p><strong>9/4(일)까지 구글폼(&nbsp;<a href=\"https://forms.gle/YC33x2dgMp2o6FFP7\">https://forms.gle/YC33x2dgMp2o6FFP7</a>&nbsp;) 작성</strong>해주시기 바랍니다.</p><p><br></p><p><br></p><p>이전 졸업생 중 학위증을 수령하지 않은 학생도 신청하시기 바랍니다.</p><p><br></p><p><br></p><p>&lt;유의사항&gt;</p><p>1. 학위증은 23년 2월 학위수여식까지 보관하며, 그 후 분실에 대해 책임지지 않습니다.</p><p>2. 학위증 재발급은 불가하니, 꼭 수령하시기 바랍니다.</p><p><br></p><p><br></p><p>감사합니다:D</p><p><br></p><p><br></p><p>문의) 전산전자공학부공학부사무실 260-1414</p>")
                 .viewCnt(0)
                 .importance(true)
                 .pubDate(LocalDate.of(2022, Month.JUNE, 7))
@@ -391,7 +391,7 @@ public class TestController {
         noticeRepository.save(Notice.builder()
                 .manager(l.get(4))
                 .title("2022년 8월 졸업생 학위증 및 상장 교부 안내")
-                .content("<p>9/2(금) 15시까지 신청 건 우편 발송되었습니다.&nbsp;</p><p>&nbsp;</p><p>---------------------------------------------------------------------------</p><p>&nbsp;</p><p>안녕하세요?</p><p>전산전자공학부입니다.</p><p><br></p><p><br></p><p>졸업을 진심으로 축하드립니다.\uD83C\uDF89</p><p><br></p><p><br></p><p>학위증은&nbsp;<strong>8/17(수)부터 학부사무실(NTH309)</strong>에서 직접 수령 가능합니다.</p><p><br></p><p><br></p><p>우편(착불 4500원 정도)으로 받고자 하는 학생은&nbsp;</p><p><strong>9/4(일)까지 구글폼(&nbsp;<a href=\"https://forms.gle/YC33x2dgMp2o6FFP7\">https://forms.gle/YC33x2dgMp2o6FFP7</a>&nbsp;) 작성</strong>해주시기 바랍니다.</p><p><br></p><p><br></p><p>이전 졸업생 중 학위증을 수령하지 않은 학생도 신청하시기 바랍니다.</p><p><br></p><p><br></p><p>&lt;유의사항&gt;</p><p>1. 학위증은 23년 2월 학위수여식까지 보관하며, 그 후 분실에 대해 책임지지 않습니다.</p><p>2. 학위증 재발급은 불가하니, 꼭 수령하시기 바랍니다.</p><p><br></p><p><br></p><p>감사합니다:D</p><p><br></p><p><br></p><p>문의) 전산전자공학부사무실 260-1414</p>")
+                .content("<p>9/2(금) 15시까지 신청 건 우편 발송되었습니다.&nbsp;</p><p>&nbsp;</p><p>---------------------------------------------------------------------------</p><p>&nbsp;</p><p>안녕하세요?</p><p>전산전자공학부공학부입니다.</p><p><br></p><p><br></p><p>졸업을 진심으로 축하드립니다.\uD83C\uDF89</p><p><br></p><p><br></p><p>학위증은&nbsp;<strong>8/17(수)부터 학부사무실(NTH309)</strong>에서 직접 수령 가능합니다.</p><p><br></p><p><br></p><p>우편(착불 4500원 정도)으로 받고자 하는 학생은&nbsp;</p><p><strong>9/4(일)까지 구글폼(&nbsp;<a href=\"https://forms.gle/YC33x2dgMp2o6FFP7\">https://forms.gle/YC33x2dgMp2o6FFP7</a>&nbsp;) 작성</strong>해주시기 바랍니다.</p><p><br></p><p><br></p><p>이전 졸업생 중 학위증을 수령하지 않은 학생도 신청하시기 바랍니다.</p><p><br></p><p><br></p><p>&lt;유의사항&gt;</p><p>1. 학위증은 23년 2월 학위수여식까지 보관하며, 그 후 분실에 대해 책임지지 않습니다.</p><p>2. 학위증 재발급은 불가하니, 꼭 수령하시기 바랍니다.</p><p><br></p><p><br></p><p>감사합니다:D</p><p><br></p><p><br></p><p>문의) 전산전자공학부공학부사무실 260-1414</p>")
                 .viewCnt(0)
                 .importance(true)
                 .pubDate(LocalDate.of(2022, Month.JUNE, 21))
@@ -401,7 +401,7 @@ public class TestController {
         noticeRepository.save(Notice.builder()
                 .manager(l.get(3))
                 .title("[BK21 인공지능 교육연구단] 2022-2 참여대학원생 등록서류 제출 및 연구장학금 신청 안내")
-                .content("<p>한동대학교&nbsp;BK21&nbsp;인공지능 사업단</p><p>2022학년도 2학기 참여대학원생 등록서류 제출 및 연구장학금 신청 안내</p><p>&nbsp;</p><p>&nbsp;</p><p>한동대학교 전산전자공학과&nbsp;4단계&nbsp;BK21 ‘산업혁신을 위한&nbsp;AI&nbsp;고급 인재교육연구단’ (BK21&nbsp;인공지능사업단)에서 다음과 같이 등록 서류를 제출하여주시기 바랍니다.</p><p>&nbsp;</p><p><br></p><p>1. 4단계&nbsp;BK21&nbsp;참여대학원생 기준 (다음의 조건을 모두 충족한 자)</p><p>BK21&nbsp;참여교수의 지도학생 중 전일제(4대보험에 가입되어 있지 않은 학생)로 등록(연구생 등록 포함)한 석·박사과정 대학원생으로 다음 각 호에 해당하는 자</p><p>-입학한 지&nbsp;2년이 지나지 않은 석사과정생</p><p>-입학한 지&nbsp;4년이 지나지 않은 박사과정생 및 박사 수료생</p><p>-입학한 지&nbsp;6년이 지나지 않은 석박통합과정생 및 석박통합과정 수료생</p><p>(위의 기간 기산 시 휴학 및 군복무 기간은 제외함).</p><p>&nbsp;</p><p>위의 자격을 충족한 경우&nbsp;‘참여대학원생’으로 등록되어&nbsp;‘지원대학원생’&nbsp;선발 기회 등&nbsp;BK21&nbsp;사업의 지원을 받을 수 있음.</p><p>&nbsp;</p><p>2.&nbsp;지원대학원생 선발 및 연구장학금 지급</p><p>1)&nbsp;참여대학원생으로 등록된 학생 중&nbsp;70%&nbsp;이내의 대학원생을&nbsp;‘지원대학원생’으로 선발해 연구장학금을 지급함.</p><p>2)&nbsp;지원기간: 2022.09.01.~2023.02.28. (6개월 단위로 선발)</p><p>3)&nbsp;선발기준:&nbsp;<strong>지도교수 추천을 받은 참여대학원생&nbsp;</strong>중 연구/프로젝트 성과 평가에 의해 선발</p><p>4)&nbsp;역할 및 임무</p><p>- BK21&nbsp;참여교수 연구실에서 논문 연구 및 산학 프로젝트를 성실히 수행&nbsp;(주&nbsp;40시간 이상)</p><p>-&nbsp;사업단이 주관하는 각종 세미나,&nbsp;포럼 등의 학술 활동에 참여</p><p>-&nbsp;사업단이 요구하는 성과 자료 보고</p><p>&nbsp;</p><p><br></p><p>3.&nbsp;참여대학원생 등록서류 제출안내(등록서류는 단순참여, 장학금 지원 받는 학생 모두 제출해주세요.)</p><p>1)&nbsp;첨부된 제출서류 다운 및 작성 후&nbsp;BK21&nbsp;사업단 사무실로 서류 제출.</p><p>2)&nbsp;지도교수로부터 지원대학원생(장학금 받는 학생)으로 추천받은 대학원생은&nbsp;<strong>5.제출서류</strong>&nbsp;함께 제출</p><p>&nbsp;</p><p>4.&nbsp;서류 제출 기간:&nbsp;2022년 8월 29일(월) 13:00 - 9월 7일(수) 17:00 (제출기한 엄수)</p><p><br></p><p><br></p><p><br></p><p>5.&nbsp;제출서류</p><p>-&nbsp;연구자등록번호 발급 방법</p><p>: KRI(한국연구업적통합정보시스템&nbsp;<a href=\"http://www.kri.go.kr%29/\">http://www.kri.go.kr)</a>에 접속 회원가입→연구자등록번호 발급&nbsp;</p><p>&nbsp; (가입 시 소속을 반드시&nbsp;‘한동대학교’로 가입)&nbsp;</p><p><br></p><p><br></p><p>1)&nbsp;재학증명서&nbsp;1부.&nbsp;연구생등록자의 경우 연구생등록증&nbsp;1부(2022년 9월 1일자 기준으로 제출)</p><p>2)&nbsp;개인정보 수집 이용 제공 동의서&nbsp;1부. (BK사업에 처음 참여하는 학생만 제출)</p><p>3)&nbsp;참여인력 서약서&nbsp;1부.&nbsp;</p><p>4)&nbsp;참여대학원생 확약서&nbsp;1부.</p><p>5) BK21&nbsp;연구장학금 신청서&nbsp;1부. (지원대학원생-BK장학금 받는 학생만 제출)</p><p>6) 전산전자공학과 학기 보고서&nbsp;1부.</p><p>7)&nbsp;재학증명서&nbsp;1부.(9월 1일 기준)</p><p>&nbsp;</p><p><strong>8) 연구재단 필수 제출 서류&nbsp;'4대 보험 가입 증명서'&nbsp;1부.&nbsp;(22.10.1일 기준일로하여 메일로 회신)</strong></p><p><strong>(**10월1일 기준으로 출력&nbsp;후 제출 바랍니다. 9월에는 제출하지 않아도 됩니다!)</strong></p><p>-&nbsp;출력 방법: 4대 사회보험 포털서비스(<a href=\"http://www.4insure.or.kr%29/\">http://www.4insure.or.kr)</a> 로그인(회원가입,&nbsp;공인인증서 필요)&nbsp;→&nbsp;상단 메뉴 증명서발급(가입내역확인)&nbsp;클릭 후 출력</p><p>&nbsp;</p><p>9)&nbsp;대학원 성적표&nbsp;1부. (신입생은 제출X)</p><p>&nbsp;</p><p>&lt;한국연구재단 필수 수강!!-참여기간 중 1회 수강 후 수료증 제출해야함, 교육 미이수자 및&nbsp; 22-2학기 신입생만 수강하면 됩니다.&gt;</p><p>10)&nbsp;온라인 교육 수료증&nbsp;(<a href=\"http://alpha-campus.kr/)\">http://alpha-campus.kr/)</a>&nbsp;에 접속하여 로그인 후 상단 메뉴의 '탐색'-&gt;'온라인교육' -&gt; '건강한 연구환경 조성을 위한 인권침해예방교육'클릭 -&gt;'수강신청' 클릭 후 팝업창에서 수강신청 정보 확인 및 '신청완료'-&gt; '학습'-&gt; '학습중과정'-&gt;&nbsp;'건강한 연구환경 조성을 위한 인권침해예방교육' 순서대로 클릭 후 '학습하기'</p><p>컨텐츠 수강 후&nbsp;‘MY'-&gt; '학습이력'클릭 후 수료증 발급 및 보관)&nbsp;</p><p>*수료증은 메일로 회신부탁합니다.&nbsp;</p><p>&nbsp;</p><p>11)&nbsp;통장사본 및 신분증 사본 각&nbsp;1부.</p><p>&nbsp;</p><p>※&nbsp;외국인 참여대학원생의 경우 외국인 등록증 앞,&nbsp;뒤 사본(D-2비자 여부 및 만료기한 확인)&nbsp;제출.</p><p>※ 기존&nbsp;참여대학원생이 지원할 경우: 2)개인정보 수집 이용 제공 동의서,&nbsp;10)온라인 교육 수료증 제출 생략.</p><p>&nbsp;</p><p>6.&nbsp;서류 제출 및 문의처</p><p>1) BK21사업단 사무실:&nbsp;뉴턴홀&nbsp;309호 전산전자공학부 사무실&nbsp;담당자 고라경(Tel: 260-3150)</p><p>2)&nbsp;신청 시 모든 서류는 위 제출서류 순서대로 정리하여 원본 제출 바랍니다.</p><p>&nbsp;</p><p>7.&nbsp;유의사항:&nbsp;제출된 서류는 반환하지 않으며,&nbsp;허위사실 기재 시 선발을 취소함.</p>")
+                .content("<p>한동대학교&nbsp;BK21&nbsp;인공지능 사업단</p><p>2022학년도 2학기 참여대학원생 등록서류 제출 및 연구장학금 신청 안내</p><p>&nbsp;</p><p>&nbsp;</p><p>한동대학교 전산전자공학부공학과&nbsp;4단계&nbsp;BK21 ‘산업혁신을 위한&nbsp;AI&nbsp;고급 인재교육연구단’ (BK21&nbsp;인공지능사업단)에서 다음과 같이 등록 서류를 제출하여주시기 바랍니다.</p><p>&nbsp;</p><p><br></p><p>1. 4단계&nbsp;BK21&nbsp;참여대학원생 기준 (다음의 조건을 모두 충족한 자)</p><p>BK21&nbsp;참여교수의 지도학생 중 전일제(4대보험에 가입되어 있지 않은 학생)로 등록(연구생 등록 포함)한 석·박사과정 대학원생으로 다음 각 호에 해당하는 자</p><p>-입학한 지&nbsp;2년이 지나지 않은 석사과정생</p><p>-입학한 지&nbsp;4년이 지나지 않은 박사과정생 및 박사 수료생</p><p>-입학한 지&nbsp;6년이 지나지 않은 석박통합과정생 및 석박통합과정 수료생</p><p>(위의 기간 기산 시 휴학 및 군복무 기간은 제외함).</p><p>&nbsp;</p><p>위의 자격을 충족한 경우&nbsp;‘참여대학원생’으로 등록되어&nbsp;‘지원대학원생’&nbsp;선발 기회 등&nbsp;BK21&nbsp;사업의 지원을 받을 수 있음.</p><p>&nbsp;</p><p>2.&nbsp;지원대학원생 선발 및 연구장학금 지급</p><p>1)&nbsp;참여대학원생으로 등록된 학생 중&nbsp;70%&nbsp;이내의 대학원생을&nbsp;‘지원대학원생’으로 선발해 연구장학금을 지급함.</p><p>2)&nbsp;지원기간: 2022.09.01.~2023.02.28. (6개월 단위로 선발)</p><p>3)&nbsp;선발기준:&nbsp;<strong>지도교수 추천을 받은 참여대학원생&nbsp;</strong>중 연구/프로젝트 성과 평가에 의해 선발</p><p>4)&nbsp;역할 및 임무</p><p>- BK21&nbsp;참여교수 연구실에서 논문 연구 및 산학 프로젝트를 성실히 수행&nbsp;(주&nbsp;40시간 이상)</p><p>-&nbsp;사업단이 주관하는 각종 세미나,&nbsp;포럼 등의 학술 활동에 참여</p><p>-&nbsp;사업단이 요구하는 성과 자료 보고</p><p>&nbsp;</p><p><br></p><p>3.&nbsp;참여대학원생 등록서류 제출안내(등록서류는 단순참여, 장학금 지원 받는 학생 모두 제출해주세요.)</p><p>1)&nbsp;첨부된 제출서류 다운 및 작성 후&nbsp;BK21&nbsp;사업단 사무실로 서류 제출.</p><p>2)&nbsp;지도교수로부터 지원대학원생(장학금 받는 학생)으로 추천받은 대학원생은&nbsp;<strong>5.제출서류</strong>&nbsp;함께 제출</p><p>&nbsp;</p><p>4.&nbsp;서류 제출 기간:&nbsp;2022년 8월 29일(월) 13:00 - 9월 7일(수) 17:00 (제출기한 엄수)</p><p><br></p><p><br></p><p><br></p><p>5.&nbsp;제출서류</p><p>-&nbsp;연구자등록번호 발급 방법</p><p>: KRI(한국연구업적통합정보시스템&nbsp;<a href=\"http://www.kri.go.kr%29/\">http://www.kri.go.kr)</a>에 접속 회원가입→연구자등록번호 발급&nbsp;</p><p>&nbsp; (가입 시 소속을 반드시&nbsp;‘한동대학교’로 가입)&nbsp;</p><p><br></p><p><br></p><p>1)&nbsp;재학증명서&nbsp;1부.&nbsp;연구생등록자의 경우 연구생등록증&nbsp;1부(2022년 9월 1일자 기준으로 제출)</p><p>2)&nbsp;개인정보 수집 이용 제공 동의서&nbsp;1부. (BK사업에 처음 참여하는 학생만 제출)</p><p>3)&nbsp;참여인력 서약서&nbsp;1부.&nbsp;</p><p>4)&nbsp;참여대학원생 확약서&nbsp;1부.</p><p>5) BK21&nbsp;연구장학금 신청서&nbsp;1부. (지원대학원생-BK장학금 받는 학생만 제출)</p><p>6) 전산전자공학부공학과 학기 보고서&nbsp;1부.</p><p>7)&nbsp;재학증명서&nbsp;1부.(9월 1일 기준)</p><p>&nbsp;</p><p><strong>8) 연구재단 필수 제출 서류&nbsp;'4대 보험 가입 증명서'&nbsp;1부.&nbsp;(22.10.1일 기준일로하여 메일로 회신)</strong></p><p><strong>(**10월1일 기준으로 출력&nbsp;후 제출 바랍니다. 9월에는 제출하지 않아도 됩니다!)</strong></p><p>-&nbsp;출력 방법: 4대 사회보험 포털서비스(<a href=\"http://www.4insure.or.kr%29/\">http://www.4insure.or.kr)</a> 로그인(회원가입,&nbsp;공인인증서 필요)&nbsp;→&nbsp;상단 메뉴 증명서발급(가입내역확인)&nbsp;클릭 후 출력</p><p>&nbsp;</p><p>9)&nbsp;대학원 성적표&nbsp;1부. (신입생은 제출X)</p><p>&nbsp;</p><p>&lt;한국연구재단 필수 수강!!-참여기간 중 1회 수강 후 수료증 제출해야함, 교육 미이수자 및&nbsp; 22-2학기 신입생만 수강하면 됩니다.&gt;</p><p>10)&nbsp;온라인 교육 수료증&nbsp;(<a href=\"http://alpha-campus.kr/)\">http://alpha-campus.kr/)</a>&nbsp;에 접속하여 로그인 후 상단 메뉴의 '탐색'-&gt;'온라인교육' -&gt; '건강한 연구환경 조성을 위한 인권침해예방교육'클릭 -&gt;'수강신청' 클릭 후 팝업창에서 수강신청 정보 확인 및 '신청완료'-&gt; '학습'-&gt; '학습중과정'-&gt;&nbsp;'건강한 연구환경 조성을 위한 인권침해예방교육' 순서대로 클릭 후 '학습하기'</p><p>컨텐츠 수강 후&nbsp;‘MY'-&gt; '학습이력'클릭 후 수료증 발급 및 보관)&nbsp;</p><p>*수료증은 메일로 회신부탁합니다.&nbsp;</p><p>&nbsp;</p><p>11)&nbsp;통장사본 및 신분증 사본 각&nbsp;1부.</p><p>&nbsp;</p><p>※&nbsp;외국인 참여대학원생의 경우 외국인 등록증 앞,&nbsp;뒤 사본(D-2비자 여부 및 만료기한 확인)&nbsp;제출.</p><p>※ 기존&nbsp;참여대학원생이 지원할 경우: 2)개인정보 수집 이용 제공 동의서,&nbsp;10)온라인 교육 수료증 제출 생략.</p><p>&nbsp;</p><p>6.&nbsp;서류 제출 및 문의처</p><p>1) BK21사업단 사무실:&nbsp;뉴턴홀&nbsp;309호 전산전자공학부공학부 사무실&nbsp;담당자 고라경(Tel: 260-3150)</p><p>2)&nbsp;신청 시 모든 서류는 위 제출서류 순서대로 정리하여 원본 제출 바랍니다.</p><p>&nbsp;</p><p>7.&nbsp;유의사항:&nbsp;제출된 서류는 반환하지 않으며,&nbsp;허위사실 기재 시 선발을 취소함.</p>")
                 .viewCnt(0)
                 .importance(false)
                 .pubDate(LocalDate.of(2022, Month.JULY, 1))
@@ -419,8 +419,8 @@ public class TestController {
                 .build());
         noticeRepository.save(Notice.builder()
                 .manager(l.get(1))
-                .title("[전산전자공학부] 2022 CSEE Lab Week에 초대합니다.")
-                .content("<p>안녕하세요? <img width='70%' height='auto' style='display: block; margin: 0 auto' src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/1f4bb/32.png\" alt=\"\uD83D\uDCBB\" contenteditable=\"false\"><br></p><p>전산전자공학부, 일반대학원 전산전자공학과가 <strong>9주차 10/24(월)~10/28(금)</strong>에 각 연구실에 대해 알아가고 다양한 연구의 내용을 공유하는 시간을 가지려고 합니다.&nbsp;</p><p><br></p><p><br></p><p>저희 전산전자공학부, 일반대학원 전산전자공학과에서 어떤 주제의 연구들을 진행하고 있는지 <strong>Lab설명회, 포스터세션</strong>을 통해 이야기를 듣고 싶은 학생들의 많은 참여 바랍니다.&nbsp;</p><p><br></p><p><br></p><p>행사에 참석하면 입시관련된 정보 또한 얻을 수 있으니 AI를 포함한 ICT관련 분야 진학에 관심있는 모든 학부생들의 참여를 환영합니다.&nbsp; </p><p><img src=\"https://shine-jung-test-bucket.s3.ap-northeast-2.amazonaws.com/upload/스크린샷 2022-11-07 오후 9.57.21.png\" contenteditable=\"false\"><br></p><p><br></p><p><img src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/2728/32.png\" alt=\"d24;\" contenteditable=\"false\"><strong>온라인 Lab 멘토링 실시 (기간: 10/24(월)~10/28(금))</strong></p><p>(아래 링크접속 후 각 Lab의 오픈카톡방을 통한 자유로운 상담 가능)</p><p><br></p><p><a href=\"https://docs.google.com/document/d/1vPNIac3vfuBxzr3-IsqVqEAFwJtA-6dXiE_RvKhXJHo/edit#\">https://docs.google.com/document/d/1vPNIac3vfuBxzr3-IsqVqEAFwJtA-6dXiE_RvKhXJHo/edit#</a></p><p>&nbsp;</p><p>&nbsp;</p><p><img src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/2728/32.png\" alt=\"d24;\" contenteditable=\"false\"><strong> Lab토크쇼(10/27(목) 18시30분~) 사전질문 작성</strong></p><p>제출된 질문은 Lab 토크쇼에서 활용되며, 추첨을 통하여 커피쿠폰을 드립니다.</p><p><a href=\"https://forms.gle/a8XWyqXcTec8vdwq5\">https://forms.gle/a8XWyqXcTec8vdwq5</a></p><p>&nbsp;</p><p>&nbsp;</p><p><img src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/2728/32.png\" alt=\"d24;\" contenteditable=\"false\"> <strong>CSEE Lab Week 행사 참석 희망자(만찬 참여 포함)는 아래 설문지 필수 작성</strong></p><p><br></p><p><a href=\"https://docs.google.com/forms/d/1wkUWbYgcPFFTfrI-M3aOonQYRd_Oq6VHugJx6rVkuRE/edit?pli=1\">https://docs.google.com/forms/d/1wkUWbYgcPFFTfrI-M3aOonQYRd_Oq6VHugJx6rVkuRE/edit?pli=1</a></p><p><br></p><p><br></p><p><strong>**10/28(금)** 포스터세션이 종료되고 만찬(오후 5시 예정)이 있을 예정입니다.</strong></p><p><strong>만찬은 인원수 제한으로 선착순으로 신청을 받습니다.</strong></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><img src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/1f381/32.png\" alt=\"\uD83C\uDF81\" contenteditable=\"false\"><strong>event</strong><img src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/1f381/32.png\" alt=\"\uD83C\uDF81\" contenteditable=\"false\"> <strong>CSEE Lab Week 참가자 커피쿠폰 증정</strong>&nbsp;</p><ul><li><p>미션1: 핸드아웃에 제시된 목, 금 행사 중 3개 이상 참석 후 스탬프 받기</p></li><li><p>미션2: 행사 완료 후 CSEE Lab Week 설문조사 작성</p></li><li><p>쿠폰수령: 10주차 학과사무실에 방문하여 수령 (선착순)</p></li><li><p><a href=\"https://docs.google.com/forms/d/10L7pp1SXu6tSmY2IaXT-8GskikhPtEeIYPFQ0Em7RT8/edit#responses\">https://docs.google.com/forms/d/10L7pp1SXu6tSmY2IaXT-8GskikhPtEeIYPFQ0Em7RT8/edit#responses</a></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p><strong>* 문의: 전산전자공학과 고라경 선생님 (전화: 054-260-3150)</strong></p>")
+                .title("[전산전자공학부공학부] 2022 CSEE Lab Week에 초대합니다.")
+                .content("<p>안녕하세요? <img width='70%' height='auto' style='display: block; margin: 0 auto' src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/1f4bb/32.png\" alt=\"\uD83D\uDCBB\" contenteditable=\"false\"><br></p><p>전산전자공학부공학부, 일반대학원 전산전자공학부공학과가 <strong>9주차 10/24(월)~10/28(금)</strong>에 각 연구실에 대해 알아가고 다양한 연구의 내용을 공유하는 시간을 가지려고 합니다.&nbsp;</p><p><br></p><p><br></p><p>저희 전산전자공학부공학부, 일반대학원 전산전자공학부공학과에서 어떤 주제의 연구들을 진행하고 있는지 <strong>Lab설명회, 포스터세션</strong>을 통해 이야기를 듣고 싶은 학생들의 많은 참여 바랍니다.&nbsp;</p><p><br></p><p><br></p><p>행사에 참석하면 입시관련된 정보 또한 얻을 수 있으니 AI를 포함한 ICT 관련 분야 진학에 관심있는 모든 학부생들의 참여를 환영합니다.&nbsp; </p><p><img src=\"https://shine-jung-test-bucket.s3.ap-northeast-2.amazonaws.com/upload/스크린샷 2022-11-07 오후 9.57.21.png\" contenteditable=\"false\"><br></p><p><br></p><p><img src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/2728/32.png\" alt=\"d24;\" contenteditable=\"false\"><strong>온라인 Lab 멘토링 실시 (기간: 10/24(월)~10/28(금))</strong></p><p>(아래 링크접속 후 각 Lab의 오픈카톡방을 통한 자유로운 상담 가능)</p><p><br></p><p><a href=\"https://docs.google.com/document/d/1vPNIac3vfuBxzr3-IsqVqEAFwJtA-6dXiE_RvKhXJHo/edit#\">https://docs.google.com/document/d/1vPNIac3vfuBxzr3-IsqVqEAFwJtA-6dXiE_RvKhXJHo/edit#</a></p><p>&nbsp;</p><p>&nbsp;</p><p><img src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/2728/32.png\" alt=\"d24;\" contenteditable=\"false\"><strong> Lab토크쇼(10/27(목) 18시30분~) 사전질문 작성</strong></p><p>제출된 질문은 Lab 토크쇼에서 활용되며, 추첨을 통하여 커피쿠폰을 드립니다.</p><p><a href=\"https://forms.gle/a8XWyqXcTec8vdwq5\">https://forms.gle/a8XWyqXcTec8vdwq5</a></p><p>&nbsp;</p><p>&nbsp;</p><p><img src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/2728/32.png\" alt=\"d24;\" contenteditable=\"false\"> <strong>CSEE Lab Week 행사 참석 희망자(만찬 참여 포함)는 아래 설문지 필수 작성</strong></p><p><br></p><p><a href=\"https://docs.google.com/forms/d/1wkUWbYgcPFFTfrI-M3aOonQYRd_Oq6VHugJx6rVkuRE/edit?pli=1\">https://docs.google.com/forms/d/1wkUWbYgcPFFTfrI-M3aOonQYRd_Oq6VHugJx6rVkuRE/edit?pli=1</a></p><p><br></p><p><br></p><p><strong>**10/28(금)** 포스터세션이 종료되고 만찬(오후 5시 예정)이 있을 예정입니다.</strong></p><p><strong>만찬은 인원수 제한으로 선착순으로 신청을 받습니다.</strong></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><img src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/1f381/32.png\" alt=\"\uD83C\uDF81\" contenteditable=\"false\"><strong>event</strong><img src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/1f381/32.png\" alt=\"\uD83C\uDF81\" contenteditable=\"false\"> <strong>CSEE Lab Week 참가자 커피쿠폰 증정</strong>&nbsp;</p><ul><li><p>미션1: 핸드아웃에 제시된 목, 금 행사 중 3개 이상 참석 후 스탬프 받기</p></li><li><p>미션2: 행사 완료 후 CSEE Lab Week 설문조사 작성</p></li><li><p>쿠폰수령: 10주차 학과사무실에 방문하여 수령 (선착순)</p></li><li><p><a href=\"https://docs.google.com/forms/d/10L7pp1SXu6tSmY2IaXT-8GskikhPtEeIYPFQ0Em7RT8/edit#responses\">https://docs.google.com/forms/d/10L7pp1SXu6tSmY2IaXT-8GskikhPtEeIYPFQ0Em7RT8/edit#responses</a></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p><strong>* 문의: 전산전자공학부공학과 고라경 선생님 (전화: 054-260-3150)</strong></p>")
                 .viewCnt(0)
                 .importance(true)
                 .pubDate(LocalDate.of(2022, Month.AUGUST, 5))
@@ -502,7 +502,7 @@ public class TestController {
         noticeRepository.save(Notice.builder()
                 .manager(l.get(0))
                 .title("[CSEE Lab Week] Lab 토크쇼 관련 사전 질문")
-                .content("<p>안녕하세요. 컴퓨터 공학 전공 주임 안민규 교수입니다.</p><p>&nbsp;</p><p>이전 글에 공지된 것처럼 다음 주 9주차에는 전산전자공학부/전산전자공학과가 CSEE Lab Week가 진행됩니다.</p><p>관련 글&gt;&nbsp;https://hisnet.handong.edu/myboard/read.php?id=35135&amp;Board=B0029</p><p>&nbsp;</p><p>연구실에 관심이 있거나, 2023-1학기 공학프로젝트 기획 수강을 계획하는 학생들에게는 큰 도움이 될 것 같습니다.</p><p>&nbsp;</p><p>&nbsp;</p><p>각 연구실에 대하여 궁금한 점은 9주차 동안 진행되는 Lab 멘토링을 통해 문의하고 답변을 받기 바랍니다.</p><p>또한, 목요일 18:30에는 CSEE 연구실, 연구실 생활, 졸업 프로젝트, 진로 등에 관하여 이야기를 교수님들과 나눌 수 있는 자리를 마련하였으니 많은 학생들이 참여하여 정보를 얻는 시간이 되길 빕니다.</p><p>&nbsp;</p><p>&nbsp;</p><p>관련하여 현재 사전 질문을 받고 있습니다. 아래의 링크를 통하여 묻고 싶은 사항을 남겨주시기 바랍니다.</p><p>&nbsp;</p><p>&nbsp;</p><p><img width='70%' height='auto' style='display: block; margin: 0 auto' src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/2728/32.png\" alt=\"d24;\" contenteditable=\"false\"><strong> Lab토크쇼(10/27(목) 18시30분~) 사전질문 작성</strong></p><p>제출된 질문은 Lab 토크쇼에서 활용되며, 추첨을 통하여 커피쿠폰을 드립니다.</p><p><a href=\"https://forms.gle/a8XWyqXcTec8vdwq5\">https://forms.gle/a8XWyqXcTec8vdwq5</a></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>안민규 교수.</p>")
+                .content("<p>안녕하세요. 컴퓨터 공학 전공 주임 안민규 교수입니다.</p><p>&nbsp;</p><p>이전 글에 공지된 것처럼 다음 주 9주차에는 전산전자공학부공학부/전산전자공학부공학과가 CSEE Lab Week가 진행됩니다.</p><p>관련 글&gt;&nbsp;https://hisnet.handong.edu/myboard/read.php?id=35135&amp;Board=B0029</p><p>&nbsp;</p><p>연구실에 관심이 있거나, 2023-1학기 공학프로젝트 기획 수강을 계획하는 학생들에게는 큰 도움이 될 것 같습니다.</p><p>&nbsp;</p><p>&nbsp;</p><p>각 연구실에 대하여 궁금한 점은 9주차 동안 진행되는 Lab 멘토링을 통해 문의하고 답변을 받기 바랍니다.</p><p>또한, 목요일 18:30에는 CSEE 연구실, 연구실 생활, 졸업 프로젝트, 진로 등에 관하여 이야기를 교수님들과 나눌 수 있는 자리를 마련하였으니 많은 학생들이 참여하여 정보를 얻는 시간이 되길 빕니다.</p><p>&nbsp;</p><p>&nbsp;</p><p>관련하여 현재 사전 질문을 받고 있습니다. 아래의 링크를 통하여 묻고 싶은 사항을 남겨주시기 바랍니다.</p><p>&nbsp;</p><p>&nbsp;</p><p><img width='70%' height='auto' style='display: block; margin: 0 auto' src=\"https://fonts.gstatic.com/s/e/notoemoji/14.0/2728/32.png\" alt=\"d24;\" contenteditable=\"false\"><strong> Lab토크쇼(10/27(목) 18시30분~) 사전질문 작성</strong></p><p>제출된 질문은 Lab 토크쇼에서 활용되며, 추첨을 통하여 커피쿠폰을 드립니다.</p><p><a href=\"https://forms.gle/a8XWyqXcTec8vdwq5\">https://forms.gle/a8XWyqXcTec8vdwq5</a></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>안민규 교수.</p>")
                 .viewCnt(0)
                 .importance(true)
                 .pubDate(LocalDate.of(2022, Month.NOVEMBER, 2))
@@ -515,7 +515,7 @@ public class TestController {
 
         studentRepository.save(Student.builder()
                 .name("박성진")
-                .department(departementRepository.findByName("전산전자"))
+                .department(departementRepository.findByName("전산전자공학부"))
                 .studentNum("21700266")
                 .semester(8)
                 .major1(majorRepository.findByName("컴퓨터공학심화전공"))
@@ -530,7 +530,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("안병웅")
-                .department(departementRepository.findByName("생명과학"))
+                .department(departementRepository.findByName("생명과학부"))
                 .studentNum("21600000")
                 .semester(6)
                 .major1(majorRepository.findByName("생명과학전공"))
@@ -545,11 +545,11 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("홍성헌")
-                .department(departementRepository.findByName("커뮤니케이션"))
+                .department(departementRepository.findByName("커뮤니케이션학부"))
                 .studentNum("21800929")
                 .semester(8)
                 .major1(majorRepository.findByName("공연영상학전공"))
-                .major2(majorRepository.findByName("언로정보학전공"))
+                .major2(majorRepository.findByName("언론정보학전공"))
                 .phone("010-1623-3322")
                 .email("hong@handong.ac.kr")
                 .profile("profile.url")
@@ -560,7 +560,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("이인혁")
-                .department(departementRepository.findByName("기계제어"))
+                .department(departementRepository.findByName("기계제어공학부"))
                 .studentNum("21700032")
                 .semester(5)
                 .major1(majorRepository.findByName("전자제어공학전공"))
@@ -575,7 +575,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("정석민")
-                .department(departementRepository.findByName("콘텐츠융합디자인"))
+                .department(departementRepository.findByName("콘텐츠융합디자인학부"))
                 .studentNum("22000432")
                 .semester(3)
                 .major1(majorRepository.findByName("시각디자인전공"))
@@ -605,7 +605,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("김한동")
-                .department(departementRepository.findByName("전산전자"))
+                .department(departementRepository.findByName("전산전자공학부"))
                 .studentNum("22200000")
                 .semester(5)
                 .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -620,7 +620,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("박한동")
-                .department(departementRepository.findByName("국제어문"))
+                .department(departementRepository.findByName("국제어문학부"))
                 .studentNum("22200001")
                 .semester(3)
                 .major1(majorRepository.findByName("국제지역학전공"))
@@ -635,7 +635,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("이한동")
-                .department(departementRepository.findByName("경영경제"))
+                .department(departementRepository.findByName("경영경제학부"))
                 .studentNum("22200002")
                 .semester(5)
                 .major1(majorRepository.findByName("경영학전공"))
@@ -665,7 +665,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("우한동")
-                .department(departementRepository.findByName("커뮤니케이션"))
+                .department(departementRepository.findByName("커뮤니케이션학부"))
                 .studentNum("22200004")
                 .semester(6)
                 .major1(majorRepository.findByName("공연영상학전공"))
@@ -680,7 +680,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("위한동")
-                .department(departementRepository.findByName("상담복지"))
+                .department(departementRepository.findByName("상담심리사회복지학부"))
                 .studentNum("22200005")
                 .semester(6)
                 .major1(majorRepository.findByName("사회복지학전공"))
@@ -695,7 +695,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("하한동")
-                .department(departementRepository.findByName("공간환경시스템"))
+                .department(departementRepository.findByName("공간환경시스템공학부"))
                 .studentNum("22200006")
                 .semester(8)
                 .major1(majorRepository.findByName("도시환경공학전공"))
@@ -710,7 +710,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("마한동")
-                .department(departementRepository.findByName("콘텐츠융합디자인"))
+                .department(departementRepository.findByName("콘텐츠융합디자인학부"))
                 .studentNum("22200007")
                 .semester(4)
                 .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -725,7 +725,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("유한동")
-                .department(departementRepository.findByName("기계제어"))
+                .department(departementRepository.findByName("기계제어공학부"))
                 .studentNum("22200008")
                 .semester(6)
                 .major1(majorRepository.findByName("기계공학전공"))
@@ -740,7 +740,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("진한동")
-                .department(departementRepository.findByName("ICT창업학부"))
+                .department(departementRepository.findByName("ICT 창업학부"))
                 .studentNum("22200009")
                 .semester(7)
                 .major1(majorRepository.findByName("ICT 융합전공"))
@@ -755,7 +755,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("김건휘")
-                .department(departementRepository.findByName("전산전자"))
+                .department(departementRepository.findByName("전산전자공학부"))
                 .studentNum("21700234")
                 .semester(2)
                 .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -770,7 +770,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("이도경")
-                .department(departementRepository.findByName("국제어문"))
+                .department(departementRepository.findByName("국제어문학부"))
                 .studentNum("21200012")
                 .semester(9)
                 .major1(majorRepository.findByName("국제지역학전공"))
@@ -785,7 +785,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("정민수")
-                .department(departementRepository.findByName("경영경제"))
+                .department(departementRepository.findByName("경영경제학부"))
                 .studentNum("22200032")
                 .semester(5)
                 .major1(majorRepository.findByName("경영학전공"))
@@ -815,7 +815,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("김빛나리")
-                .department(departementRepository.findByName("커뮤니케이션"))
+                .department(departementRepository.findByName("커뮤니케이션학부"))
                 .studentNum("22200023")
                 .semester(3)
                 .major1(majorRepository.findByName("공연영상학전공"))
@@ -830,7 +830,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("김혜린")
-                .department(departementRepository.findByName("상담복지"))
+                .department(departementRepository.findByName("상담심리사회복지학부"))
                 .studentNum("21900021")
                 .semester(4)
                 .major1(majorRepository.findByName("사회복지학전공"))
@@ -845,7 +845,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("이소희")
-                .department(departementRepository.findByName("공간환경시스템"))
+                .department(departementRepository.findByName("공간환경시스템공학부"))
                 .studentNum("21800002")
                 .semester(9)
                 .major1(majorRepository.findByName("도시환경공학전공"))
@@ -860,7 +860,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("이소연")
-                .department(departementRepository.findByName("콘텐츠융합디자인"))
+                .department(departementRepository.findByName("콘텐츠융합디자인학부"))
                 .studentNum("21400025")
                 .semester(2)
                 .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -875,7 +875,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("이동영")
-                .department(departementRepository.findByName("기계제어"))
+                .department(departementRepository.findByName("기계제어공학부"))
                 .studentNum("21100234")
                 .semester(10)
                 .major1(majorRepository.findByName("기계공학전공"))
@@ -890,7 +890,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("이연진")
-                .department(departementRepository.findByName("ICT창업학부"))
+                .department(departementRepository.findByName("ICT 창업학부"))
                 .studentNum("21800012")
                 .semester(9)
                 .major1(majorRepository.findByName("ICT 융합전공"))
@@ -905,7 +905,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("김시온")
-                .department(departementRepository.findByName("전산전자"))
+                .department(departementRepository.findByName("전산전자공학부"))
                 .studentNum("22100032")
                 .semester(2)
                 .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -920,7 +920,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("황유민")
-                .department(departementRepository.findByName("국제어문"))
+                .department(departementRepository.findByName("국제어문학부"))
                 .studentNum("21600432")
                 .semester(1)
                 .major1(majorRepository.findByName("국제지역학전공"))
@@ -935,7 +935,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("엄서영")
-                .department(departementRepository.findByName("경영경제"))
+                .department(departementRepository.findByName("경영경제학부"))
                 .studentNum("22000231")
                 .semester(5)
                 .major1(majorRepository.findByName("경영학전공"))
@@ -965,7 +965,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("천그루")
-                .department(departementRepository.findByName("커뮤니케이션"))
+                .department(departementRepository.findByName("커뮤니케이션학부"))
                 .studentNum("22200026")
                 .semester(3)
                 .major1(majorRepository.findByName("공연영상학전공"))
@@ -980,7 +980,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("이하민")
-                .department(departementRepository.findByName("상담복지"))
+                .department(departementRepository.findByName("상담심리사회복지학부"))
                 .studentNum("21910032")
                 .semester(4)
                 .major1(majorRepository.findByName("사회복지학전공"))
@@ -995,9 +995,9 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("박관희")
-                .department(departementRepository.findByName("공간환경시스템"))
+                .department(departementRepository.findByName("공간환경시스템공학부"))
                 .studentNum("21800232")
-                .semester(9)
+                               .semester(9)
                 .major1(majorRepository.findByName("도시환경공학전공"))
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-3221-6365")
@@ -1010,7 +1010,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("현요섭")
-                .department(departementRepository.findByName("콘텐츠융합디자인"))
+                .department(departementRepository.findByName("콘텐츠융합디자인학부"))
                 .studentNum("21400325")
                 .semester(2)
                 .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -1025,7 +1025,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("이찬호")
-                .department(departementRepository.findByName("기계제어"))
+                .department(departementRepository.findByName("기계제어공학부"))
                 .studentNum("21100734")
                 .semester(10)
                 .major1(majorRepository.findByName("기계공학전공"))
@@ -1040,7 +1040,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("아무개")
-                .department(departementRepository.findByName("ICT창업학부"))
+                .department(departementRepository.findByName("ICT 창업학부"))
                 .studentNum("22200012")
                 .semester(9)
                 .major1(majorRepository.findByName("ICT 융합전공"))
@@ -1055,7 +1055,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("김요나")
-                .department(departementRepository.findByName("전산전자"))
+                .department(departementRepository.findByName("전산전자공학부"))
                 .studentNum("21100032")
                 .semester(2)
                 .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -1070,7 +1070,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("박도마")
-                .department(departementRepository.findByName("국제어문"))
+                .department(departementRepository.findByName("국제어문학부"))
                 .studentNum("21900432")
                 .semester(1)
                 .major1(majorRepository.findByName("국제지역학전공"))
@@ -1085,7 +1085,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("이배드로")
-                .department(departementRepository.findByName("경영경제"))
+                .department(departementRepository.findByName("경영경제학부"))
                 .studentNum("22000331")
                 .semester(5)
                 .major1(majorRepository.findByName("경영학전공"))
@@ -1115,7 +1115,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("기운찬")
-                .department(departementRepository.findByName("커뮤니케이션"))
+                .department(departementRepository.findByName("커뮤니케이션학부"))
                 .studentNum("22100027")
                 .semester(3)
                 .major1(majorRepository.findByName("공연영상학전공"))
@@ -1130,7 +1130,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("곤잘레스")
-                .department(departementRepository.findByName("상담복지"))
+                .department(departementRepository.findByName("상담심리사회복지학부"))
                 .studentNum("21900112")
                 .semester(4)
                 .major1(majorRepository.findByName("사회복지학전공"))
@@ -1145,7 +1145,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("다비드")
-                .department(departementRepository.findByName("공간환경시스템"))
+                .department(departementRepository.findByName("공간환경시스템공학부"))
                 .studentNum("21800332")
                 .semester(9)
                 .major1(majorRepository.findByName("도시환경공학전공"))
@@ -1160,7 +1160,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("도베르만")
-                .department(departementRepository.findByName("콘텐츠융합디자인"))
+                .department(departementRepository.findByName("콘텐츠융합디자인학부"))
                 .studentNum("21400425")
                 .semester(2)
                 .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -1175,7 +1175,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("진시황")
-                .department(departementRepository.findByName("기계제어"))
+                .department(departementRepository.findByName("기계제어공학부"))
                 .studentNum("21100714")
                 .semester(10)
                 .major1(majorRepository.findByName("기계공학전공"))
@@ -1190,7 +1190,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("황유비")
-                .department(departementRepository.findByName("ICT창업학부"))
+                .department(departementRepository.findByName("ICT 창업학부"))
                 .studentNum("21900012")
                 .semester(9)
                 .major1(majorRepository.findByName("ICT 융합전공"))
@@ -1206,7 +1206,7 @@ public class TestController {
 
         studentRepository.save(Student.builder()
                 .name("우요셉")
-                .department(departementRepository.findByName("전산전자"))
+                .department(departementRepository.findByName("전산전자공학부"))
                 .studentNum("21900032")
                 .semester(2)
                 .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -1221,7 +1221,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("홍아담")
-                .department(departementRepository.findByName("국제어문"))
+                .department(departementRepository.findByName("국제어문학부"))
                 .studentNum("21901132")
                 .semester(1)
                 .major1(majorRepository.findByName("국제지역학전공"))
@@ -1236,7 +1236,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("김이브")
-                .department(departementRepository.findByName("경영경제"))
+                .department(departementRepository.findByName("경영경제학부"))
                 .studentNum("22000131")
                 .semester(5)
                 .major1(majorRepository.findByName("경영학전공"))
@@ -1266,7 +1266,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("기윤호")
-                .department(departementRepository.findByName("커뮤니케이션"))
+                .department(departementRepository.findByName("커뮤니케이션학부"))
                 .studentNum("22100088")
                 .semester(3)
                 .major1(majorRepository.findByName("공연영상학전공"))
@@ -1281,7 +1281,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("김영찬")
-                .department(departementRepository.findByName("상담복지"))
+                .department(departementRepository.findByName("상담심리사회복지학부"))
                 .studentNum("21900232")
                 .semester(4)
                 .major1(majorRepository.findByName("사회복지학전공"))
@@ -1296,7 +1296,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("김영헌")
-                .department(departementRepository.findByName("공간환경시스템"))
+                .department(departementRepository.findByName("공간환경시스템공학부"))
                 .studentNum("21810232")
                 .semester(9)
                 .major1(majorRepository.findByName("도시환경공학전공"))
@@ -1311,7 +1311,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("김하은")
-                .department(departementRepository.findByName("콘텐츠융합디자인"))
+                .department(departementRepository.findByName("콘텐츠융합디자인학부"))
                 .studentNum("21400825")
                 .semester(2)
                 .major1(majorRepository.findByName("컴퓨터공학전공"))
@@ -1326,7 +1326,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("장유진")
-                .department(departementRepository.findByName("기계제어"))
+                .department(departementRepository.findByName("기계제어공학부"))
                 .studentNum("21100114")
                 .semester(10)
                 .major1(majorRepository.findByName("기계공학전공"))
@@ -1341,7 +1341,7 @@ public class TestController {
                 .build());
         studentRepository.save(Student.builder()
                 .name("정수산나")
-                .department(departementRepository.findByName("ICT창업학부"))
+                .department(departementRepository.findByName("ICT 창업학부"))
                 .studentNum("21900312")
                 .semester(9)
                 .major1(majorRepository.findByName("ICT 융합전공"))
@@ -1384,42 +1384,41 @@ public class TestController {
 
     private void saveDepartment() {
         departementRepository.save(Department.builder()
-                .name("전산전자")
+                .name("전산전자공학부")
                 .build());
         departementRepository.save(Department.builder()
-                .name("국제어문")
+                .name("국제어문학부")
                 .build());
         departementRepository.save(Department.builder()
-                .name("경영경제")
+                .name("경영경제학부")
                 .build());
         departementRepository.save(Department.builder()
                 .name("법학부")
                 .build());
         departementRepository.save(Department.builder()
-                .name("커뮤니케이션")
+                .name("커뮤니케이션학부")
                 .build());
         departementRepository.save(Department.builder()
-                .name("상담복지")
+                .name("상담심리사회복지학부")
                 .build());
         departementRepository.save(Department.builder()
-                .name("공간환경시스템")
+                .name("공간환경시스템공학부")
                 .build());
         departementRepository.save(Department.builder()
-                .name("콘텐츠융합디자인")
+                .name("콘텐츠융합디자인학부")
                 .build());
         departementRepository.save(Department.builder()
-                .name("기계제어")
+                .name("기계제어공학부")
                 .build());
         departementRepository.save(Department.builder()
-                .name("ICT창업학부")
+                .name("ICT 창업학부")
                 .build());
         departementRepository.save(Department.builder()
-                .name("ICT융합학부")
+                .name("생명과학부")
                 .build());
         departementRepository.save(Department.builder()
-                .name("생명과학")
+                .name("글로벌리더쉽학부")
                 .build());
-
     }
 
 
@@ -1973,7 +1972,7 @@ public class TestController {
         majorRepository.save(Major.builder().name("도시환경공학전공").build());
         majorRepository.save(Major.builder().name("기계공학전공").build());
         majorRepository.save(Major.builder().name("전자제어공학전공").build());
-        majorRepository.save(Major.builder().name("생명과학전공").build());
+        majorRepository.save(Major.builder().name("부전공").build());
         majorRepository.save(Major.builder().name("글로벌융합전공").build());
         majorRepository.save(Major.builder().name("수학통계전공").build());
         majorRepository.save(Major.builder().name("학생설계융합전공").build());
@@ -1985,9 +1984,9 @@ public class TestController {
         majorRepository.save(Major.builder().name("전자공학심화전공").build());
         majorRepository.save(Major.builder().name("Information Technology").build());
         majorRepository.save(Major.builder().name("ICT 융합전공").build());
-        majorRepository.save(Major.builder().name("AI Convergence & Entrepreneurship").build());
-        majorRepository.save(Major.builder().name("Global Entrepreneurship").build());
-        majorRepository.save(Major.builder().name("AI 융합").build());
+        majorRepository.save(Major.builder().name("AI Convergence & Entrepreneurship 전공").build());
+        majorRepository.save(Major.builder().name("Global Entrepreneurship 전공").build());
+        majorRepository.save(Major.builder().name("AI 융합 전공").build());
         majorRepository.save(Major.builder().name("데이터 사이언스 전공").build());
         majorRepository.save(Major.builder().name("경영학전공").build());
         majorRepository.save(Major.builder().name("경제학전공").build());
@@ -1999,9 +1998,7 @@ public class TestController {
         majorRepository.save(Major.builder().name("상담심리학전공").build());
         majorRepository.save(Major.builder().name("사회복지학전공").build());
         majorRepository.save(Major.builder().name("공연영상학전공").build());
-        majorRepository.save(Major.builder().name("언로정보학전공").build());
-        majorRepository.save(Major.builder().name("글로벌융합전공").build());
-        majorRepository.save(Major.builder().name("학생설계융합전공").build());
+        majorRepository.save(Major.builder().name("언론정보학전공").build());
         majorRepository.save(Major.builder().name("글로벌한국학전공").build());
     }
 }
