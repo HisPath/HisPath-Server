@@ -199,8 +199,19 @@ public class ScholarshipService {
     @Transactional(readOnly = true)
     public List<ChartGradeDataDto> getChartGradeDistribution(String semester) {
         List<ChartGradeDataDto> chartGradeDataDtos = scholarshipRepositoryCustom.getCountByGradeAndSemester(semester);
+
         chartGradeDataDtos.sort(Comparator.comparing(ChartGradeDataDto::getGrade));
-        return chartGradeDataDtos;
+        ChartGradeDataDto[] chartGradeDatas = new ChartGradeDataDto[4];
+        chartGradeDatas[0] = new ChartGradeDataDto(1, 0L);
+        chartGradeDatas[1] = new ChartGradeDataDto(2, 0L);
+        chartGradeDatas[2] = new ChartGradeDataDto(3, 0L);
+        chartGradeDatas[3] = new ChartGradeDataDto(4, 0L);
+        chartGradeDataDtos.forEach(chartGradeDataDto -> {
+            int grade = chartGradeDataDto.getGrade()/2 + chartGradeDataDto.getGrade()%2;
+            chartGradeDatas[grade-1].addCnt(chartGradeDataDto.getCnt());
+        });
+
+        return List.of(chartGradeDatas);
     }
 
     @Transactional(readOnly = true)
