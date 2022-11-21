@@ -73,7 +73,7 @@ public class ManagerService {
     public ManagerDashboardDto getDashboard(Long managerId) {
         Manager manager = this.findById(managerId);
         List<DailyInfo> dailyInfos = dailyInfoRepository.findDailyInfoByDateBetweenOrderByDateAsc(LocalDate.now()
-                                                                                                           .minusDays(7), LocalDate.now());
+                                                                                                           .minusDays(6), LocalDate.now());
         Long[] loginCounts = dailyInfos.stream()
                                      .map(DailyInfo::getLoginCnt)
                                      .toArray(Long[]::new);

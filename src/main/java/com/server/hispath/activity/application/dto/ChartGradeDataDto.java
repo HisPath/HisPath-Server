@@ -18,4 +18,8 @@ public class ChartGradeDataDto {
         this.grade = grade;
         this.cnt = cnt;
     }
+
+    public void addCnt(Long cnt) {
+        this.cnt += cnt;
+    }
 }
