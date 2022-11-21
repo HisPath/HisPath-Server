@@ -32,6 +32,7 @@ public class Participant extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Section section;
 
+    @Column(length = 5555)
     String data;
 
     public Participant(Student student, Activity activity, Section section) {

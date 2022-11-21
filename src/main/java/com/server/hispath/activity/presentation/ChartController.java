@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
+import com.server.hispath.activity.application.dto.ChartGradeDataDto;
 import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
 import com.server.hispath.activity.presentation.response.chart.*;
 import com.server.hispath.auth.domain.LoginStudent;
@@ -103,13 +104,14 @@ public class ChartController {
 
     @GetMapping("/chart/grade")
     @ApiOperation(value = ApiDoc.CHART_SCHOLARSHIP_GRADE)
-    @RequestMapping
+    @RequiredManagerLogin
     public ResponseEntity<List<ChartGradeResponse>> getChartGradeDistribution(@RequestParam String semester) {
 
         List<ChartGradeResponse> responses = scholarshipService.getChartGradeDistribution(semester)
                                                                .stream()
                                                                .map(ChartGradeResponse::of)
                                                                .collect(Collectors.toList());
+
         return ResponseEntity.ok(responses);
     }
 
