@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
     List<Resume> findByStudent(Student student);
+
+    List<Resume> findTop6ByStudentOrderByUpdatedAtDesc(Student student);
 }
