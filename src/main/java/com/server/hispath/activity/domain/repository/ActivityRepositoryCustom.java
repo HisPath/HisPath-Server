@@ -87,6 +87,7 @@ public class ActivityRepositoryCustom {
     }
 
     public BooleanBuilder semesterCondition(BooleanBuilder booleanBuilder, ChartSearchRequestDto dto) {
+        if(Objects.equals(dto.getSemester(), "ALL")) return booleanBuilder;
         if (!Objects.isNull(dto.getSemester())) {
             booleanBuilder.and(activity.semester.eq(dto.getSemester()));
         }
