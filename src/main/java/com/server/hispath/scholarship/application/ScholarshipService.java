@@ -152,6 +152,7 @@ public class ScholarshipService {
 
     @Transactional(readOnly = true)
     public ChartRankDto getRankChartData(Long studentId, ChartSearchRequestDto dto) {
+
         Student student = studentService.findById(studentId);
         int myWeight = scholarshipRepository.findFirstByStudentAndSemester(student, dto.getSemester())
                                             .orElseGet(() -> Scholarship.builder().totalMileage(0).build())

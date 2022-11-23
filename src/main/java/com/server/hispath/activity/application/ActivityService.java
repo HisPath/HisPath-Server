@@ -130,13 +130,31 @@ public class ActivityService {
 
     @Transactional(readOnly = true)
     public List<ActivityParticipantDto> findAllParticipantActivites(Long studentId, String semester, String section) {
-        Student student = studentRepository.findStudentWithActivities(studentId).orElseThrow(StudentNotFoundException::new);
+        Student student = studentRepository.findStudentWithActivities(studentId)
+                                           .orElseThrow(StudentNotFoundException::new);
         return student.getParticipants()
                       .stream()
                       .filter(participant -> participant.isSameSemester(semester))
                       .filter(participant -> participant.isSameSection(section))
                       .map(ActivityParticipantDto::of)
                       .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ActivityParticipantDto> findRecentParticipantActivities(Long studentId) {
+
+        Student student = studentRepository.findStudentWithActivities(studentId)
+                                           .orElseThrow(StudentNotFoundException::new);
+        List<ActivityParticipantDto> dtos = student.getParticipants()
+                                                      .stream()
+                                                      .sorted((p1, p2) -> p2.getUpdatedAt()
+                                                                            .compareTo(p1.getUpdatedAt()))
+                                                      .map(ActivityParticipantDto::of)
+                                                      .collect(Collectors.toList());
+        if(dtos.size() > 6){
+            return dtos.subList(0, 6);
+        }
+        return dtos;
     }
 
     @Transactional(readOnly = true)

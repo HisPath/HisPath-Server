@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
+import com.server.hispath.activity.application.dto.ActivityParticipantDto;
 import com.server.hispath.activity.presentation.response.ActivityParticipantStatusResponse;
 import com.server.hispath.activity.presentation.response.SemesterResponse;
 import com.server.hispath.auth.domain.LoginStudent;
@@ -13,6 +14,8 @@ import com.server.hispath.auth.domain.StudentLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.notice.application.NoticeService;
 import com.server.hispath.notice.application.dto.DashboardNoticeDto;
+import com.server.hispath.resume.application.ResumeService;
+import com.server.hispath.resume.application.dto.ResumeDto;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.application.dto.StudentCUDto;
 import com.server.hispath.student.application.dto.StudentDto;
@@ -37,6 +40,7 @@ public class StudentController {
     private final StudentService studentService;
     private final NoticeService noticeService;
     private final ActivityService activityService;
+    private final ResumeService resumeService;
 
     @PostMapping("/student")
     @ApiOperation(value = ApiDoc.STUDENT_CREATE)
@@ -120,7 +124,10 @@ public class StudentController {
 
         StudentDto studentDto = studentService.find(loginStudent.getId());
         List<DashboardNoticeDto> dashboardNoticeDtos = noticeService.findRecentNotice();
-        return ResponseEntity.ok(DashboardResponse.from(studentDto, dashboardNoticeDtos));
+        List<ResumeDto> resumeDtos = resumeService.findRecentResumes(loginStudent.getId());
+        List<ActivityParticipantDto> activityDtos = activityService.findRecentParticipantActivities(loginStudent.getId());
+
+        return ResponseEntity.ok(DashboardResponse.from(studentDto, dashboardNoticeDtos, resumeDtos, activityDtos));
     }
 
     @GetMapping("/student-activities/status")
@@ -131,7 +138,7 @@ public class StudentController {
             @RequestParam String semester,
             @RequestParam String section) {
 
-        List<ActivityParticipantStatusResponse> responses = activityService.findAllPersonalParticipantActivites(1L, semester, section)
+        List<ActivityParticipantStatusResponse> responses = activityService.findAllPersonalParticipantActivites(loginStudent.getId(), semester, section)
                                                                            .stream()
                                                                            .map(ActivityParticipantStatusResponse::of)
                                                                            .collect(Collectors.toList());

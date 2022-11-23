@@ -68,7 +68,7 @@ public class ResumeController {
     @GetMapping("/resumes")
     @ApiOperation(value = ApiDoc.RESUME_READ_ALL)
     @RequiredLogin
-    public ResponseEntity<List<ResumeResponse>> findALl(@StudentLogin LoginStudent loginStudent) {
+    public ResponseEntity<List<ResumeResponse>> findAll(@StudentLogin LoginStudent loginStudent) {
 
         List<ResumeResponse> responses = resumeService.findAllStudentResumes(loginStudent.getId())
                                                       .stream()
