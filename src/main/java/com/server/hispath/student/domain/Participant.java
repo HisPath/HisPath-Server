@@ -58,7 +58,7 @@ public class Participant extends BaseEntity {
     public boolean isSameSection(String section) {
         if (Objects.equals(section, "ALL"))
             return true;
-        if (Objects.equals(section, "mileage"))
+        if (Objects.equals(section, "마일리지"))
             return this.activity.getRequestStatus() == 1;
         return Objects.equals(this.section.getName(), section);
     }

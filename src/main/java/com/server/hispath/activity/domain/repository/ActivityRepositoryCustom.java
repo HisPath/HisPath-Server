@@ -9,6 +9,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.server.hispath.activity.application.dto.ChartCategoryCntDto;
 import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
 import com.server.hispath.activity.application.dto.QChartCategoryCntDto;
+import com.server.hispath.activity.application.dto.chart.ChartSectionCntDto;
+import com.server.hispath.activity.application.dto.chart.QChartSectionCntDto;
 import com.server.hispath.student.domain.Student;
 
 import org.springframework.stereotype.Repository;
@@ -49,11 +51,28 @@ public class ActivityRepositoryCustom {
     }
 
     public List<ChartCategoryCntDto> getActivityCntByCategoryAndSemester(ChartSearchRequestDto dto) {
-        return queryFactory.select(new QChartCategoryCntDto(category.id, category.name ,activity.count()) )
+        return queryFactory.select(new QChartCategoryCntDto(category.id, category.name, activity.count()))
                            .from(activity)
                            .leftJoin(activity.category, category)
                            .where(semesterCondition(new BooleanBuilder(), dto))
                            .groupBy(category)
+                           .fetch();
+    }
+
+    public List<ChartSectionCntDto> getPersonalChartSectionCnts(Long studentId, ChartSearchRequestDto dto) {
+        return queryFactory.select(new QChartSectionCntDto(participant.section, participant.count()))
+                           .from(participant)
+                           .where(participant.student.id.eq(studentId)
+                                                        .and(participant.activity.semester.eq(dto.getSemester())))
+                           .groupBy(participant.section)
+                           .fetch();
+    }
+
+    public List<ChartSectionCntDto> getTotalChartSectionCnts(ChartSearchRequestDto dto) {
+        return queryFactory.select(new QChartSectionCntDto(participant.section, participant.count()))
+                           .from(participant)
+                           .where(participant.activity.semester.eq(dto.getSemester()))
+                           .groupBy(participant.section)
                            .fetch();
     }
 
@@ -87,7 +106,8 @@ public class ActivityRepositoryCustom {
     }
 
     public BooleanBuilder semesterCondition(BooleanBuilder booleanBuilder, ChartSearchRequestDto dto) {
-        if(Objects.equals(dto.getSemester(), "ALL")) return booleanBuilder;
+        if (Objects.equals(dto.getSemester(), "ALL"))
+            return booleanBuilder;
         if (!Objects.isNull(dto.getSemester())) {
             booleanBuilder.and(activity.semester.eq(dto.getSemester()));
         }

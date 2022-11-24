@@ -41,6 +41,7 @@ public class ApiDoc {
     public static final String CHART_MILEAGE_TIMELINE = "마일리지 활동 Timeline 차트 데이터 조회";
     public static final String CHART_SCHOLARSHIP_WEIGHT = "학생의 전체 가중치 분포 차트 데이터 조회";
     public static final String CHART_ACTIVITY_CATEGORY = "카테고리 별 활동 갯수 분포 차트 데이터 조회";
+    public static final String CHART_STUDENT_ACTIVITY = "학생들의 전체 섹션 활동 분포 차트 데이터 조회";
     public static final String CHART_SCHOLARSHIP_GRADE = "학년 별 마일리지 수혜 학생 분포 차트 데이터 조회";
     public static final String CHART_SCHOLARSHIP_DEPARTMENT = "학부 별 마일리지 수혜 학생 분포 차트 데이터 조회";
 
