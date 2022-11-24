@@ -1,4 +1,4 @@
-package com.server.hispath.activity.application.dto;
+package com.server.hispath.activity.application.dto.chart;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

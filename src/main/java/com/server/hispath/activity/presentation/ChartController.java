@@ -126,4 +126,12 @@ public class ChartController {
                                                                     .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
+
+    @GetMapping("/chart/activities")
+    @ApiOperation(value = ApiDoc.CHART_STUDENT_ACTIVITY)
+//    @RequiredLogin
+//    public ResponseEntity<List<ChartSectionResponse>> getActivityChartDatas(@StudentLogin LoginStudent loginStudent, @RequestParam String semester) {
+    public ResponseEntity<List<ChartSectionResponse>> getActivityChartDatas(@RequestParam String semester) {
+        return ResponseEntity.ok(activityService.getChartTotalDatasBySections(6L, semester));
+    }
 }

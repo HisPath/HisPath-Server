@@ -1,7 +1,8 @@
-package com.server.hispath.activity.application.dto;
+package com.server.hispath.activity.application.dto.chart;
 
 import java.util.Objects;
 
+import com.server.hispath.activity.application.dto.chart.ChartDataDto;
 import com.server.hispath.category.application.dto.CategoryDto;
 
 import lombok.AllArgsConstructor;

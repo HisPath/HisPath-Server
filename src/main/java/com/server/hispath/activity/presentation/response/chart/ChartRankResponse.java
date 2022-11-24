@@ -1,6 +1,6 @@
 package com.server.hispath.activity.presentation.response.chart;
 
-import com.server.hispath.activity.application.dto.ChartRankDto;
+import com.server.hispath.activity.application.dto.chart.ChartRankDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

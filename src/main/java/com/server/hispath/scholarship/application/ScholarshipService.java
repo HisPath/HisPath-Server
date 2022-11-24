@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.*;
+import com.server.hispath.activity.application.dto.chart.ChartRankDto;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.exception.scholarship.ScholarshipDuplicateException;
