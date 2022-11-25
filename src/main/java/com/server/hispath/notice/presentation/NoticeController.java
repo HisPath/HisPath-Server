@@ -1,5 +1,7 @@
 package com.server.hispath.notice.presentation;
 
+import com.server.hispath.auth.domain.LoginManager;
+import com.server.hispath.auth.domain.ManagerLogin;
 import com.server.hispath.auth.domain.RequiredLogin;
 import com.server.hispath.auth.domain.RequiredManagerLogin;
 import com.server.hispath.docs.ApiDoc;
@@ -33,8 +35,8 @@ public class NoticeController {
     @PostMapping("/notice/add")
     @ApiOperation(value= ApiDoc.NOTICE_CREATE)
     @RequiredManagerLogin
-    public ResponseEntity<Long> create(@RequestBody NoticeRequest request){
-        Long id = noticeService.create(request.getManagerId(), NoticeContentDto.from(request));
+    public ResponseEntity<Long> create(@ManagerLogin LoginManager loginManager, @RequestBody NoticeRequest request){
+        Long id = noticeService.create(loginManager.getId(), NoticeContentDto.from(request));
         return ResponseEntity.ok(id);
     }
 
