@@ -29,4 +29,16 @@ public class AuthController {
         LoginResponseDto loginResponseDto = authService.managerLogin(new LoginRequestDto(oauthProvider, code));
         return ResponseEntity.ok(TokenResponse.from(loginResponseDto));
     }
+
+    @GetMapping("/auth/login-student/guest/token")
+    public ResponseEntity<TokenResponse> loginGuestStudent() {
+
+        return ResponseEntity.ok(new TokenResponse(false, authService.getStudentGuestToken()));
+    }
+
+    @GetMapping("/auth/login-manager/guest/token")
+    public ResponseEntity<TokenResponse> loginGuestManager() {
+
+        return ResponseEntity.ok(new TokenResponse(false, authService.getManagerGuestToken()));
+    }
 }
