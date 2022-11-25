@@ -137,7 +137,6 @@ public class AuthService {
     }
 
     private void addLoginCount() {
-        System.out.println("aaaa");
         Optional<DailyInfo> dailyInfo = dailyInfoRepository.findFirstByDate(LocalDate.now());
         if (dailyInfo.isPresent()) {
             dailyInfo.get().login();
@@ -145,5 +144,15 @@ public class AuthService {
         }
         DailyInfo newDailyInfo = new DailyInfo();
         dailyInfoRepository.save(newDailyInfo);
+    }
+
+    @Transactional(readOnly = true)
+    public String getStudentGuestToken(){
+        return jwtProvider.createToken(String.valueOf(10L), Member.STUDENT);
+    }
+
+    @Transactional(readOnly = true)
+    public String getManagerGuestToken(){
+        return jwtProvider.createToken(String.valueOf(10L), Member.MANAGER);
     }
 }
