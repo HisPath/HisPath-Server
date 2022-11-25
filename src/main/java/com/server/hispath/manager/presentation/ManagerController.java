@@ -11,8 +11,10 @@ import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.manager.application.ManagerService;
 import com.server.hispath.manager.application.dto.ManagerCUDto;
 import com.server.hispath.manager.application.dto.ManagerDashboardDto;
+import com.server.hispath.manager.application.dto.ManagerUpdateDto;
 import com.server.hispath.manager.presentation.request.ManagerApproveRequest;
 import com.server.hispath.manager.presentation.request.ManagerCURequest;
+import com.server.hispath.manager.presentation.request.ManagerUpdateRequest;
 import com.server.hispath.manager.presentation.response.ManagerResponse;
 
 import org.springframework.http.ResponseEntity;
@@ -59,8 +61,16 @@ public class ManagerController {
     @PutMapping("/manager/{id}")
     @ApiOperation(value = ApiDoc.MANAGER_UPDATE)
     @RequiredSuperManagerLogin
-    public ResponseEntity<ManagerResponse> update(@PathVariable Long id, @RequestBody ManagerCURequest request) {
-        ManagerResponse response = ManagerResponse.of(managerService.update(id, ManagerCUDto.of(request)));
+    public ResponseEntity<ManagerResponse> update(@PathVariable Long id, @RequestBody ManagerUpdateRequest request) {
+        ManagerResponse response = ManagerResponse.of(managerService.update(id, ManagerUpdateDto.from(request)));
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/manager")
+    @ApiOperation(value = ApiDoc.MANAGER_PROFILE_UPDATE)
+    @ManagerLogin
+    public ResponseEntity<ManagerResponse> updateProfile(@ManagerLogin LoginManager loginManager, @RequestBody ManagerCURequest request){
+        ManagerResponse response = ManagerResponse.of(managerService.update(loginManager.getId(), ManagerCUDto.of(request)));
         return ResponseEntity.ok(response);
     }
 

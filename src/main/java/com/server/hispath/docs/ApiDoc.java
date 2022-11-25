@@ -82,6 +82,7 @@ public class ApiDoc {
     public static final String MANAGER_READ_ALL = "모든 관리자 조회";
     public static final String MANAGER_CREATE = "관리자 생성";
     public static final String MANAGER_UPDATE = "관리자 수정";
+    public static final String MANAGER_PROFILE_UPDATE = "관리자 프로필 수정";
     public static final String MANAGER_APPROVE = "관리자 승인";
     public static final String MANAGER_DELETE = "관리자 삭제";
     public static final String MANAGER_DASHBOARD = "관리자 대시보드 조회";

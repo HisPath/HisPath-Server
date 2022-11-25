@@ -8,6 +8,7 @@ import com.server.hispath.exception.manager.ManagerNotFoundException;
 import com.server.hispath.manager.application.dto.ManagerCUDto;
 import com.server.hispath.manager.application.dto.ManagerDashboardDto;
 import com.server.hispath.manager.application.dto.ManagerDto;
+import com.server.hispath.manager.application.dto.ManagerUpdateDto;
 import com.server.hispath.manager.domain.DailyInfo;
 import com.server.hispath.manager.domain.Manager;
 import com.server.hispath.manager.domain.repository.DailyInfoRepository;
@@ -46,6 +47,13 @@ public class ManagerService {
 
     @Transactional
     public ManagerDto update(Long id, ManagerCUDto dto) {
+        Manager manager = this.findById(id);
+        manager.update(dto);
+        return ManagerDto.of(manager);
+    }
+
+    @Transactional
+    public ManagerDto update(Long id, ManagerUpdateDto dto){
         Manager manager = this.findById(id);
         manager.update(dto);
         return ManagerDto.of(manager);
