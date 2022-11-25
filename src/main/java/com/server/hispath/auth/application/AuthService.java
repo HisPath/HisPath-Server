@@ -63,7 +63,7 @@ public class AuthService {
     public LoginResponseDto studentLogin(LoginRequestDto loginRequestDto) {
         OauthUserInfo userInfo = getStudentInfo(loginRequestDto);
         String email = userInfo.getEmail();
-        validateEmail(email);
+//        validateEmail(email);
         Optional<Student> student = studentRepository.findByEmail(email);
 
         return student.map(value -> {
