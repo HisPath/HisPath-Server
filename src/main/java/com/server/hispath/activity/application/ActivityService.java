@@ -1,13 +1,16 @@
 package com.server.hispath.activity.application;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.*;
+import com.server.hispath.activity.application.dto.chart.ChartCategoryDto;
+import com.server.hispath.activity.application.dto.chart.ChartDataDto;
+import com.server.hispath.activity.application.dto.chart.ChartSectionCntDto;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.activity.domain.repository.ActivityRepositoryCustom;
+import com.server.hispath.activity.presentation.response.chart.ChartSectionResponse;
 import com.server.hispath.category.application.CategoryService;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.category.domain.repository.CategoryRepository;
@@ -130,13 +133,31 @@ public class ActivityService {
 
     @Transactional(readOnly = true)
     public List<ActivityParticipantDto> findAllParticipantActivites(Long studentId, String semester, String section) {
-        Student student = studentRepository.findStudentWithActivities(studentId).orElseThrow(StudentNotFoundException::new);
+        Student student = studentRepository.findStudentWithActivities(studentId)
+                                           .orElseThrow(StudentNotFoundException::new);
         return student.getParticipants()
                       .stream()
                       .filter(participant -> participant.isSameSemester(semester))
                       .filter(participant -> participant.isSameSection(section))
                       .map(ActivityParticipantDto::of)
                       .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ActivityParticipantDto> findRecentParticipantActivities(Long studentId) {
+
+        Student student = studentRepository.findStudentWithActivities(studentId)
+                                           .orElseThrow(StudentNotFoundException::new);
+        List<ActivityParticipantDto> dtos = student.getParticipants()
+                                                   .stream()
+                                                   .sorted((p1, p2) -> p2.getUpdatedAt()
+                                                                         .compareTo(p1.getUpdatedAt()))
+                                                   .map(ActivityParticipantDto::of)
+                                                   .collect(Collectors.toList());
+        if (dtos.size() > 6) {
+            return dtos.subList(0, 6);
+        }
+        return dtos;
     }
 
     @Transactional(readOnly = true)
@@ -229,6 +250,24 @@ public class ActivityService {
 
     }
 
+    @Transactional(readOnly = true)
+    public List<ChartSectionResponse> getChartTotalDatasBySections(Long studentId, String semester) {
+        ChartSearchRequestDto dto = ChartSearchRequestDto.builder().semester(semester).build();
+        List<ChartSectionCntDto> studentCnts = activityRepositoryCustom.getPersonalChartSectionCnts(studentId, dto);
+        List<ChartSectionCntDto> totalCnts = activityRepositoryCustom.getTotalChartSectionCnts(dto);
+        int totalStudentCnt = activityRepositoryCustom.getTotalStudentCntByChartSearchRequest(dto);
+
+        return totalCnts.stream()
+                        .map(totalCnt -> {
+                            return studentCnts.stream()
+                                              .filter(studentCnt -> studentCnt.isSameSection(totalCnt.getSection()))
+                                              .findFirst()
+                                              .map(studentCntDto -> new ChartSectionResponse(totalCnt.getSection(), studentCntDto.getCnt(), totalCnt.getCnt() / (double) totalStudentCnt))
+                                              .orElseGet(() -> new ChartSectionResponse(totalCnt.getSection(), 0L, totalCnt.getCnt() / (double) totalStudentCnt));
+                        })
+                        .collect(Collectors.toList());
+
+    }
 
     private Student findStudentWholeByIdAndSemester(Long studentId, String semester, boolean isMileage) {
         return studentRepositoryCustom.findStudentWithIdAndSemester(studentId, semester, isMileage)

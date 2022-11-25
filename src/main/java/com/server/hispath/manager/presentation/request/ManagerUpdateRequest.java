@@ -7,11 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ManagerCURequest {
+public class ManagerUpdateRequest {
 
     private String name;
     private String profile;
     private String email;
     private String department;
+    private int power;
 
 }

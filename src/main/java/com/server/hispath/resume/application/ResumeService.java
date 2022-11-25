@@ -65,4 +65,13 @@ public class ResumeService {
                                .map(ResumeDto::of)
                                .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public List<ResumeDto> findRecentResumes(Long studentId) {
+        Student student = studentService.findById(studentId);
+        return resumeRepository.findTop6ByStudentOrderByUpdatedAtDesc(student)
+                               .stream()
+                               .map(ResumeDto::of)
+                               .collect(Collectors.toList());
+    }
 }

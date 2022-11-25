@@ -1,6 +1,5 @@
 package com.server.hispath.activity.presentation.response.chart;
 
-import com.server.hispath.activity.application.dto.ChartDataDto;
 import com.server.hispath.activity.application.dto.ChartDepartmentDataDto;
 
 import lombok.AllArgsConstructor;

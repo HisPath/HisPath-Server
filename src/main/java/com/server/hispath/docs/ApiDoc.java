@@ -41,6 +41,7 @@ public class ApiDoc {
     public static final String CHART_MILEAGE_TIMELINE = "마일리지 활동 Timeline 차트 데이터 조회";
     public static final String CHART_SCHOLARSHIP_WEIGHT = "학생의 전체 가중치 분포 차트 데이터 조회";
     public static final String CHART_ACTIVITY_CATEGORY = "카테고리 별 활동 갯수 분포 차트 데이터 조회";
+    public static final String CHART_STUDENT_ACTIVITY = "학생들의 전체 섹션 활동 분포 차트 데이터 조회";
     public static final String CHART_SCHOLARSHIP_GRADE = "학년 별 마일리지 수혜 학생 분포 차트 데이터 조회";
     public static final String CHART_SCHOLARSHIP_DEPARTMENT = "학부 별 마일리지 수혜 학생 분포 차트 데이터 조회";
 
@@ -81,9 +82,11 @@ public class ApiDoc {
     public static final String MANAGER_READ_ALL = "모든 관리자 조회";
     public static final String MANAGER_CREATE = "관리자 생성";
     public static final String MANAGER_UPDATE = "관리자 수정";
+    public static final String MANAGER_PROFILE_UPDATE = "관리자 프로필 수정";
     public static final String MANAGER_APPROVE = "관리자 승인";
     public static final String MANAGER_DELETE = "관리자 삭제";
     public static final String MANAGER_DASHBOARD = "관리자 대시보드 조회";
+    public static final String MANAGER_EMAIL = "접속한 관리자 이메일 조회";
 
     /* Department 관련 API 명세 */
     public static final String DEPARTMENT_READ = "단일 학부 조회";

@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.dto.*;
+import com.server.hispath.activity.application.dto.chart.ChartRankDto;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
 import com.server.hispath.exception.scholarship.ScholarshipDuplicateException;
@@ -152,6 +153,7 @@ public class ScholarshipService {
 
     @Transactional(readOnly = true)
     public ChartRankDto getRankChartData(Long studentId, ChartSearchRequestDto dto) {
+
         Student student = studentService.findById(studentId);
         int myWeight = scholarshipRepository.findFirstByStudentAndSemester(student, dto.getSemester())
                                             .orElseGet(() -> Scholarship.builder().totalMileage(0).build())
@@ -208,6 +210,7 @@ public class ScholarshipService {
         chartGradeDatas[3] = new ChartGradeDataDto(4, 0L);
         chartGradeDataDtos.forEach(chartGradeDataDto -> {
             int grade = chartGradeDataDto.getGrade()/2 + chartGradeDataDto.getGrade()%2;
+            if(grade >= 4) grade = 4;
             chartGradeDatas[grade-1].addCnt(chartGradeDataDto.getCnt());
         });
 
