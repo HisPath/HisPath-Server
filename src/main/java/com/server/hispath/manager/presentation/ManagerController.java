@@ -68,7 +68,7 @@ public class ManagerController {
 
     @PutMapping("/manager")
     @ApiOperation(value = ApiDoc.MANAGER_PROFILE_UPDATE)
-    @ManagerLogin
+    @RequiredManagerLogin
     public ResponseEntity<ManagerResponse> updateProfile(@ManagerLogin LoginManager loginManager, @RequestBody ManagerCURequest request){
         ManagerResponse response = ManagerResponse.of(managerService.update(loginManager.getId(), ManagerCUDto.of(request)));
         return ResponseEntity.ok(response);
