@@ -11,7 +11,6 @@ public class ManagerCURequest {
 
     private String name;
     private String profile;
-    private int power;
     private String email;
     private String department;
 

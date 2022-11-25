@@ -31,7 +31,7 @@ public class ManagerController {
 
     @PostMapping("/manager")
     @ApiOperation(value = ApiDoc.MANAGER_CREATE)
-    @RequiredSuperManagerLogin
+    @RequiredManagerLogin
     public ResponseEntity<Long> create(@RequestBody ManagerCURequest request) {
         Long savedId = managerService.create(ManagerCUDto.of(request));
         return ResponseEntity.ok(savedId);
