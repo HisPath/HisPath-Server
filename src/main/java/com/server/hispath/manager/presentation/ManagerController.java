@@ -15,6 +15,7 @@ import com.server.hispath.manager.application.dto.ManagerUpdateDto;
 import com.server.hispath.manager.presentation.request.ManagerApproveRequest;
 import com.server.hispath.manager.presentation.request.ManagerCURequest;
 import com.server.hispath.manager.presentation.request.ManagerUpdateRequest;
+import com.server.hispath.manager.presentation.response.ManagerEmailResponse;
 import com.server.hispath.manager.presentation.response.ManagerResponse;
 
 import org.springframework.http.ResponseEntity;
@@ -69,7 +70,7 @@ public class ManagerController {
     @PutMapping("/manager")
     @ApiOperation(value = ApiDoc.MANAGER_PROFILE_UPDATE)
     @RequiredManagerLogin
-    public ResponseEntity<ManagerResponse> updateProfile(@ManagerLogin LoginManager loginManager, @RequestBody ManagerCURequest request){
+    public ResponseEntity<ManagerResponse> updateProfile(@ManagerLogin LoginManager loginManager, @RequestBody ManagerCURequest request) {
         ManagerResponse response = ManagerResponse.of(managerService.update(loginManager.getId(), ManagerCUDto.of(request)));
         return ResponseEntity.ok(response);
     }
@@ -91,9 +92,16 @@ public class ManagerController {
     }
 
     @GetMapping("/manager/dashboard")
-    @ApiOperation(value = ApiDoc.MANAGER_READ)
+    @ApiOperation(value = ApiDoc.MANAGER_DASHBOARD)
     @RequiredManagerLogin
     public ResponseEntity<ManagerDashboardDto> getDashboard(@ManagerLogin LoginManager loginManager) {
         return ResponseEntity.ok(managerService.getDashboard(loginManager.getId()));
+    }
+
+    @GetMapping("/manager/email")
+    @ApiOperation(value = ApiDoc.MANAGER_EMAIL)
+    @RequiredManagerLogin
+    public ResponseEntity<ManagerEmailResponse> getEmail(@ManagerLogin LoginManager loginManager) {
+        return ResponseEntity.ok(new ManagerEmailResponse(managerService.getEmail(loginManager.getId())));
     }
 }

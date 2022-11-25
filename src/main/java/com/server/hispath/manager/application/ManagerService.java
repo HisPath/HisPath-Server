@@ -89,4 +89,9 @@ public class ManagerService {
 
         return ManagerDashboardDto.of(manager, loginCounts, totalLoginCnt);
     }
+
+    @Transactional(readOnly = true)
+    public String getEmail(Long memberId){
+        return this.findById(memberId).getEmail();
+    }
 }
