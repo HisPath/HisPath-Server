@@ -11,8 +11,11 @@ import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.manager.application.ManagerService;
 import com.server.hispath.manager.application.dto.ManagerCUDto;
 import com.server.hispath.manager.application.dto.ManagerDashboardDto;
+import com.server.hispath.manager.application.dto.ManagerUpdateDto;
 import com.server.hispath.manager.presentation.request.ManagerApproveRequest;
 import com.server.hispath.manager.presentation.request.ManagerCURequest;
+import com.server.hispath.manager.presentation.request.ManagerUpdateRequest;
+import com.server.hispath.manager.presentation.response.ManagerEmailResponse;
 import com.server.hispath.manager.presentation.response.ManagerResponse;
 
 import org.springframework.http.ResponseEntity;
@@ -31,7 +34,7 @@ public class ManagerController {
 
     @PostMapping("/manager")
     @ApiOperation(value = ApiDoc.MANAGER_CREATE)
-    @RequiredSuperManagerLogin
+    @RequiredManagerLogin
     public ResponseEntity<Long> create(@RequestBody ManagerCURequest request) {
         Long savedId = managerService.create(ManagerCUDto.of(request));
         return ResponseEntity.ok(savedId);
@@ -59,8 +62,16 @@ public class ManagerController {
     @PutMapping("/manager/{id}")
     @ApiOperation(value = ApiDoc.MANAGER_UPDATE)
     @RequiredSuperManagerLogin
-    public ResponseEntity<ManagerResponse> update(@PathVariable Long id, @RequestBody ManagerCURequest request) {
-        ManagerResponse response = ManagerResponse.of(managerService.update(id, ManagerCUDto.of(request)));
+    public ResponseEntity<ManagerResponse> update(@PathVariable Long id, @RequestBody ManagerUpdateRequest request) {
+        ManagerResponse response = ManagerResponse.of(managerService.update(id, ManagerUpdateDto.from(request)));
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/manager")
+    @ApiOperation(value = ApiDoc.MANAGER_PROFILE_UPDATE)
+    @RequiredManagerLogin
+    public ResponseEntity<ManagerResponse> updateProfile(@ManagerLogin LoginManager loginManager, @RequestBody ManagerCURequest request) {
+        ManagerResponse response = ManagerResponse.of(managerService.update(loginManager.getId(), ManagerCUDto.of(request)));
         return ResponseEntity.ok(response);
     }
 
@@ -81,9 +92,16 @@ public class ManagerController {
     }
 
     @GetMapping("/manager/dashboard")
-    @ApiOperation(value = ApiDoc.MANAGER_READ)
+    @ApiOperation(value = ApiDoc.MANAGER_DASHBOARD)
     @RequiredManagerLogin
     public ResponseEntity<ManagerDashboardDto> getDashboard(@ManagerLogin LoginManager loginManager) {
         return ResponseEntity.ok(managerService.getDashboard(loginManager.getId()));
+    }
+
+    @GetMapping("/manager/email")
+    @ApiOperation(value = ApiDoc.MANAGER_EMAIL)
+    @RequiredManagerLogin
+    public ResponseEntity<ManagerEmailResponse> getEmail(@ManagerLogin LoginManager loginManager) {
+        return ResponseEntity.ok(new ManagerEmailResponse(managerService.getEmail(loginManager.getId())));
     }
 }

@@ -210,6 +210,7 @@ public class ScholarshipService {
         chartGradeDatas[3] = new ChartGradeDataDto(4, 0L);
         chartGradeDataDtos.forEach(chartGradeDataDto -> {
             int grade = chartGradeDataDto.getGrade()/2 + chartGradeDataDto.getGrade()%2;
+            if(grade >= 4) grade = 4;
             chartGradeDatas[grade-1].addCnt(chartGradeDataDto.getCnt());
         });
 
