@@ -14,12 +14,18 @@ import lombok.Setter;
 public class DepartmentDto {
     private Long id;
     private String name;
+    private String profile;
 
-    public static DepartmentDto from (Department department) {
-        return new DepartmentDto(department.getId(), department.getName());
+    public DepartmentDto(Long id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public static DepartmentDto of(DepartmentCRRequest request) {
+    public static DepartmentDto from (Department department) {
+        return new DepartmentDto(department.getId(), department.getName(), department.getProfile());
+    }
+
+    public static DepartmentDto from(DepartmentCRRequest request) {
         return new DepartmentDto(request.getDepartmentId(), request.getName());
     }
 }
