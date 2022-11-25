@@ -26,7 +26,7 @@ public class DepartmentController {
     @RequiredManagerLogin
     public ResponseEntity<Long> create(@RequestBody DepartmentCRRequest request) {
 
-        Long savedId = departmentService.create(DepartmentDto.of(request));
+        Long savedId = departmentService.create(DepartmentDto.from(request));
         return ResponseEntity.ok(savedId);
     }
 
@@ -56,7 +56,7 @@ public class DepartmentController {
     @ApiOperation(value = ApiDoc.DEPARTMENT_UPDATE)
     @RequiredManagerLogin
     public ResponseEntity<DepartmentResponse> update(@PathVariable Long id, @RequestBody DepartmentCRRequest request) {
-        DepartmentDto dto = departmentService.update(id, DepartmentDto.of(request));
+        DepartmentDto dto = departmentService.update(id, DepartmentDto.from(request));
         DepartmentResponse response = DepartmentResponse.from(dto);
         return ResponseEntity.ok(response);
     }

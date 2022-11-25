@@ -30,6 +30,8 @@ public class Department extends BaseEntity {
 
     private String name;
 
+    private String profile;
+
     public void update(DepartmentDto dto) {
         this.name = dto.getName();
     }
