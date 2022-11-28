@@ -48,7 +48,7 @@ public class MActivityController {
     @PostMapping("/mileages")
     @ApiOperation(value = ApiDoc.MILEAGES_CREATE)
     @RequiredSuperManagerLogin
-    public ResponseEntity<Void> createMActivites(@RequestPart(value = "file", required = false) MultipartFile file) throws Exception {
+    public ResponseEntity<Void> createMActivites(@RequestPart(value = "file") MultipartFile file) throws Exception {
         mActivityService.createAll(ExcelManager.getMActivities(ExcelManager.extract(file)));
         return ResponseEntity.ok(null);
     }

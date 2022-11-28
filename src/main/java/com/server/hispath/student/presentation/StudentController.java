@@ -53,7 +53,7 @@ public class StudentController {
     @PostMapping("/students")
     @ApiOperation(value = ApiDoc.STUDENTS_CREATE)
     @RequiredManagerLogin
-    public ResponseEntity<Void> createStudents(MultipartFile file) throws Exception {
+    public ResponseEntity<Void> createStudents(@RequestPart("file") MultipartFile file) throws Exception {
         studentService.createAll(ExcelManager.getStudentDatas(ExcelManager.extract(file)));
         return ResponseEntity.ok(null);
     }
