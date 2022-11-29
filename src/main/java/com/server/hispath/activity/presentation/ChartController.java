@@ -129,9 +129,8 @@ public class ChartController {
 
     @GetMapping("/chart/activities")
     @ApiOperation(value = ApiDoc.CHART_STUDENT_ACTIVITY)
-//    @RequiredLogin
-//    public ResponseEntity<List<ChartSectionResponse>> getActivityChartDatas(@StudentLogin LoginStudent loginStudent, @RequestParam String semester) {
-    public ResponseEntity<List<ChartSectionResponse>> getActivityChartDatas(@RequestParam String semester) {
-        return ResponseEntity.ok(activityService.getChartTotalDatasBySections(6L, semester));
+    @RequiredLogin
+    public ResponseEntity<List<ChartSectionResponse>> getActivityChartDatas(@StudentLogin LoginStudent loginStudent, @RequestParam String semester) {
+        return ResponseEntity.ok(activityService.getChartTotalDatasBySections(loginStudent.getId(), semester));
     }
 }

@@ -11,16 +11,16 @@ import org.slf4j.LoggerFactory;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-//    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(HisPathException.class)
     public ResponseEntity<ExceptionResponse> hisPathException(HisPathException e) {
 
-//        if (e.getHttpStatus().is4xxClientError()) {
-//            logger.info("Client Error : " + e.getMessage());
-//        } else if (e.getHttpStatus().is5xxServerError()) {
-//            logger.error("Server Error : " + e.getMessage());
-//        }
+        if (e.getHttpStatus().is4xxClientError()) {
+            logger.info("Client Error : " + e.getMessage());
+        } else if (e.getHttpStatus().is5xxServerError()) {
+            logger.error("Server Error : " + e.getMessage());
+        }
 
         return ResponseEntity.status(e.getHttpStatus())
                              .body(new ExceptionResponse(e.getMessage()));
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> commonException(Exception e) {
 
-//        logger.error("Unknown Exception : " + e.getMessage());
+        logger.error("Unknown Exception : " + e.getMessage());
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                              .body(new ExceptionResponse(e.getMessage()));
