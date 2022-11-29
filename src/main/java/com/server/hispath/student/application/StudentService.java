@@ -109,6 +109,22 @@ public class StudentService {
             validateStudent(student, dto);
             activity.addParticipant(student, Section.ETC);
         });
+
+        activity.updateStudentRegister();
+    }
+
+    @Transactional
+    public void registerParticipants(Long activityId, List<StudentSimpleRefDto> studentRefDtos, int sectionIdx) {
+        Activity activity = activityService.findById(activityId);
+        mActivityService.deleteAllParticipant(activity);
+        Section[] values = Section.values();
+        studentRefDtos.forEach(dto -> {
+            Student student = studentRepository.findByStudentNum(dto.getStudentNum())
+                    .orElseThrow(StudentNotFoundException::new);
+            validateStudent(student, dto);
+            activity.addParticipant(student, values[sectionIdx]);
+        });
+
         activity.updateStudentRegister();
     }
 

@@ -148,11 +148,11 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public String getStudentGuestToken(){
-        return jwtProvider.createToken(String.valueOf(10L), Member.STUDENT);
+        return jwtProvider.createToken(String.valueOf(1L), Member.STUDENT);
     }
 
     @Transactional(readOnly = true)
     public String getManagerGuestToken(){
-        return jwtProvider.createToken(String.valueOf(10L), Member.MANAGER);
+        return jwtProvider.createToken(String.valueOf(1L), Member.MANAGER);
     }
 }

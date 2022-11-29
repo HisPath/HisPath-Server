@@ -3,8 +3,8 @@ package com.server.hispath.common;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import com.server.hispath.activity.application.ActivityService;
@@ -245,7 +245,7 @@ public class TestController {
     public void saveParticipant() {
         List<Activity> activities = activityRepository.findAll();
         List<Student> students = studentRepository.findAll();
-
+        AtomicInteger cnt = new AtomicInteger();
         activities.forEach(activity -> {
 
             //            int num = getRandomNum(15, students.size());
@@ -254,8 +254,8 @@ public class TestController {
                         return new StudentSimpleRefDto(student.getStudentNum(), student.getName());
                     })
                     .collect(Collectors.toList());
-
-            studentService.registerParticipants(activity.getId(), refStudent);
+            cnt.getAndIncrement();
+            studentService.registerParticipants(activity.getId(), refStudent, cnt.get() %7);
             //            Collections.shuffle(refStudent);
             //            studentService.registerParticipants(activity.getId(), refStudent.subList(0, num));
             activity.updateStudentRegister();
@@ -554,12 +554,12 @@ public class TestController {
         studentRepository.save(Student.builder()
                 .name("안병웅")
                 .department(departementRepository.findByName("생명과학부"))
-                .studentNum("21600000")
+                .studentNum("21600399")
                 .semester(6)
                 .major1(majorRepository.findByName("생명과학전공"))
                 .major2(majorRepository.findByName("-"))
                 .phone("010-1623-1512")
-                .email("mh03@handong.ac.kr")
+                .email("mh030315@handong.ac.kr")
                 .profile("https://user-images.githubusercontent.com/63008958/203915182-c8216b87-9e06-4a10-8efe-b8d0cb43b5af.png")
                 .blog("blog.com")
                 .githubId("@wooong.github")
@@ -1362,6 +1362,19 @@ public class TestController {
 
 
     private void saveMajor() {
+        majorRepository.save(Major.builder().name("-").profile("https://user-images.githubusercontent.com/63008958/203987348-497d8992-98e2-47ff-9769-a7207e6961ed.png").build());
+        majorRepository.save(Major.builder().name("건설공학전공").profile("https://user-images.githubusercontent.com/63008958/203986081-cc605f80-7cb3-4fc9-93ed-9712a38506c6.jpg").build());
+        majorRepository.save(Major.builder().name("도시환경공학전공").profile("https://user-images.githubusercontent.com/63008958/203986080-4921f01e-8fdd-480c-b764-f1d926b070d3.jpg").build());
+        majorRepository.save(Major.builder().name("기계공학전공").profile("https://user-images.githubusercontent.com/63008958/203986079-59fe24a6-d934-4dad-9b80-35a1a5306535.jpg").build());
+        majorRepository.save(Major.builder().name("전자제어공학전공").profile("https://user-images.githubusercontent.com/63008958/203986077-425b14ae-37f5-480a-b00c-fdec96f09b9d.jpg").build());
+        majorRepository.save(Major.builder().name("생명과학전공").profile("https://user-images.githubusercontent.com/63008958/203986074-b785eed9-1531-4c32-b153-dec59ea10982.jpg").build());
+        majorRepository.save(Major.builder().name("글로벌융합전공").profile("https://user-images.githubusercontent.com/63008958/203986073-4a098ecc-5f91-4ab4-abb3-2a90149c566a.jpg").build());
+        majorRepository.save(Major.builder().name("수학통계전공").profile("https://user-images.githubusercontent.com/63008958/203986071-ba9e0fb7-e246-4cfc-b1cc-788264a9086b.jpg").build());
+        majorRepository.save(Major.builder().name("학생설계융합전공").profile("https://user-images.githubusercontent.com/63008958/203986068-5fd2f7d5-c894-49ed-92d7-30a63b4e88f9.jpg").build());
+        majorRepository.save(Major.builder().name("시각디자인전공").profile("https://user-images.githubusercontent.com/63008958/203986065-746e6d2d-38e0-494e-b5c4-9060d5bb329e.jpg").build());
+        majorRepository.save(Major.builder().name("제품디자인전공").profile("https://user-images.githubusercontent.com/63008958/203986063-d3aa8474-58c6-4e22-a23f-1a17edb40300.jpg").build());
+        majorRepository.save(Major.builder().name("컴퓨터공학전공").profile("https://user-images.githubusercontent.com/63008958/203986059-4fc80f57-49b3-453f-94de-6f51b729730a.jpg").build());
+        majorRepository.save(Major.builder().name("컴퓨터공학심화전공").profile("https://user-images.githubusercontent.com/63008958/203986052-b02066c1-0ff5-41ed-81e7-72bcf5284dc3.jpg").build());
         majorRepository.save(Major.builder().name("전자공학전공").profile("https://user-images.githubusercontent.com/63008958/204516545-6c7ca818-1c99-4c1a-a4d4-569577d344d8.jpg").build());
         majorRepository.save(Major.builder().name("전자공학심화전공").profile("https://user-images.githubusercontent.com/63008958/204516569-13f7310b-b5a5-4f9d-8171-065884cbf59c.jpg").build());
         majorRepository.save(Major.builder().name("Information Technology").profile("https://user-images.githubusercontent.com/63008958/204516579-bad0d03e-d9ca-4a76-9e94-4a31fe605ce4.jpg").build());
