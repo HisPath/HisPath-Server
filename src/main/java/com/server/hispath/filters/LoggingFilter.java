@@ -33,11 +33,12 @@ public class LoggingFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+        MDC.put("traceId", UUID.randomUUID().toString());
         if(isFileUpload(request)){
             filterChain.doFilter(request,response);
+            MDC.clear();
             return;
         }
-        MDC.put("traceId", UUID.randomUUID().toString());
         doFilterWrapped(new RequestWrapper(request), new ResponseWrapper(response), filterChain);
         MDC.clear();
     }
