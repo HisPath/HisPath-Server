@@ -2016,12 +2016,12 @@ public class TestController {
         majorRepository.save(Major.builder().name("Global Management").profile("https://user-images.githubusercontent.com/63008958/204516745-795ffbf4-3e25-410a-bb87-8957b17f974a.jpg").build());
         majorRepository.save(Major.builder().name("국제지역학전공").profile("https://user-images.githubusercontent.com/63008958/204516767-6d058e2b-98eb-4156-84f2-41adc5961487.jpg").build());
         majorRepository.save(Major.builder().name("영어전공").profile("https://user-images.githubusercontent.com/63008958/204516780-97509626-d605-4b33-871e-6c66d8b9bccb.jpg").build());
-        majorRepository.save(Major.builder().name("한국법전공").profile("").build());
-        majorRepository.save(Major.builder().name("US & International Law").profile("").build());
-        majorRepository.save(Major.builder().name("상담심리학전공").profile("").build());
-        majorRepository.save(Major.builder().name("사회복지학전공").profile("").build());
-        majorRepository.save(Major.builder().name("공연영상학전공").profile("").build());
-        majorRepository.save(Major.builder().name("언론정보학전공").profile("").build());
-        majorRepository.save(Major.builder().name("글로벌한국학전공").profile("").build());
+        majorRepository.save(Major.builder().name("한국법전공").profile("https://user-images.githubusercontent.com/63008958/204519931-bd711496-c4cf-453c-9159-21bd471abdf7.jpg").build());
+        majorRepository.save(Major.builder().name("US & International Law").profile("https://user-images.githubusercontent.com/63008958/204519949-fbc6196b-3b22-4893-a94c-6aaf43404db3.jpg").build());
+        majorRepository.save(Major.builder().name("상담심리학전공").profile("https://user-images.githubusercontent.com/63008958/204519961-dfcc4cb7-770d-414c-b503-62daf17cb348.jpg").build());
+        majorRepository.save(Major.builder().name("사회복지학전공").profile("https://user-images.githubusercontent.com/63008958/204519984-9bd89f56-8bd5-4643-9c23-92e86fc3c97e.jpg").build());
+        majorRepository.save(Major.builder().name("공연영상학전공").profile("https://user-images.githubusercontent.com/63008958/204520461-e38be0f3-c3d4-42e8-b791-d57a914d90bb.jpg").build());
+        majorRepository.save(Major.builder().name("언론정보학전공").profile("https://user-images.githubusercontent.com/63008958/204520001-123c3cda-ab11-4009-b139-ebb6d0b4b458.jpg").build());
+        majorRepository.save(Major.builder().name("글로벌한국학전공").profile("https://user-images.githubusercontent.com/63008958/204520021-dc82a562-fab3-438c-abb2-9e1d85b27415.jpg").build());
     }
 }
