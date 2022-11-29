@@ -1,5 +1,7 @@
 package com.server.hispath.scholarship.presentation;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +20,8 @@ import com.server.hispath.scholarship.presentation.response.ScholarshipDetailRes
 import com.server.hispath.scholarship.presentation.response.ScholarshipResponse;
 import com.server.hispath.util.ExcelManager;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.annotations.ApiOperation;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.Workbook;
 
 @RestController
 @RequiredArgsConstructor
@@ -94,5 +99,17 @@ public class ScholarshipController {
                                                                 .map(ScholarshipResponse::of)
                                                                 .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping(value = "/scholarship/excel", produces = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    public ResponseEntity<Object> exportScholarshipsByExcel(@RequestParam String semester) throws IOException{
+        Workbook workbook = ExcelManager.toCsv(scholarshipService.getWaitingScholarships(semester));
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        workbook.write(os);
+        os.close();
+        return ResponseEntity.ok()
+                             .header(HttpHeaders.CONTENT_DISPOSITION, "attachement;filename=\"scholarships_waiting.xlsx" + "\"")
+                             .header(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                             .body(new ByteArrayResource(os.toByteArray()));
     }
 }
