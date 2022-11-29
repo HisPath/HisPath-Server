@@ -125,6 +125,9 @@ public class LoggingFilter extends OncePerRequestFilter {
                 return true;
             }
         }
+        if(Objects.equals("PUT", request.getMethod()) && Objects.equals("/api/scholarship/approval", request.getRequestURI())){
+            return true;
+        }
         return false;
     }
 }
