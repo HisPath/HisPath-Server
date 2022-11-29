@@ -2003,32 +2003,19 @@ public class TestController {
 
 
     private void saveMajor() {
-        majorRepository.save(Major.builder().name("-").profile("https://user-images.githubusercontent.com/63008958/203987348-497d8992-98e2-47ff-9769-a7207e6961ed.png").build());
-        majorRepository.save(Major.builder().name("건설공학전공").profile("https://user-images.githubusercontent.com/63008958/203986081-cc605f80-7cb3-4fc9-93ed-9712a38506c6.jpg").build());
-        majorRepository.save(Major.builder().name("도시환경공학전공").profile("https://user-images.githubusercontent.com/63008958/203986080-4921f01e-8fdd-480c-b764-f1d926b070d3.jpg").build());
-        majorRepository.save(Major.builder().name("기계공학전공").profile("https://user-images.githubusercontent.com/63008958/203986079-59fe24a6-d934-4dad-9b80-35a1a5306535.jpg").build());
-        majorRepository.save(Major.builder().name("전자제어공학전공").profile("https://user-images.githubusercontent.com/63008958/203986077-425b14ae-37f5-480a-b00c-fdec96f09b9d.jpg").build());
-        majorRepository.save(Major.builder().name("생명과학전공").profile("https://user-images.githubusercontent.com/63008958/203986074-b785eed9-1531-4c32-b153-dec59ea10982.jpg").build());
-        majorRepository.save(Major.builder().name("글로벌융합전공").profile("https://user-images.githubusercontent.com/63008958/203986073-4a098ecc-5f91-4ab4-abb3-2a90149c566a.jpg").build());
-        majorRepository.save(Major.builder().name("수학통계전공").profile("https://user-images.githubusercontent.com/63008958/203986071-ba9e0fb7-e246-4cfc-b1cc-788264a9086b.jpg").build());
-        majorRepository.save(Major.builder().name("학생설계융합전공").profile("https://user-images.githubusercontent.com/63008958/203986068-5fd2f7d5-c894-49ed-92d7-30a63b4e88f9.jpg").build());
-        majorRepository.save(Major.builder().name("시각디자인전공").profile("https://user-images.githubusercontent.com/63008958/203986065-746e6d2d-38e0-494e-b5c4-9060d5bb329e.jpg").build());
-        majorRepository.save(Major.builder().name("제품디자인전공").profile("https://user-images.githubusercontent.com/63008958/203986063-d3aa8474-58c6-4e22-a23f-1a17edb40300.jpg").build());
-        majorRepository.save(Major.builder().name("컴퓨터공학전공").profile("https://user-images.githubusercontent.com/63008958/203986059-4fc80f57-49b3-453f-94de-6f51b729730a.jpg").build());
-        majorRepository.save(Major.builder().name("컴퓨터공학심화전공").profile("https://user-images.githubusercontent.com/63008958/203986052-b02066c1-0ff5-41ed-81e7-72bcf5284dc3.jpg").build());
-        majorRepository.save(Major.builder().name("전자공학전공").profile("").build());
-        majorRepository.save(Major.builder().name("전자공학심화전공").profile("").build());
-        majorRepository.save(Major.builder().name("Information Technology").profile("").build());
-        majorRepository.save(Major.builder().name("ICT 융합전공").profile("").build());
-        majorRepository.save(Major.builder().name("AI Convergence & Entrepreneurship 전공").profile("").build());
-        majorRepository.save(Major.builder().name("Global Entrepreneurship 전공").profile("").build());
-        majorRepository.save(Major.builder().name("AI 융합 전공").profile("").build());
-        majorRepository.save(Major.builder().name("데이터 사이언스 전공").profile("").build());
-        majorRepository.save(Major.builder().name("경영학전공").profile("").build());
-        majorRepository.save(Major.builder().name("경제학전공").profile("").build());
-        majorRepository.save(Major.builder().name("Global Management").profile("").build());
-        majorRepository.save(Major.builder().name("국제지역학전공").profile("").build());
-        majorRepository.save(Major.builder().name("영어전공").profile("").build());
+        majorRepository.save(Major.builder().name("전자공학전공").profile("https://user-images.githubusercontent.com/63008958/204516545-6c7ca818-1c99-4c1a-a4d4-569577d344d8.jpg").build());
+        majorRepository.save(Major.builder().name("전자공학심화전공").profile("https://user-images.githubusercontent.com/63008958/204516569-13f7310b-b5a5-4f9d-8171-065884cbf59c.jpg").build());
+        majorRepository.save(Major.builder().name("Information Technology").profile("https://user-images.githubusercontent.com/63008958/204516579-bad0d03e-d9ca-4a76-9e94-4a31fe605ce4.jpg").build());
+        majorRepository.save(Major.builder().name("ICT 융합전공").profile("https://user-images.githubusercontent.com/63008958/204516638-7c5c13c2-ebb7-4d41-895b-8af61801e7b4.jpg").build());
+        majorRepository.save(Major.builder().name("AI Convergence & Entrepreneurship 전공").profile("https://user-images.githubusercontent.com/63008958/204517597-e463b42b-17f3-4476-9314-fe33edb23e8e.jpg").build());
+        majorRepository.save(Major.builder().name("Global Entrepreneurship 전공").profile("https://user-images.githubusercontent.com/63008958/204516633-5be00a69-d31e-4edb-ada1-9f143f9ec5ee.jpg").build());
+        majorRepository.save(Major.builder().name("AI 융합 전공").profile("https://user-images.githubusercontent.com/63008958/204517614-2fd82907-7e30-488e-8df5-b34c1f5fd05f.jpg").build());
+        majorRepository.save(Major.builder().name("데이터 사이언스 전공").profile("https://user-images.githubusercontent.com/63008958/204516681-cee59ca5-3e83-45b0-9f2d-77d38aa9772a.jpg").build());
+        majorRepository.save(Major.builder().name("경영학전공").profile("https://user-images.githubusercontent.com/63008958/204516699-8d4ae330-79ce-4827-a9b1-4c6bb94a04dd.jpg").build());
+        majorRepository.save(Major.builder().name("경제학전공").profile("https://user-images.githubusercontent.com/63008958/204516724-255d3f3d-586c-44f2-bf30-20ae74500e5e.jpg").build());
+        majorRepository.save(Major.builder().name("Global Management").profile("https://user-images.githubusercontent.com/63008958/204516745-795ffbf4-3e25-410a-bb87-8957b17f974a.jpg").build());
+        majorRepository.save(Major.builder().name("국제지역학전공").profile("https://user-images.githubusercontent.com/63008958/204516767-6d058e2b-98eb-4156-84f2-41adc5961487.jpg").build());
+        majorRepository.save(Major.builder().name("영어전공").profile("https://user-images.githubusercontent.com/63008958/204516780-97509626-d605-4b33-871e-6c66d8b9bccb.jpg").build());
         majorRepository.save(Major.builder().name("한국법전공").profile("").build());
         majorRepository.save(Major.builder().name("US & International Law").profile("").build());
         majorRepository.save(Major.builder().name("상담심리학전공").profile("").build());
