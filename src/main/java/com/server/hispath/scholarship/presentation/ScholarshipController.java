@@ -77,7 +77,7 @@ public class ScholarshipController {
     @PutMapping("/scholarship/approval")
     @ApiOperation(value = ApiDoc.APPROVE_SCHOLARSHIPS)
     @RequiredManagerLogin
-    public ResponseEntity<Void> approveAll(@RequestPart(value = "file", required = false) MultipartFile file,
+    public ResponseEntity<Void> approveAll(@RequestPart(value = "file") MultipartFile file,
                                            @RequestPart(value = "semester") String semester) throws Exception {
         scholarshipService.approveAll(ExcelManager.getScholarshipApproveDatas(ExcelManager.extract(file)), semester);
         return ResponseEntity.ok(null);
