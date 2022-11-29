@@ -3,7 +3,10 @@ package com.server.hispath.scholarship.application;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.server.hispath.activity.application.dto.*;
+import com.server.hispath.activity.application.dto.ChartDepartmentDataDto;
+import com.server.hispath.activity.application.dto.ChartGradeDataDto;
+import com.server.hispath.activity.application.dto.ChartSearchRequestDto;
+import com.server.hispath.activity.application.dto.ChartTimelineDto;
 import com.server.hispath.activity.application.dto.chart.ChartRankDto;
 import com.server.hispath.activity.domain.Activity;
 import com.server.hispath.activity.domain.repository.ActivityRepository;
@@ -209,9 +212,10 @@ public class ScholarshipService {
         chartGradeDatas[2] = new ChartGradeDataDto(3, 0L);
         chartGradeDatas[3] = new ChartGradeDataDto(4, 0L);
         chartGradeDataDtos.forEach(chartGradeDataDto -> {
-            int grade = chartGradeDataDto.getGrade()/2 + chartGradeDataDto.getGrade()%2;
-            if(grade >= 4) grade = 4;
-            chartGradeDatas[grade-1].addCnt(chartGradeDataDto.getCnt());
+            int grade = chartGradeDataDto.getGrade() / 2 + chartGradeDataDto.getGrade() % 2;
+            if (grade >= 4)
+                grade = 4;
+            chartGradeDatas[grade - 1].addCnt(chartGradeDataDto.getCnt());
         });
 
         return List.of(chartGradeDatas);
@@ -220,5 +224,13 @@ public class ScholarshipService {
     @Transactional(readOnly = true)
     public List<ChartDepartmentDataDto> getChartDepartmentDistribution(String semester) {
         return scholarshipRepositoryCustom.getCountByDepartmentAndSemester(semester);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ScholarshipApprovalDto> getWaitingScholarships(String semester) {
+        return scholarshipRepository.findWaitingScholarships(semester)
+                                    .stream()
+                                    .map(ScholarshipApprovalDto::from)
+                                    .collect(Collectors.toList());
     }
 }

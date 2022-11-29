@@ -31,5 +31,11 @@ public interface ScholarshipRepository extends JpaRepository<Scholarship, Long> 
     Optional<Scholarship> findStudentIdAndSemester(Long id, String semester);
 
     List<Scholarship> findAllBySemesterAndApprovedTrue(String semester);
+
+    @Query("select s from Scholarship s " +
+            "join fetch s.student " +
+            "where s.approved = false " +
+            "and s.semester = :semester")
+    List<Scholarship> findWaitingScholarships(String semester);
 }
 
