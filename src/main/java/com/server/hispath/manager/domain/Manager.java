@@ -7,6 +7,7 @@ import javax.persistence.Id;
 
 import com.server.hispath.common.BaseEntity;
 import com.server.hispath.manager.application.dto.ManagerCUDto;
+import com.server.hispath.manager.application.dto.ManagerUpdateDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,15 +31,16 @@ public class Manager extends BaseEntity {
     private int power;
     private String name;
     private String email;
+    private String profile;
     private String department;
     private boolean approved;
 
 
     public static Manager of(ManagerCUDto dto) {
         return Manager.builder()
-                      .power(dto.getPower())
                       .name(dto.getName())
                       .email(dto.getEmail())
+                      .profile(dto.getProfile())
                       .department(dto.getDepartment())
                       .approved(false)
                       .build();
@@ -47,6 +49,14 @@ public class Manager extends BaseEntity {
     public void update(ManagerCUDto dto) {
         this.email = dto.getEmail();
         this.name = dto.getName();
+        this.profile = dto.getProfile();
+        this.department = dto.getDepartment();
+    }
+
+    public void update(ManagerUpdateDto dto){
+        this.email = dto.getEmail();
+        this.name = dto.getName();
+        this.profile = dto.getProfile();
         this.department = dto.getDepartment();
         this.power = dto.getPower();
     }

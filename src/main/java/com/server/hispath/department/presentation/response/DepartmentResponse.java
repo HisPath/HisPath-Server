@@ -13,8 +13,9 @@ import lombok.Setter;
 public class DepartmentResponse {
     private Long departmentId;
     private String name;
+    private String profile;
 
     public static DepartmentResponse from (DepartmentDto dto) {
-        return new DepartmentResponse(dto.getId(), dto.getName());
+        return new DepartmentResponse(dto.getId(), dto.getName(), dto.getProfile());
     }
 }

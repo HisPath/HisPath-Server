@@ -32,6 +32,7 @@ public class Participant extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Section section;
 
+    @Column(length = 5555)
     String data;
 
     public Participant(Student student, Activity activity, Section section) {
@@ -54,10 +55,11 @@ public class Participant extends BaseEntity {
         return activity.isSameSemester(semester);
     }
 
-
     public boolean isSameSection(String section) {
         if (Objects.equals(section, "ALL"))
             return true;
+        if (Objects.equals(section, "마일리지"))
+            return this.activity.getRequestStatus() == 1;
         return Objects.equals(this.section.getName(), section);
     }
 
@@ -76,8 +78,13 @@ public class Participant extends BaseEntity {
         this.data = participantContentDto.getData();
     }
 
+    public String getActivityCategoryName(){
+        return activity.getCategory().getName();
+    }
+
     public boolean isPersonal(){
         return this.activity.isPersonal();
     }
+
 
 }

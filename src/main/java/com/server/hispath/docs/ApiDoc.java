@@ -2,16 +2,12 @@ package com.server.hispath.docs;
 
 public class ApiDoc {
 
-
-    /* Student 관련 API 명세 */
-
-
     /* Activity 관련 API 명세 */
     public static final String ACTIVITY_CREATE = "단일 활동 생성";
     public static final String ACTIVITY_READ = "단일 활동 조회";
     public static final String ACTIVITY_READ_ALL = "모든 활동 조회";
     public static final String ACTIVITY_UPDATE = "활동 수정";
-    public static final String ACTIVITY_DELETE = "활동 삭제";
+    public static final String ACTIVITY_DELETE = "학생 활동 삭제";
     public static final String MILEAGE_CREATE = "단일 마일리지 활동 등록";
     public static final String MILEAGES_CREATE = "단일 마일리지 다중 등록";
     public static final String MILEAGE_UPDATE = "마일리지 활동 수정";
@@ -28,14 +24,26 @@ public class ApiDoc {
     public static final String STUDENT_ACTIVITY_UPDATE = "학생의 참여 활동 수정";
     public static final String STUDENT_ACTIVITY_READ_SEMESTER = "학생의 참여 활동 학기별 조회";
     public static final String STUDENT_ACTIVITY_READ_SEMESTER_SECTION_STATUS = "학생의 참여 활동 상태와 함께 학기별, 섹션별 조회";
+
     public static final String STUDENT_ACTIVITY_READ_PARTICIPATE = "전체 활동 중 학생 참여 활동 조회";
     public static final String SECTION_READ_ALL = "모든 섹션 조회";
     public static final String PARTICIPANT_DELETE = "학생 참여 데이터 삭제";
     public static final String ACTIVITY_APPLY = "학생 활동 마일리지 신청";
     public static final String ACTIVITY_APPROVE = "학생 활동 마일리지 승인";
     public static final String ACTIVITY_REJECT = "학생 활동 마일리지 반려";
+    public static final String MILEAGE_CATEGORY_CHART_DATAS = "카테고리 당 마일리지 참여, 평균 수 조회";
     public static final String ACTIVITY_STUDENT_DETAIL = "학생 개인 활동 상세 조회";
 
+    /* Chart 관련 API 명세 */
+    public static final String CHART_MILEAGE_CATEGORY = "카테고리에 따른 학생 마일리지 활동 차트 데이터 조회";
+    public static final String CHART_MILEAGE_POPULARITY_CATEGORY = "카테고리에 따른 전체 활동 갯수와 나의 참여수, 평균 참여수 차트 데이터 조회";
+    public static final String CHART_MILEAGE_RANK = "내 마일리지 총점이 어느정도 위치하는지 차트 데이터 조회";
+    public static final String CHART_MILEAGE_TIMELINE = "마일리지 활동 Timeline 차트 데이터 조회";
+    public static final String CHART_SCHOLARSHIP_WEIGHT = "학생의 전체 가중치 분포 차트 데이터 조회";
+    public static final String CHART_ACTIVITY_CATEGORY = "카테고리 별 활동 갯수 분포 차트 데이터 조회";
+    public static final String CHART_STUDENT_ACTIVITY = "학생들의 전체 섹션 활동 분포 차트 데이터 조회";
+    public static final String CHART_SCHOLARSHIP_GRADE = "학년 별 마일리지 수혜 학생 분포 차트 데이터 조회";
+    public static final String CHART_SCHOLARSHIP_DEPARTMENT = "학부 별 마일리지 수혜 학생 분포 차트 데이터 조회";
 
     /* Category 관련 API 명세 */
     public static final String CATEGORY_READ = "단일 카테고리 조회";
@@ -53,6 +61,7 @@ public class ApiDoc {
 
     public static final String NOTICE_CREATE = "공지 생성";
     public static final String NOTICE_READ_ALL = "전체 공지 조회";
+    public static final String NOTICE_READ_IMP = "강제 공지 조회";
     public static final String NOTICE_READ = "단일 공지 조회";
     public static final String NOTICE_DELETE = "공지 삭제";
     public static final String NOTICE_UPDATE = "공지 수정";
@@ -66,14 +75,18 @@ public class ApiDoc {
     public static final String STUDENT_UPDATE = "학생 수정";
     public static final String STUDENT_DELETE = "학생 삭제";
     public static final String DASHBOARD = "메인페이지 대시보드 정보 조회";
+    public static final String STUDENT_SEMESTER = "학생의 활동 학기들 조회";
 
     /* Manager 관련 API 명세 */
     public static final String MANAGER_READ = "단일 관리자 조회";
     public static final String MANAGER_READ_ALL = "모든 관리자 조회";
     public static final String MANAGER_CREATE = "관리자 생성";
     public static final String MANAGER_UPDATE = "관리자 수정";
+    public static final String MANAGER_PROFILE_UPDATE = "관리자 프로필 수정";
     public static final String MANAGER_APPROVE = "관리자 승인";
     public static final String MANAGER_DELETE = "관리자 삭제";
+    public static final String MANAGER_DASHBOARD = "관리자 대시보드 조회";
+    public static final String MANAGER_EMAIL = "접속한 관리자 이메일 조회";
 
     /* Department 관련 API 명세 */
     public static final String DEPARTMENT_READ = "단일 학부 조회";
@@ -97,6 +110,6 @@ public class ApiDoc {
     public static final String SCHOLARSHIP_ACTIVITIES = "장학금 수혜자 정보와 그 활동들 조회";
     public static final String APPROVE_SCHOLARSHIPS = "현학기 장학금 승인 명단 엑셀 업로드";
     public static final String SCHOLARSHIP_SEARCH_STUDENT = "장학금 수혜 학생 필터 검색";
-    public static final String InHyeok = "제발 하라는 대로 하자 dev branch에서 dev 풀 받고, 다시 너의 브렌치로 이동해서 git merge dev 후 git push origin 너브랜체 그리고 pull request 만들기 pull request로 dev 에 스쿼시 머지 이후 로컬에서는 다시 dev로 이동 git pull origin dev 이런다음에 새로운 기능을 개발하려면 git checkout -b 인혁브렌치";
+
 
 }

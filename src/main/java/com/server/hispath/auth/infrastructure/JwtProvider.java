@@ -54,7 +54,7 @@ public class JwtProvider {
         try{
             validateToken(token, Member.STUDENT);
             return true;
-        } catch (JwtException | IllegalArgumentException e){
+        } catch (InvalidTokenException | JwtException | IllegalArgumentException e){
             try{
                 validateToken(token, Member.MANAGER);
                 return true;

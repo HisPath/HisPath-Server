@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 public class MajorResponse {
     private Long id;
     private String name;
+    private String profile;
 
     public static MajorResponse from(MajorDto dto) {
-        return new MajorResponse(dto.getId(), dto.getName());
+        return new MajorResponse(dto.getId(), dto.getName(), dto.getProfile());
     }
 }

@@ -61,6 +61,7 @@ public class Student extends BaseEntity {
 
     private LocalDateTime lastLoginDate;
 
+    @Column(length = 5555)
     private String readme;
 
     @ManyToOne(fetch = FetchType.LAZY)

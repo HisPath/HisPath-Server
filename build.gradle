@@ -45,6 +45,7 @@ dependencies {
 	clean {
 		delete file('src/main/generated')
 	}
+	implementation 'ca.pjer:logback-awslogs-appender:1.6.0'
 }
 
 tasks.named('test') {

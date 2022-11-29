@@ -1,5 +1,6 @@
 package com.server.hispath.auth.application;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -15,7 +16,9 @@ import com.server.hispath.exception.manager.ManagerNoAuthorizationException;
 import com.server.hispath.exception.oauth.InvalidTokenException;
 import com.server.hispath.exception.oauth.NotHandongEmailException;
 import com.server.hispath.manager.application.ManagerService;
+import com.server.hispath.manager.domain.DailyInfo;
 import com.server.hispath.manager.domain.Manager;
+import com.server.hispath.manager.domain.repository.DailyInfoRepository;
 import com.server.hispath.manager.domain.repository.ManagerRepository;
 import com.server.hispath.student.application.StudentService;
 import com.server.hispath.student.domain.Student;
@@ -36,36 +39,47 @@ public class AuthService {
     private final StudentService studentService;
     private final ManagerRepository managerRepository;
     private final ManagerService managerService;
+    private final DailyInfoRepository dailyInfoRepository;
 
-    public void validateEamil(String email) {
+    public void validateEmail(String email) {
         String domain = email.split("@")[1];
-        if(!Objects.equals(domain, "handong.ac.kr")){
+        if (!Objects.equals(domain, "handong.ac.kr")) {
             throw new NotHandongEmailException();
-        };
+        }
+        ;
     }
 
-    public OauthUserInfo getUserInfo(LoginRequestDto loginRequestDto) {
+    public OauthUserInfo getStudentInfo(LoginRequestDto loginRequestDto) {
         String oauthProvider = loginRequestDto.getOauthProvider();
-        return oauthHandler.getUserInfoFromCode(oauthProvider, loginRequestDto.getCode());
+        return oauthHandler.getUserInfoFromCode(oauthProvider, loginRequestDto.getCode(), Member.STUDENT);
     }
 
-    @Transactional(readOnly = true)
+    public OauthUserInfo getManagerInfo(LoginRequestDto loginRequestDto) {
+        String oauthProvider = loginRequestDto.getOauthProvider();
+        return oauthHandler.getUserInfoFromCode(oauthProvider, loginRequestDto.getCode(), Member.MANAGER);
+    }
+
+    @Transactional
     public LoginResponseDto studentLogin(LoginRequestDto loginRequestDto) {
-        OauthUserInfo userInfo = getUserInfo(loginRequestDto);
+        OauthUserInfo userInfo = getStudentInfo(loginRequestDto);
         String email = userInfo.getEmail();
-        validateEamil(email);
+//        validateEmail(email);
         Optional<Student> student = studentRepository.findByEmail(email);
-        return student.map(value -> new LoginResponseDto(false,
-                              jwtProvider.createToken(String.valueOf(value.getId()), Member.STUDENT)))
+
+        return student.map(value -> {
+                          addLoginCount();
+                          return new LoginResponseDto(false,
+                                  jwtProvider.createToken(String.valueOf(value.getId()), Member.STUDENT));
+                      })
                       .orElseGet(() -> new LoginResponseDto(true, null));
     }
 
     @Transactional(readOnly = true)
     public LoginResponseDto managerLogin(LoginRequestDto loginRequestDto) {
-        OauthUserInfo userInfo = getUserInfo(loginRequestDto);
+        OauthUserInfo userInfo = getManagerInfo(loginRequestDto);
         String email = userInfo.getEmail();
         Optional<Manager> manager = managerRepository.findByEmail(email);
-        return manager.map(value -> new LoginResponseDto(value.isApproved(),
+        return manager.map(value -> new LoginResponseDto(!value.isApproved(),
                               jwtProvider.createToken(String.valueOf(value.getId()), Member.MANAGER)))
                       .orElseGet(() -> new LoginResponseDto(true, null));
 
@@ -96,28 +110,49 @@ public class AuthService {
     }
 
 
-
     @Transactional(readOnly = true)
     public void checkSuperManagerByToken(String token) {
         Manager manager = findSuperManagerByToken(token);
-        if(!manager.isSuperManager()) throw new ManagerNoAuthorizationException();
+        if (!manager.isSuperManager())
+            throw new ManagerNoAuthorizationException();
     }
 
     @Transactional(readOnly = true)
-    public LoginManager getSuperManagerId(String token){
+    public LoginManager getSuperManagerId(String token) {
         Manager manager = findSuperManagerByToken(token);
         return new LoginManager(manager.getId());
     }
 
     @Transactional(readOnly = true)
-    public Manager findSuperManagerByToken(String token){
+    public Manager findSuperManagerByToken(String token) {
         if (!jwtProvider.isValidToken(token, Member.SUPER_MANAGER)) {
             throw new InvalidTokenException();
         }
         String payLoad = jwtProvider.getPayLoad(token, Member.SUPER_MANAGER);
         Long id = Long.parseLong(payLoad);
         Manager manager = managerService.findById(id);
-        if(!manager.isSuperManager()) throw new ManagerNoAuthorizationException();
+        if (!manager.isSuperManager())
+            throw new ManagerNoAuthorizationException();
         return manager;
+    }
+
+    private void addLoginCount() {
+        Optional<DailyInfo> dailyInfo = dailyInfoRepository.findFirstByDate(LocalDate.now());
+        if (dailyInfo.isPresent()) {
+            dailyInfo.get().login();
+            return;
+        }
+        DailyInfo newDailyInfo = new DailyInfo();
+        dailyInfoRepository.save(newDailyInfo);
+    }
+
+    @Transactional(readOnly = true)
+    public String getStudentGuestToken(){
+        return jwtProvider.createToken(String.valueOf(10L), Member.STUDENT);
+    }
+
+    @Transactional(readOnly = true)
+    public String getManagerGuestToken(){
+        return jwtProvider.createToken(String.valueOf(10L), Member.MANAGER);
     }
 }

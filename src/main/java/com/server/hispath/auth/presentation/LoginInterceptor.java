@@ -36,19 +36,20 @@ public class LoginInterceptor implements HandlerInterceptor {
             jwtProvider.validateToken(token, Member.STUDENT);
         } else if (handlerMethod.hasMethodAnnotation(RequiredManagerLogin.class)) {
             jwtProvider.validateToken(token, Member.MANAGER);
-        } else if (handlerMethod.hasMethodAnnotation(RequiredLogin.class)){
+        } else if (handlerMethod.hasMethodAnnotation(RequiredLogin.class)) {
             jwtProvider.validateBothToken(token);
-        } else if (handlerMethod.hasMethodAnnotation(RequiredSuperManagerLogin.class)){
+        } else if (handlerMethod.hasMethodAnnotation(RequiredSuperManagerLogin.class)) {
             authService.checkSuperManagerByToken(token);
         }
 
         return true;
     }
 
-    private boolean hasAnnotation(HandlerMethod handlerMethod){
-       return handlerMethod.hasMethodAnnotation(RequiredLogin.class)
-               || handlerMethod.hasMethodAnnotation(RequiredStudentLogin.class)
-               || handlerMethod.hasMethodAnnotation(RequiredManagerLogin.class);
+    private boolean hasAnnotation(HandlerMethod handlerMethod) {
+        return handlerMethod.hasMethodAnnotation(RequiredLogin.class)
+                || handlerMethod.hasMethodAnnotation(RequiredStudentLogin.class)
+                || handlerMethod.hasMethodAnnotation(RequiredManagerLogin.class)
+                || handlerMethod.hasMethodAnnotation(RequiredSuperManagerLogin.class);
     }
 
     private boolean isPreflight(HttpServletRequest request) {

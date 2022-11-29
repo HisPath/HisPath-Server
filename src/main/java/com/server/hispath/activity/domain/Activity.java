@@ -12,6 +12,7 @@ import com.server.hispath.activity.application.dto.ParticipantContentDto;
 import com.server.hispath.activity.application.dto.StudentActivityContentDto;
 import com.server.hispath.category.domain.Category;
 import com.server.hispath.common.BaseEntity;
+import com.server.hispath.exception.activity.ActivityApplyException;
 import com.server.hispath.exception.activity.ParticipantDuplicateException;
 import com.server.hispath.student.domain.Participant;
 import com.server.hispath.student.domain.Section;
@@ -165,6 +166,8 @@ public class Activity extends BaseEntity {
     }
 
     public void apply(){
+        if(this.requestStatus != 3)
+            throw new ActivityApplyException();
         this.requestStatus = 0;
     }
 

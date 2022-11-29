@@ -10,7 +10,7 @@ import lombok.Setter;
 public class ManagerCURequest {
 
     private String name;
-    private int power;
+    private String profile;
     private String email;
     private String department;
 

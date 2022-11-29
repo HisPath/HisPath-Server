@@ -3,11 +3,19 @@ package com.server.hispath.manager.presentation;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.server.hispath.auth.domain.LoginManager;
+import com.server.hispath.auth.domain.ManagerLogin;
+import com.server.hispath.auth.domain.RequiredManagerLogin;
+import com.server.hispath.auth.domain.RequiredSuperManagerLogin;
 import com.server.hispath.docs.ApiDoc;
 import com.server.hispath.manager.application.ManagerService;
 import com.server.hispath.manager.application.dto.ManagerCUDto;
+import com.server.hispath.manager.application.dto.ManagerDashboardDto;
+import com.server.hispath.manager.application.dto.ManagerUpdateDto;
 import com.server.hispath.manager.presentation.request.ManagerApproveRequest;
 import com.server.hispath.manager.presentation.request.ManagerCURequest;
+import com.server.hispath.manager.presentation.request.ManagerUpdateRequest;
+import com.server.hispath.manager.presentation.response.ManagerEmailResponse;
 import com.server.hispath.manager.presentation.response.ManagerResponse;
 
 import org.springframework.http.ResponseEntity;
@@ -26,6 +34,7 @@ public class ManagerController {
 
     @PostMapping("/manager")
     @ApiOperation(value = ApiDoc.MANAGER_CREATE)
+    @RequiredManagerLogin
     public ResponseEntity<Long> create(@RequestBody ManagerCURequest request) {
         Long savedId = managerService.create(ManagerCUDto.of(request));
         return ResponseEntity.ok(savedId);
@@ -33,6 +42,7 @@ public class ManagerController {
 
     @GetMapping("/manager/{id}")
     @ApiOperation(value = ApiDoc.MANAGER_READ)
+    @RequiredManagerLogin
     public ResponseEntity<ManagerResponse> find(@PathVariable Long id) {
         ManagerResponse response = ManagerResponse.of(managerService.findManager(id));
         return ResponseEntity.ok(response);
@@ -40,6 +50,7 @@ public class ManagerController {
 
     @GetMapping("/managers")
     @ApiOperation(value = ApiDoc.MANAGER_READ_ALL)
+    @RequiredManagerLogin
     public ResponseEntity<List<ManagerResponse>> findAll() {
         List<ManagerResponse> responses = managerService.findManagers()
                                                         .stream()
@@ -50,13 +61,23 @@ public class ManagerController {
 
     @PutMapping("/manager/{id}")
     @ApiOperation(value = ApiDoc.MANAGER_UPDATE)
-    public ResponseEntity<ManagerResponse> update(@PathVariable Long id, @RequestBody ManagerCURequest request) {
-        ManagerResponse response = ManagerResponse.of(managerService.update(id, ManagerCUDto.of(request)));
+    @RequiredSuperManagerLogin
+    public ResponseEntity<ManagerResponse> update(@PathVariable Long id, @RequestBody ManagerUpdateRequest request) {
+        ManagerResponse response = ManagerResponse.of(managerService.update(id, ManagerUpdateDto.from(request)));
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/manager")
+    @ApiOperation(value = ApiDoc.MANAGER_PROFILE_UPDATE)
+    @RequiredManagerLogin
+    public ResponseEntity<ManagerResponse> updateProfile(@ManagerLogin LoginManager loginManager, @RequestBody ManagerCURequest request) {
+        ManagerResponse response = ManagerResponse.of(managerService.update(loginManager.getId(), ManagerCUDto.of(request)));
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/manager/approve")
     @ApiOperation(value = ApiDoc.MANAGER_APPROVE)
+    @RequiredSuperManagerLogin
     public ResponseEntity<Long> approve(@RequestBody ManagerApproveRequest request) {
         Long response = managerService.approve(request.getManagerId(), request.getLevel());
         return ResponseEntity.ok(response);
@@ -64,8 +85,23 @@ public class ManagerController {
 
     @DeleteMapping("/manager/{id}")
     @ApiOperation(value = ApiDoc.MANAGER_DELETE)
+    @RequiredSuperManagerLogin
     public ResponseEntity<Long> delete(@PathVariable Long id) {
         Long response = managerService.delete(id);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/manager/dashboard")
+    @ApiOperation(value = ApiDoc.MANAGER_DASHBOARD)
+    @RequiredManagerLogin
+    public ResponseEntity<ManagerDashboardDto> getDashboard(@ManagerLogin LoginManager loginManager) {
+        return ResponseEntity.ok(managerService.getDashboard(loginManager.getId()));
+    }
+
+    @GetMapping("/manager/email")
+    @ApiOperation(value = ApiDoc.MANAGER_EMAIL)
+    @RequiredManagerLogin
+    public ResponseEntity<ManagerEmailResponse> getEmail(@ManagerLogin LoginManager loginManager) {
+        return ResponseEntity.ok(new ManagerEmailResponse(managerService.getEmail(loginManager.getId())));
     }
 }
