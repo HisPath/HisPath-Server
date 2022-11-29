@@ -2,6 +2,7 @@ package com.server.hispath.util;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -125,5 +126,25 @@ public class ExcelManager {
             }
         }
         return scholarshipDtos;
+    }
+
+    public static Workbook toCsv(List<ScholarshipApprovalDto> dtos) {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet();
+
+        createRow(sheet, Arrays.asList("학번", "이름", "학기수", "총 가중치", "결과"), 0);
+        for(int i=0; i<dtos.size(); i++){
+            createRow(sheet, dtos.get(i).getStringList(), i+1);
+        }
+        return workbook;
+    }
+
+
+
+    private static void createRow(Sheet sheet, List<String> cellList, int rowNum) {
+        Row row = sheet.createRow(rowNum);
+        for (int i = 0; i < cellList.size(); i++) {
+            row.createCell(i).setCellValue(String.valueOf(cellList.get(i)));
+        }
     }
 }
