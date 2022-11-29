@@ -159,8 +159,8 @@ public class TestController {
         List<Student> students = studentRepository.findAll();
 
         List<Long> studentIds = students.stream()
-                                        .map(Student::getId)
-                                        .collect(Collectors.toList());
+                .map(Student::getId)
+                .collect(Collectors.toList());
 
         studentIds.forEach(id -> scholarshipService.create(id, "2022-2"));
         studentIds.forEach(id -> scholarshipService.create(id, "2022-1"));
@@ -250,10 +250,10 @@ public class TestController {
 
             //            int num = getRandomNum(15, students.size());
             List<StudentSimpleRefDto> refStudent = students.stream()
-                                                           .map(student -> {
-                                                               return new StudentSimpleRefDto(student.getStudentNum(), student.getName());
-                                                           })
-                                                           .collect(Collectors.toList());
+                    .map(student -> {
+                        return new StudentSimpleRefDto(student.getStudentNum(), student.getName());
+                    })
+                    .collect(Collectors.toList());
 
             studentService.registerParticipants(activity.getId(), refStudent);
             //            Collections.shuffle(refStudent);
@@ -265,86 +265,100 @@ public class TestController {
 
     private void saveManager() {
         managerRepository.save(Manager.builder()
-                .name("김광 교수님")
+                .name("이정재 교수님")
                 .email("kkim@handong.ac.kr")
                 .department("CSEE")
+                .profile("https://user-images.githubusercontent.com/63008958/203914314-2eb9a33d-efab-4f08-80cf-ce00757d232a.jpeg")
                 .approved(true).build());
 
         managerRepository.save(Manager.builder()
-                .name("장소연 교수님")
+                .name("아이유 교수님")
                 .email("jerry1004@handong.ac.kr")
                 .department("CSEE")
+                .profile("https://user-images.githubusercontent.com/63008958/203914299-6d707193-28ab-457c-8d03-51efb758072d.jpeg")
                 .approved(true).build());
 
         managerRepository.save(Manager.builder()
-                .name("장기려 박사님")
+                .name("송중기 박사님")
                 .email("janggiryeo@handong.ac.kr")
                 .department("JGR")
+                .profile("https://user-images.githubusercontent.com/63008958/203914292-50d8abb3-8e7a-45c1-90ca-22bc156b1165.jpeg")
                 .approved(true).build());
 
         managerRepository.save(Manager.builder()
-                .name("최도성 총장님")
+                .name("공유 총장님")
                 .email("cds@handong.ac.kr")
                 .department("HGU")
+                .profile("https://user-images.githubusercontent.com/63008958/203914306-5dbc47d3-ae07-4314-8708-abef0fcdd7c1.jpeg")
                 .approved(true).build());
 
         managerRepository.save(Manager.builder()
-                .name("최경현 선생님")
+                .name("김태리 선생님")
                 .email("cgh@handong.ac.kr")
                 .department("SW")
+                .profile("https://user-images.githubusercontent.com/63008958/203914310-b00e05a7-c827-4247-945c-737ac56eeaf1.jpeg")
                 .approved(false).build());
 
         managerRepository.save(Manager.builder()
-                .name("이윤정 선생님")
+                .name("이지은 선생님")
                 .email("lyj@handong.ac.kr")
                 .department("SW")
+                .profile("https://user-images.githubusercontent.com/63008958/203914295-2fc460fe-3998-4f3c-b298-fff9a6c5676a.jpeg")
                 .approved(false).build());
 
         managerRepository.save(Manager.builder()
-                .name("이미나 선생님")
+                .name("손예진 선생님")
                 .email("lmn@handong.ac.kr")
                 .department("SW")
+                .profile("https://user-images.githubusercontent.com/63008958/203914281-9c0acb13-562b-45df-a16a-61015f6881ff.png")
                 .approved(true).build());
         managerRepository.save(Manager.builder()
-                .name("안병웅")
+                .name("안병웅 관리자")
                 .email("BW_Ahn@handong.ac.kr")
                 .department("전산전자공학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203915182-c8216b87-9e06-4a10-8efe-b8d0cb43b5af.png")
                 .approved(true).build());
 
         managerRepository.save(Manager.builder()
-                .name("박성진")
-                .email("JakePark@handong.ac.kr")
+                .name("박성진 괸리자")
+                .email("david@handong.ac.kr")
                 .department("글로벌리더쉽학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203915214-b9d6ffef-b011-43a4-9a9b-bf160f88b07c.png")
                 .approved(true).build());
 
         managerRepository.save(Manager.builder()
                 .name("홍성헌")
                 .email("lukehongg@handong.ac.kr")
                 .department("전산전자공학부")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .approved(true).build());
 
         managerRepository.save(Manager.builder()
                 .name("이인혁")
                 .email("Bruse@handong.ac.kr")
                 .department("ICT 융합학부")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .approved(true).build());
 
         managerRepository.save(Manager.builder()
                 .name("정수산나")
                 .email("Sanna@handong.ac.kr")
                 .department("경영경제학부")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .approved(false).build());
 
         managerRepository.save(Manager.builder()
                 .name("정석민")
                 .email("PeterJung@handong.ac.kr")
                 .department("글로벌리더쉽학부")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .approved(false).build());
 
         managerRepository.save(Manager.builder()
                 .name("송다빈")
                 .email("Emerson@handong.ac.kr")
                 .department("전산전자공학부")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .approved(true).build());
     }
 
@@ -532,7 +546,7 @@ public class TestController {
                 .major2(majorRepository.findByName("-"))
                 .phone("010-9484-4321")
                 .email("david@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://user-images.githubusercontent.com/63008958/203534676-49fb985a-c686-4965-9dc4-d46ae90cc3e7.png")
                 .blog("blog.com")
                 .githubId("@davidpiao.github")
                 .loginCnt(0L)
@@ -547,7 +561,7 @@ public class TestController {
                 .major2(majorRepository.findByName("-"))
                 .phone("010-1623-1512")
                 .email("mh03@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://user-images.githubusercontent.com/63008958/203915182-c8216b87-9e06-4a10-8efe-b8d0cb43b5af.png")
                 .blog("blog.com")
                 .githubId("@wooong.github")
                 .loginCnt(0L)
@@ -562,7 +576,7 @@ public class TestController {
                 .major2(majorRepository.findByName("언론정보학전공"))
                 .phone("010-1623-3322")
                 .email("hong@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://user-images.githubusercontent.com/63008958/203469086-7e27bf70-cca1-4bf2-be74-e16dbcee7507.jpeg")
                 .blog("blog.com")
                 .githubId("@hong.github")
                 .loginCnt(0L)
@@ -577,7 +591,7 @@ public class TestController {
                 .major2(majorRepository.findByName("기계공학전공"))
                 .phone("010-4983-6555")
                 .email("lee@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://user-images.githubusercontent.com/63008958/203468795-8bf6ee4b-5ee6-4ae4-87ed-ca438307c30f.jpeg")
                 .blog("blog.com")
                 .githubId("@ee.github")
                 .loginCnt(0L)
@@ -592,7 +606,7 @@ public class TestController {
                 .major2(majorRepository.findByName("-"))
                 .phone("010-4983-6555")
                 .email("jeong@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@jeong.github")
                 .loginCnt(0L)
@@ -607,14 +621,14 @@ public class TestController {
                 .major2(majorRepository.findByName("한국법전공"))
                 .phone("010-7788-0142")
                 .email("song@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://user-images.githubusercontent.com/63008958/203534764-4f30254d-d917-444c-84f9-d8e922b967fa.png")
                 .blog("blog.com")
                 .githubId("@song.github")
                 .loginCnt(0L)
                 .readme("song's readme")
                 .build());
         studentRepository.save(Student.builder()
-                .name("김한동")
+                .name("문하현")
                 .department(departementRepository.findByName("전산전자공학부"))
                 .studentNum("22200000")
                 .semester(5)
@@ -622,14 +636,14 @@ public class TestController {
                 .major2(majorRepository.findByName("생명과학전공"))
                 .phone("010-1234-1234")
                 .email("kim@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://user-images.githubusercontent.com/63008958/203492174-ef61e68c-a3d9-429e-8947-75542423977a.png")
                 .blog("blog.com")
                 .githubId("@kim.github")
                 .loginCnt(0L)
                 .readme("kim's readme")
                 .build());
         studentRepository.save(Student.builder()
-                .name("박한동")
+                .name("박관희")
                 .department(departementRepository.findByName("국제어문학부"))
                 .studentNum("22200001")
                 .semester(3)
@@ -637,14 +651,14 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-1234-5678")
                 .email("park@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://user-images.githubusercontent.com/63008958/203862630-2915aaad-8ff0-42ae-b217-fcbce19e4791.png")
                 .blog("blog.com")
                 .githubId("@park.github")
                 .loginCnt(0L)
                 .readme("park's readme")
                 .build());
         studentRepository.save(Student.builder()
-                .name("이한동")
+                .name("이연진")
                 .department(departementRepository.findByName("경영경제학부"))
                 .studentNum("22200002")
                 .semester(5)
@@ -652,14 +666,14 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-5678-1234")
                 .email("lee@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://user-images.githubusercontent.com/63008958/203536628-985c37e3-49a9-4a50-82a3-485c09c456c4.png")
                 .blog("blog.com")
                 .githubId("@lee.github")
                 .loginCnt(0L)
                 .readme("lee's readme")
                 .build());
         studentRepository.save(Student.builder()
-                .name("정한동")
+                .name("게스트")
                 .department(departementRepository.findByName("법학부"))
                 .studentNum("22200003")
                 .semester(6)
@@ -667,7 +681,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-1111-1111")
                 .email("jeong@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-10/Original Logo.png")
                 .blog("blog.com")
                 .githubId("@jeong.github")
                 .loginCnt(0L)
@@ -682,7 +696,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-2222-3333")
                 .email("woo@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@woo.github")
                 .loginCnt(0L)
@@ -697,7 +711,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4444-1234")
                 .email("wi@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@wi.github")
                 .loginCnt(0L)
@@ -712,7 +726,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-9999-1111")
                 .email("ha@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@ha.github")
                 .loginCnt(0L)
@@ -727,7 +741,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4312-4312")
                 .email("ma@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@ma.github")
                 .loginCnt(0L)
@@ -742,7 +756,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-3434-2323")
                 .email("yu@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@yu.github")
                 .loginCnt(0L)
@@ -757,7 +771,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-8787-8787")
                 .email("jin@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@jin.github")
                 .loginCnt(0L)
@@ -772,7 +786,7 @@ public class TestController {
                 .major2(majorRepository.findByName("생명과학전공"))
                 .phone("010-1234-1234")
                 .email("kim@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@kim.github")
                 .loginCnt(0L)
@@ -787,7 +801,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-1234-5678")
                 .email("park@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@park.github")
                 .loginCnt(0L)
@@ -802,7 +816,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-6655-4232")
                 .email("lee@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@lee.github")
                 .loginCnt(0L)
@@ -817,7 +831,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-9292-9292")
                 .email("jeong@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@jeong.github")
                 .loginCnt(0L)
@@ -832,7 +846,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-2332-4333")
                 .email("woo@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@woo.github")
                 .loginCnt(0L)
@@ -847,7 +861,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4444-1234")
                 .email("wi@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@wi.github")
                 .loginCnt(0L)
@@ -862,7 +876,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-3221-6665")
                 .email("ha@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@ha.github")
                 .loginCnt(0L)
@@ -877,7 +891,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4211-1123")
                 .email("ma@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@ma.github")
                 .loginCnt(0L)
@@ -892,7 +906,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-2311-9992")
                 .email("yu@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@yu.github")
                 .loginCnt(0L)
@@ -907,7 +921,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-1234-0494")
                 .email("jin@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@jin.github")
                 .loginCnt(0L)
@@ -922,7 +936,7 @@ public class TestController {
                 .major2(majorRepository.findByName("생명과학전공"))
                 .phone("010-3232-6767")
                 .email("kim@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@kim.github")
                 .loginCnt(0L)
@@ -937,7 +951,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4322-9009")
                 .email("park@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@park.github")
                 .loginCnt(0L)
@@ -952,7 +966,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-6653-4231")
                 .email("lee@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@lee.github")
                 .loginCnt(0L)
@@ -967,7 +981,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-9292-9232")
                 .email("jeong@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@jeong.github")
                 .loginCnt(0L)
@@ -982,7 +996,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-2312-4343")
                 .email("woo@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@woo.github")
                 .loginCnt(0L)
@@ -997,7 +1011,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4444-4234")
                 .email("wi@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@wi.github")
                 .loginCnt(0L)
@@ -1007,12 +1021,12 @@ public class TestController {
                 .name("박관희")
                 .department(departementRepository.findByName("공간환경시스템공학부"))
                 .studentNum("21800232")
-                               .semester(9)
+                .semester(9)
                 .major1(majorRepository.findByName("도시환경공학전공"))
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-3221-6365")
                 .email("ha@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@ha.github")
                 .loginCnt(0L)
@@ -1027,7 +1041,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4211-1673")
                 .email("ma@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@ma.github")
                 .loginCnt(0L)
@@ -1042,7 +1056,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-2911-9192")
                 .email("yu@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@yu.github")
                 .loginCnt(0L)
@@ -1057,7 +1071,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4321-1275")
                 .email("jin@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@jin.github")
                 .loginCnt(0L)
@@ -1072,7 +1086,7 @@ public class TestController {
                 .major2(majorRepository.findByName("생명과학전공"))
                 .phone("010-6731-1423")
                 .email("kim@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@kim.github")
                 .loginCnt(0L)
@@ -1087,7 +1101,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4222-3009")
                 .email("park@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@park.github")
                 .loginCnt(0L)
@@ -1102,7 +1116,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-6653-9991")
                 .email("lee@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@lee.github")
                 .loginCnt(0L)
@@ -1117,7 +1131,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-1292-9132")
                 .email("jeong@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@jeong.github")
                 .loginCnt(0L)
@@ -1132,7 +1146,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-2112-4243")
                 .email("woo@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@woo.github")
                 .loginCnt(0L)
@@ -1147,7 +1161,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-1144-4214")
                 .email("wi@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@wi.github")
                 .loginCnt(0L)
@@ -1162,7 +1176,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-3331-6365")
                 .email("ha@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@ha.github")
                 .loginCnt(0L)
@@ -1177,7 +1191,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4211-2673")
                 .email("ma@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@ma.github")
                 .loginCnt(0L)
@@ -1192,7 +1206,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-2931-9192")
                 .email("yu@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@yu.github")
                 .loginCnt(0L)
@@ -1207,7 +1221,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4891-1275")
                 .email("jin@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@jin.github")
                 .loginCnt(0L)
@@ -1223,7 +1237,7 @@ public class TestController {
                 .major2(majorRepository.findByName("생명과학전공"))
                 .phone("010-9191-1423")
                 .email("kim@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@kim.github")
                 .loginCnt(0L)
@@ -1238,7 +1252,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-9991-3009")
                 .email("park@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@park.github")
                 .loginCnt(0L)
@@ -1253,7 +1267,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-6653-9881")
                 .email("lee@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@lee.github")
                 .loginCnt(0L)
@@ -1268,7 +1282,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-1293-9832")
                 .email("jeong@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@jeong.github")
                 .loginCnt(0L)
@@ -1283,7 +1297,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-2188-4243")
                 .email("woo@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@woo.github")
                 .loginCnt(0L)
@@ -1298,7 +1312,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-6644-4214")
                 .email("wi@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@wi.github")
                 .loginCnt(0L)
@@ -1313,7 +1327,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-3431-6365")
                 .email("ha@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@ha.github")
                 .loginCnt(0L)
@@ -1328,7 +1342,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4111-2673")
                 .email("ma@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@ma.github")
                 .loginCnt(0L)
@@ -1343,7 +1357,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-2931-9192")
                 .email("yu@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@yu.github")
                 .loginCnt(0L)
@@ -1358,7 +1372,7 @@ public class TestController {
                 .major2(majorRepository.findByName("컴퓨터공학전공"))
                 .phone("010-4821-1175")
                 .email("jin@handong.ac.kr")
-                .profile("profile.url")
+                .profile("https://hispath.s3.ap-northeast-2.amazonaws.com/upload/student-5/plant-2004483_1920.jpg")
                 .blog("blog.com")
                 .githubId("@jin.github")
                 .loginCnt(0L)
@@ -1395,39 +1409,51 @@ public class TestController {
     private void saveDepartment() {
         departementRepository.save(Department.builder()
                 .name("전산전자공학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982136-82098fb9-f082-40e3-a677-e84076ea7745.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("국제어문학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982173-f22aa5a5-0e7f-45cc-91b0-1870ced20441.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("경영경제학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982171-65bbc7d2-a8de-43d2-9db3-ca361aa36b1c.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("법학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982170-44a91016-1b6a-4d88-b7a1-4560966521f2.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("커뮤니케이션학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982168-d3cba5e1-2627-4941-a414-aa3e17fd2959.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("상담심리사회복지학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982129-0ed8a671-c04a-443f-b48e-7471074112ea.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("공간환경시스템공학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982164-378d214b-04ce-4d1f-b909-36daf17b5cdb.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("콘텐츠융합디자인학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982153-f2ae91d9-8984-40ed-9802-5b2f71f123b5.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("기계제어공학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982161-61e66aa6-6625-4eb0-819c-71edc01f47ad.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("ICT 창업학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982115-30963e7f-19e9-4f45-8390-bec128a1981b.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("생명과학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982143-6972a9ad-8b43-4024-b63f-59ce0969e922.png")
                 .build());
         departementRepository.save(Department.builder()
                 .name("글로벌리더쉽학부")
+                .profile("https://user-images.githubusercontent.com/63008958/203982177-4324201c-63d8-4df0-abe7-09fd1c7cfd21.png")
                 .build());
     }
 
@@ -1977,38 +2003,38 @@ public class TestController {
 
 
     private void saveMajor() {
-        majorRepository.save(Major.builder().name("-").build());
-        majorRepository.save(Major.builder().name("건설공학전공").build());
-        majorRepository.save(Major.builder().name("도시환경공학전공").build());
-        majorRepository.save(Major.builder().name("기계공학전공").build());
-        majorRepository.save(Major.builder().name("전자제어공학전공").build());
-        majorRepository.save(Major.builder().name("생명과학전공").build());
-        majorRepository.save(Major.builder().name("글로벌융합전공").build());
-        majorRepository.save(Major.builder().name("수학통계전공").build());
-        majorRepository.save(Major.builder().name("학생설계융합전공").build());
-        majorRepository.save(Major.builder().name("시각디자인전공").build());
-        majorRepository.save(Major.builder().name("제품디자인전공").build());
-        majorRepository.save(Major.builder().name("컴퓨터공학전공").build());
-        majorRepository.save(Major.builder().name("컴퓨터공학심화전공").build());
-        majorRepository.save(Major.builder().name("전자공학전공").build());
-        majorRepository.save(Major.builder().name("전자공학심화전공").build());
-        majorRepository.save(Major.builder().name("Information Technology").build());
-        majorRepository.save(Major.builder().name("ICT 융합전공").build());
-        majorRepository.save(Major.builder().name("AI Convergence & Entrepreneurship 전공").build());
-        majorRepository.save(Major.builder().name("Global Entrepreneurship 전공").build());
-        majorRepository.save(Major.builder().name("AI 융합 전공").build());
-        majorRepository.save(Major.builder().name("데이터 사이언스 전공").build());
-        majorRepository.save(Major.builder().name("경영학전공").build());
-        majorRepository.save(Major.builder().name("경제학전공").build());
-        majorRepository.save(Major.builder().name("Global Management").build());
-        majorRepository.save(Major.builder().name("국제지역학전공").build());
-        majorRepository.save(Major.builder().name("영어전공").build());
-        majorRepository.save(Major.builder().name("한국법전공").build());
-        majorRepository.save(Major.builder().name("US & International Law").build());
-        majorRepository.save(Major.builder().name("상담심리학전공").build());
-        majorRepository.save(Major.builder().name("사회복지학전공").build());
-        majorRepository.save(Major.builder().name("공연영상학전공").build());
-        majorRepository.save(Major.builder().name("언론정보학전공").build());
-        majorRepository.save(Major.builder().name("글로벌한국학전공").build());
+        majorRepository.save(Major.builder().name("-").profile("https://user-images.githubusercontent.com/63008958/203987348-497d8992-98e2-47ff-9769-a7207e6961ed.png").build());
+        majorRepository.save(Major.builder().name("건설공학전공").profile("https://user-images.githubusercontent.com/63008958/203986081-cc605f80-7cb3-4fc9-93ed-9712a38506c6.jpg").build());
+        majorRepository.save(Major.builder().name("도시환경공학전공").profile("https://user-images.githubusercontent.com/63008958/203986080-4921f01e-8fdd-480c-b764-f1d926b070d3.jpg").build());
+        majorRepository.save(Major.builder().name("기계공학전공").profile("https://user-images.githubusercontent.com/63008958/203986079-59fe24a6-d934-4dad-9b80-35a1a5306535.jpg").build());
+        majorRepository.save(Major.builder().name("전자제어공학전공").profile("https://user-images.githubusercontent.com/63008958/203986077-425b14ae-37f5-480a-b00c-fdec96f09b9d.jpg").build());
+        majorRepository.save(Major.builder().name("생명과학전공").profile("https://user-images.githubusercontent.com/63008958/203986074-b785eed9-1531-4c32-b153-dec59ea10982.jpg").build());
+        majorRepository.save(Major.builder().name("글로벌융합전공").profile("https://user-images.githubusercontent.com/63008958/203986073-4a098ecc-5f91-4ab4-abb3-2a90149c566a.jpg").build());
+        majorRepository.save(Major.builder().name("수학통계전공").profile("https://user-images.githubusercontent.com/63008958/203986071-ba9e0fb7-e246-4cfc-b1cc-788264a9086b.jpg").build());
+        majorRepository.save(Major.builder().name("학생설계융합전공").profile("https://user-images.githubusercontent.com/63008958/203986068-5fd2f7d5-c894-49ed-92d7-30a63b4e88f9.jpg").build());
+        majorRepository.save(Major.builder().name("시각디자인전공").profile("https://user-images.githubusercontent.com/63008958/203986065-746e6d2d-38e0-494e-b5c4-9060d5bb329e.jpg").build());
+        majorRepository.save(Major.builder().name("제품디자인전공").profile("https://user-images.githubusercontent.com/63008958/203986063-d3aa8474-58c6-4e22-a23f-1a17edb40300.jpg").build());
+        majorRepository.save(Major.builder().name("컴퓨터공학전공").profile("https://user-images.githubusercontent.com/63008958/203986059-4fc80f57-49b3-453f-94de-6f51b729730a.jpg").build());
+        majorRepository.save(Major.builder().name("컴퓨터공학심화전공").profile("https://user-images.githubusercontent.com/63008958/203986052-b02066c1-0ff5-41ed-81e7-72bcf5284dc3.jpg").build());
+        majorRepository.save(Major.builder().name("전자공학전공").profile("").build());
+        majorRepository.save(Major.builder().name("전자공학심화전공").profile("").build());
+        majorRepository.save(Major.builder().name("Information Technology").profile("").build());
+        majorRepository.save(Major.builder().name("ICT 융합전공").profile("").build());
+        majorRepository.save(Major.builder().name("AI Convergence & Entrepreneurship 전공").profile("").build());
+        majorRepository.save(Major.builder().name("Global Entrepreneurship 전공").profile("").build());
+        majorRepository.save(Major.builder().name("AI 융합 전공").profile("").build());
+        majorRepository.save(Major.builder().name("데이터 사이언스 전공").profile("").build());
+        majorRepository.save(Major.builder().name("경영학전공").profile("").build());
+        majorRepository.save(Major.builder().name("경제학전공").profile("").build());
+        majorRepository.save(Major.builder().name("Global Management").profile("").build());
+        majorRepository.save(Major.builder().name("국제지역학전공").profile("").build());
+        majorRepository.save(Major.builder().name("영어전공").profile("").build());
+        majorRepository.save(Major.builder().name("한국법전공").profile("").build());
+        majorRepository.save(Major.builder().name("US & International Law").profile("").build());
+        majorRepository.save(Major.builder().name("상담심리학전공").profile("").build());
+        majorRepository.save(Major.builder().name("사회복지학전공").profile("").build());
+        majorRepository.save(Major.builder().name("공연영상학전공").profile("").build());
+        majorRepository.save(Major.builder().name("언론정보학전공").profile("").build());
+        majorRepository.save(Major.builder().name("글로벌한국학전공").profile("").build());
     }
 }
