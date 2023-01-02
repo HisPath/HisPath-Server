@@ -46,7 +46,23 @@ https://www.youtube.com/watch?v=3CG4rbCgE8s
 
 <img width="1439" alt="image" src="https://user-images.githubusercontent.com/63008958/210205249-e53bede2-dd60-420c-b91d-9b3f22ca191a.png">
 
-## 🖌️ Design
+## 🖌️ Service Design
+
+<img width="1259" alt="image" src="https://user-images.githubusercontent.com/63008958/210205869-ddd9dbf4-672f-48fb-b63a-2b5a99e1ae11.png">
+
+## 🎁 Design Layout
 
 <img width="1171" alt="image" src="https://user-images.githubusercontent.com/63008958/210204604-f8e4cc88-97dc-458a-b627-ae17d0248dd1.png">
 <img width="1173" alt="image" src="https://user-images.githubusercontent.com/63008958/210204637-907cad1d-4dee-4719-9ef6-26ce5071a20f.png">
+
+## 🔎 기술 설명
+
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206589-f5ab3f57-f091-4fa8-8408-0d286bbccadf.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206672-4f9dccad-288c-447a-8fc9-0063da7736d2.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206689-5566d314-316c-4d75-9b27-5607e7db9a50.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206684-affa692f-b7da-4082-afa6-0ffa1814d56c.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206705-072c3d46-aa66-46e6-bf44-229c08032feb.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206699-ed52dc62-2bd7-4f14-a0b9-54f8826b76c7.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206727-6f837a67-5118-45ef-b8b7-87c2dc59c091.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206710-5784dc02-eb44-459f-bc88-964296830120.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206734-603ad361-1471-4c5b-a192-91e3a33c23c9.png">
