@@ -1087,7 +1087,7 @@ public class TestController {
                 .remark("")
                 .requestStatus(1)
                 .name("공학프로젝트기획")
-                .weight(15)
+                .weight(7)
                 .category(categoryRepository.findByName("전공마일리지"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1096,7 +1096,7 @@ public class TestController {
                 .remark("")
                 .requestStatus(1)
                 .name("공학설계입문")
-                .weight(10)
+                .weight(5)
                 .category(categoryRepository.findByName("전공마일리지"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1105,7 +1105,7 @@ public class TestController {
                 .remark("")
                 .requestStatus(1)
                 .name("캡스톤 디자인")
-                .weight(20)
+                .weight(10)
                 .category(categoryRepository.findByName("전공마일리지"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1114,7 +1114,7 @@ public class TestController {
                 .remark("")
                 .requestStatus(1)
                 .name("AI 프로젝트 입문")
-                .weight(10)
+                .weight(5)
                 .category(categoryRepository.findByName("전공마일리지"))
                 .build());
 //        산학
@@ -1124,7 +1124,7 @@ public class TestController {
                 .remark("")
                 .requestStatus(1)
                 .name("현장실습")
-                .weight(15)
+                .weight(7)
                 .category(categoryRepository.findByName("산학마일리지"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1133,7 +1133,7 @@ public class TestController {
                 .remark("BizFlow")
                 .requestStatus(1)
                 .name("현장실습")
-                .weight(15)
+                .weight(7)
                 .category(categoryRepository.findByName("산학마일리지"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1142,7 +1142,7 @@ public class TestController {
                 .remark("카카오")
                 .requestStatus(1)
                 .name("현장실습")
-                .weight(15)
+                .weight(7)
                 .category(categoryRepository.findByName("산학마일리지"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1151,7 +1151,7 @@ public class TestController {
                 .remark("엑슨투")
                 .requestStatus(1)
                 .name("현장실습")
-                .weight(15)
+                .weight(7)
                 .category(categoryRepository.findByName("산학마일리지"))
                 .build());
 //        비교과연구활동
@@ -1161,7 +1161,7 @@ public class TestController {
                 .remark("AI Deep Learning")
                 .requestStatus(1)
                 .name("논문 분석")
-                .weight(10)
+                .weight(5)
                 .category(categoryRepository.findByName("비교과-연구활동"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1170,7 +1170,7 @@ public class TestController {
                 .remark("Brain Computer Interface")
                 .requestStatus(1)
                 .name("논문 분석")
-                .weight(10)
+                .weight(5)
                 .category(categoryRepository.findByName("비교과-연구활동"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1179,7 +1179,7 @@ public class TestController {
                 .remark("ResNet Review")
                 .requestStatus(1)
                 .name("논문 분석")
-                .weight(10)
+                .weight(5)
                 .category(categoryRepository.findByName("비교과-연구활동"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1188,7 +1188,7 @@ public class TestController {
                 .remark("Anomaly Analysis")
                 .requestStatus(1)
                 .name("논문 분석")
-                .weight(10)
+                .weight(5)
                 .category(categoryRepository.findByName("비교과-연구활동"))
                 .build());
 //        비교과특강참여
@@ -1198,7 +1198,7 @@ public class TestController {
                 .remark("디지털 시대와 개발자 (10.26)")
                 .requestStatus(1)
                 .name("CSEE 특강")
-                .weight(5)
+                .weight(2)
                 .category(categoryRepository.findByName("비교과-특강참여"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1207,7 +1207,7 @@ public class TestController {
                 .remark("프로그래머로 산다는 것 (11.2)")
                 .requestStatus(1)
                 .name("CSEE 특강")
-                .weight(5)
+                .weight(2)
                 .category(categoryRepository.findByName("비교과-특강참여"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1216,7 +1216,7 @@ public class TestController {
                 .remark("제네시스랩의 기술 창업 스토리")
                 .requestStatus(1)
                 .name("CSEE 특강")
-                .weight(5)
+                .weight(2)
                 .category(categoryRepository.findByName("비교과-특강참여"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1225,7 +1225,7 @@ public class TestController {
                 .remark("웹과 클라우드 개발자 취업의 현장 (11.07)")
                 .requestStatus(1)
                 .name("CSEE 특강")
-                .weight(5)
+                .weight(2)
                 .category(categoryRepository.findByName("비교과-특강참여"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1234,7 +1234,7 @@ public class TestController {
                 .remark("웹 개발자로 살아남는 법 (11.27)")
                 .requestStatus(1)
                 .name("CSEE 특강")
-                .weight(5)
+                .weight(2)
                 .category(categoryRepository.findByName("비교과-특강참여"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1243,7 +1243,7 @@ public class TestController {
                 .remark("빅데이터 분석과 활용법 (12.10)")
                 .requestStatus(1)
                 .name("CSEE 특강")
-                .weight(5)
+                .weight(2)
                 .category(categoryRepository.findByName("비교과-특강참여"))
                 .build());
 //        행사참여
@@ -1253,7 +1253,7 @@ public class TestController {
                 .remark("")
                 .requestStatus(1)
                 .name("(캠프)웹서비스 프로젝트(spring)_장소연")
-                .weight(13)
+                .weight(6)
                 .category(categoryRepository.findByName("비교과-행사참여"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1262,7 +1262,7 @@ public class TestController {
                 .remark("최우수상 수상")
                 .requestStatus(1)
                 .name("(캠프)미리미리C 캠프_김광")
-                .weight(11)
+                .weight(5)
                 .category(categoryRepository.findByName("비교과-행사참여"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1271,7 +1271,7 @@ public class TestController {
                 .remark("우수상 수상")
                 .requestStatus(1)
                 .name("(캠프)Advanced Flutter Camp_조성배")
-                .weight(13)
+                .weight(6)
                 .category(categoryRepository.findByName("비교과-행사참여"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1280,7 +1280,7 @@ public class TestController {
                 .remark("")
                 .requestStatus(1)
                 .name("캡스톤 페스티벌 참여")
-                .weight(10)
+                .weight(5)
                 .category(categoryRepository.findByName("비교과-행사참여"))
                 .build());
 //        비교과 학회활동
@@ -1290,7 +1290,7 @@ public class TestController {
                 .remark("CRA")
                 .requestStatus(1)
                 .name("전공동아리")
-                .weight(15)
+                .weight(7)
                 .category(categoryRepository.findByName("비교과-학회활동"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1299,7 +1299,7 @@ public class TestController {
                 .remark("GHOST")
                 .requestStatus(1)
                 .name("전공동아리")
-                .weight(14)
+                .weight(7)
                 .category(categoryRepository.findByName("비교과-학회활동"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1308,7 +1308,7 @@ public class TestController {
                 .remark("실전프로젝트 1스터디")
                 .requestStatus(1)
                 .name("전공스터디")
-                .weight(7)
+                .weight(3)
                 .category(categoryRepository.findByName("비교과-학회활동"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1317,7 +1317,7 @@ public class TestController {
                 .remark("시선")
                 .requestStatus(1)
                 .name("전공학회")
-                .weight(11)
+                .weight(5)
                 .category(categoryRepository.findByName("비교과-학회활동"))
                 .build());
 
@@ -1328,7 +1328,7 @@ public class TestController {
                 .remark("SW중심대학 협의회장상")
                 .requestStatus(1)
                 .name("SW중심대학 공동해커톤 2022")
-                .weight(15)
+                .weight(7)
                 .category(categoryRepository.findByName("기타"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1337,7 +1337,7 @@ public class TestController {
                 .remark("정보처리기사")
                 .requestStatus(1)
                 .name("자격증")
-                .weight(10)
+                .weight(5)
                 .category(categoryRepository.findByName("기타"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1346,7 +1346,7 @@ public class TestController {
                 .remark("네이버 부스트캠프")
                 .requestStatus(1)
                 .name("외부캠프")
-                .weight(13)
+                .weight(6)
                 .category(categoryRepository.findByName("기타"))
                 .build());
         activityRepository.save(Activity.builder()
@@ -1355,7 +1355,7 @@ public class TestController {
                 .remark("TOPCIT")
                 .requestStatus(1)
                 .name("전공역량시험")
-                .weight(8)
+                .weight(4)
                 .category(categoryRepository.findByName("기타"))
                 .build());
     }
