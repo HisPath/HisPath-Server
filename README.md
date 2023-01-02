@@ -44,7 +44,7 @@ https://www.youtube.com/watch?v=3CG4rbCgE8s
 
 ## 📐 구현 구조
 
-<img width="1439" alt="image" src="https://user-images.githubusercontent.com/63008958/210205249-e53bede2-dd60-420c-b91d-9b3f22ca191a.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210237273-91510604-6cd9-4f79-ba6e-3402385b0306.png">
 
 ## ✌️ ERD
 
@@ -52,7 +52,7 @@ https://www.youtube.com/watch?v=3CG4rbCgE8s
 
 ## 🖌️ Service Design
 
-<img width="1259" alt="image" src="https://user-images.githubusercontent.com/63008958/210205869-ddd9dbf4-672f-48fb-b63a-2b5a99e1ae11.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210237295-f60b03aa-5416-47c9-8abd-91a4f4ffd8f2.png">
 
 ## 🎁 Design Layout
 
