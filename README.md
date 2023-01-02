@@ -46,6 +46,10 @@ https://www.youtube.com/watch?v=3CG4rbCgE8s
 
 <img width="1439" alt="image" src="https://user-images.githubusercontent.com/63008958/210205249-e53bede2-dd60-420c-b91d-9b3f22ca191a.png">
 
+## ✌️ ERD
+
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210237257-a69e1827-ab85-4591-b772-5ae6b5f73270.png">
+
 ## 🖌️ Service Design
 
 <img width="1259" alt="image" src="https://user-images.githubusercontent.com/63008958/210205869-ddd9dbf4-672f-48fb-b63a-2b5a99e1ae11.png">
@@ -66,3 +70,10 @@ https://www.youtube.com/watch?v=3CG4rbCgE8s
 <img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206727-6f837a67-5118-45ef-b8b7-87c2dc59c091.png">
 <img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206710-5784dc02-eb44-459f-bc88-964296830120.png">
 <img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210206734-603ad361-1471-4c5b-a192-91e3a33c23c9.png">
+
+## 🙋‍♂️ 협업
+
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210237136-9374b05f-f48b-41ea-93e0-05ec3057bb6a.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210237146-7d24c936-a191-4458-a7fc-b186f2f065e7.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210237118-8ccf168f-0e27-4a2b-8168-d481afbcf9b1.png">
+<img width="1912" alt="image" src="https://user-images.githubusercontent.com/63008958/210237156-f1e24671-f5b1-4462-a644-38363ff357c6.png">
