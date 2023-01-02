@@ -42,6 +42,10 @@
 ## 💻 데모영상
 https://www.youtube.com/watch?v=3CG4rbCgE8s
 
+## 📐 Service Architecture
+
+<img width="1439" alt="image" src="https://user-images.githubusercontent.com/63008958/210205249-e53bede2-dd60-420c-b91d-9b3f22ca191a.png">
+
 ## 🖌️ Design
 
 <img width="1171" alt="image" src="https://user-images.githubusercontent.com/63008958/210204604-f8e4cc88-97dc-458a-b627-ae17d0248dd1.png">
