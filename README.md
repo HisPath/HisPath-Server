@@ -44,4 +44,5 @@ https://www.youtube.com/watch?v=3CG4rbCgE8s
 
 ## 🖌️ Design
 
-여기에 우리 PPT 내용 중 구현 화면이랑 기술부분 추가해 주면 될거 같어
+<img width="1171" alt="image" src="https://user-images.githubusercontent.com/63008958/210204604-f8e4cc88-97dc-458a-b627-ae17d0248dd1.png">
+<img width="1173" alt="image" src="https://user-images.githubusercontent.com/63008958/210204637-907cad1d-4dee-4719-9ef6-26ce5071a20f.png">
